@@ -1,10 +1,8 @@
 import React from 'react';
-// import ReturnedResult from './returnedresult';
+import SearchResult from './searchresult';
 
-const SearchList = () => {
-  // return searchResults.map(result => <ReturnedResult restaurant={result}/>);
-  return (<div className="search-list">Hello I'm a search list</div>);
+const SearchList = ({results}) => {
+  return results.map(result => <SearchResult restaurant={result}/>);
 }
-
 
 export default SearchList;

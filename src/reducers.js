@@ -4,7 +4,7 @@ import { combineReducers } from 'redux';
 const searchList = (state = [], action) => {
   switch(action.type) {
     case 'UPDATE_SEARCHRESULTS':
-      return [action]
+      return action.results
     default:
       return state;
   }
@@ -27,4 +27,4 @@ const reducers = combineReducers({
   favoritesList
 });
 
-export default reducers;
+export default reducers

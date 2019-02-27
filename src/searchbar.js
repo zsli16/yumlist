@@ -5,7 +5,6 @@ import SearchList from './searchlist';
 import { connect } from 'react-redux';
 import { updateSearchResults, addToList } from './actions.js';
 
-
 // import { library } from '@fortawesome/fontawesome-svg-core';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -15,7 +14,6 @@ class Searchbar extends Component {
     super(props);
     this.state = {
       searchTerm: '',
-      searchResults: []
     }
   }
 
@@ -36,15 +34,14 @@ class Searchbar extends Component {
     })
       .then(res => res.json())
       .then(res => {
-        this.setState({searchResults: res});
-        // console.log('search results', this.state.searchResults);
+        this.props.updateSearchResults(res);
+        console.log('search results', this.props.searchList);
       });
   }
 
   handleChange = (e) => {
     const userInput = e.target.value;
     this.setState({searchTerm: userInput});
-    // console.log('search term', this.state.searchTerm);
     this.searchRestaurants(userInput);
   }
 
@@ -52,7 +49,7 @@ class Searchbar extends Component {
     return (
       <div className="search-fields">
         <DebounceInput minLength={3} type="text" id="restaurant-search" placeholder="Search restaurants" onChange={this.handleChange}/>
-        <SearchList/> 
+        <SearchList results={this.props.searchList} /> 
         <div className="location">
           <p className="current-location">Barcelona, ES</p>
           <p className="change-location">Change Location</p>
@@ -64,8 +61,8 @@ class Searchbar extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  discoverList: state.discoverList,
-  myList: state.myList
+  searchList: state.searchList,
+  favoritesList: state.favoritesList
 })
 
 const mapDispatchToProps = (dispatch) => ({
