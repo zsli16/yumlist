@@ -3,12 +3,12 @@ export const updateSearchResults = (results) => ({
   results
 })
 
-export const addToList = (restaurant) => ({
+export const addToList = (restaurantId) => ({
   type: 'ADDTOLIST',
-  restaurant
+  restaurantId
 })
 
-export const removeFromList = (restaurant) => ({
+export const removeFromList = (restaurantId) => ({
   type: 'REMOVEFROMLIST',
-  restaurant
+  restaurantId
 })

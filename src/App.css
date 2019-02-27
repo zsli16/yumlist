@@ -18,13 +18,32 @@ p {
 
 .search-list {
   background-color: white;
-  height: 100px;
+  height: auto;
   padding: 20px;
+  z-index: 2;
 }
 
 .search-result {
-  background-color: gray;
-  height: 20px;
+  background-color: white;
+  border-bottom: 1px gray;
+  padding: 10px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.restaurant-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.restaurant-title {
+  text-align: right; 
+}
+
+.addResult {
+  height: 30px;
 }
 
 #restaurant-search {
@@ -41,4 +60,5 @@ p {
   display: flex;
   justify-content: space-between;
 }
+
 

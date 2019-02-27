@@ -6,7 +6,7 @@ const searchList = (state = [], action) => {
     case 'UPDATE_SEARCHRESULTS':
       return action.results
     default:
-      return state;
+      return [];
   }
 }
 
