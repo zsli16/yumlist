@@ -6,7 +6,13 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "@koa/cors": "^2.2.3",
+    "express": "^4.16.4",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
     "react": "^16.8.3",
+    "react-debounce-input": "^3.2.0",
     "react-dom": "^16.8.3",
     "react-scripts": "2.1.5",
     "yelp-fusion": "^2.2.1"
