@@ -2,24 +2,30 @@ import React from 'react';
 import { addToList } from '../actions.js';
 import { connect } from 'react-redux';
 
-const addRestaurant = (e) => {
-  const restaurantId = e.currentTarget.parentNode.id;
-  const restaurant = {
-    id: restaurantId
+const addRestaurant = (restaurant) => {
+  // const restaurant = e.currentTarget.parentNode;
+
+  const selectedRestaurant = {
+    uid: restaurant.id,
+    name: restaurant.name,
+    image_url: restaurant.image_url,
+    rating: restaurant.rating,
+    price: restaurant.price,
+    url: restaurant.url,
+    review_count: restaurant.review_count
   }
 
-  // make call to endpoint with ID, add the result to the state
   fetch('http://localhost:3001/addtofavorites', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(restaurant),
+    body: JSON.stringify(selectedRestaurant),
   })
-    .then(res => res.json())
-    .then(res => {
-      this.props.addtoList(restaurant);
-    });
+    // .then(res => res.json())
+    // .then(res => {
+    //   this.props.addtoList(restaurant);
+    // });
 }
 
 
@@ -28,7 +34,7 @@ const Searchresult = ({restaurant}) => {
     <div className="search-result" id={restaurant.id}>
       <img src={restaurant.image_url} className="restaurant-icon" alt="restaurant-icon"/>
       <div className="restaurant-title">{restaurant.name}</div>
-      <button className="addResult" onClick={(e) => addRestaurant(e)}>Add</button>
+      <button className="addResult" onClick={() => addRestaurant(restaurant)}>Add</button>
     </div>
 
   )

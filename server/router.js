@@ -5,6 +5,6 @@ const router = new Router();
 
 router.post('/search', ctrl.searchRestaurants);
 
-// router.post('/addtofavorites', ctrl.addToFavorites)
+router.post('/addtofavorites', ctrl.addToFavorites)
 
 module.exports = router;

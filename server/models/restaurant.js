@@ -1,7 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
-  const Restaurant = sequelize.define('Favorite', {
-    id: {
+  const Favorite = sequelize.define('Favorite', {
+    uid: {
       type: DataTypes.STRING,
+      primaryKey: true,
+      autoIncrement: false,
       allowNull: false
     },
     name: {
@@ -13,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     rating: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     price: {
@@ -25,19 +27,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     review_count: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: false
     }
 }, {});
 
 
-  Restaurant.associate = db => {
-    db.Restaurant.belongsTo(db.List, {
-      onDelete: 'CASACADE',
-      foreignKey: {allowNull: false}
-    });
-  };
+  // Restaurant.associate = db => {
+  //   db.Restaurant.belongsTo(db.List, {
+  //     onDelete: 'CASACADE',
+  //     foreignKey: {allowNull: false}
+  //   });
+  // };
   
-  return Restaurant;
+  return Favorite;
 }
 
