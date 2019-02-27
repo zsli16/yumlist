@@ -14,7 +14,9 @@
     "react": "^16.8.3",
     "react-debounce-input": "^3.2.0",
     "react-dom": "^16.8.3",
+    "react-redux": "^6.0.1",
     "react-scripts": "2.1.5",
+    "redux": "^4.0.1",
     "yelp-fusion": "^2.2.1"
   },
   "scripts": {

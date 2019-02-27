@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {DebounceInput} from 'react-debounce-input';
 import SearchList from './searchlist';
+import { connect } from 'react-redux';
+import { updateSearchResults, addToList } from './actions.js';
 
-// import SearchList from './searchlist';
+
 // import { library } from '@fortawesome/fontawesome-svg-core';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -57,9 +59,19 @@ class Searchbar extends Component {
         </div>
       </div>
     )
-
   }
 
 }
 
-export default Searchbar;
+const mapStateToProps = (state) => ({
+  discoverList: state.discoverList,
+  myList: state.myList
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  updateSearchResults: (results) => dispatch(updateSearchResults(results)),
+  addToList: (restaurant) => dispatch(addToList(restaurant)),
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Searchbar);
