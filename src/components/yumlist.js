@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import FavoriteRestaurant from './favoriterestaurant.js';
 import { connect } from 'react-redux';
 
-
-class FavoritesList extends Component {
+class Yumlist extends Component {
   
   render() {
     const list = this.props.favoritesList;
@@ -17,4 +16,4 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps)(FavoritesList);
+export default connect(mapStateToProps)(Yumlist);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Searchbar from './searchbar';
-import FavoritesList from './favoriteslist';
+import Searchbar from './components/searchbar';
+import Yumlist from './components/yumlist';
 
 class App extends Component {
   
@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <Searchbar/>
-        <FavoritesList/>
+        <Yumlist/>
       </div>
     );
   };

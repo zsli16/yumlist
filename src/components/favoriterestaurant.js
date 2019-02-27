@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { removeFromList } from './actions.js';
+import { removeFromList } from './../actions.js';
 import { connect } from 'react-redux';
 
 class FavoriteRestaurant extends Component {

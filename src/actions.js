@@ -3,9 +3,9 @@ export const updateSearchResults = (results) => ({
   results
 })
 
-export const addToList = (restaurantId) => ({
+export const addToList = (restaurant) => ({
   type: 'ADDTOLIST',
-  restaurantId
+  restaurant
 })
 
 export const removeFromList = (restaurantId) => ({

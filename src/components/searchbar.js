@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SearchList from './searchlist';
 import { connect } from 'react-redux';
-import { updateSearchResults, addToList } from './actions.js';
+import { updateSearchResults, addToList } from '../actions.js';
 
 // import { library } from '@fortawesome/fontawesome-svg-core';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,7 +24,6 @@ class Searchbar extends Component {
       "limit": 5
     }
 
-    console.log('res', searchTerm.term);
     fetch('http://localhost:3001/search', {
       method: 'POST',
       headers: {

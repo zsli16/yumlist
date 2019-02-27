@@ -5,6 +5,9 @@ const client = yelp.client(apiKey);
 // const citySearch = document.getElementById('location-search');
 // const apiKeyPlaces = 'AIzaSyBXhcKCDCTBA0RAMdmXscOqGF-ayDl0xYY';
 
+exports.addtoFavorites = async (ctx) => {
+  console.log(ctx);
+}
 
 exports.searchRestaurants = async (ctx) => {
   const restaurant = ctx.request.body;

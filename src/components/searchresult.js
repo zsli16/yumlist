@@ -1,14 +1,27 @@
 import React from 'react';
-import { addToList } from './actions.js';
+import { addToList } from '../actions.js';
 import { connect } from 'react-redux';
 
 const addRestaurant = (e) => {
   const restaurantId = e.currentTarget.parentNode.id;
-  // make call to endpoint with ID, add the result to the state
+  const restaurant = {
+    id: restaurantId
+  }
 
-  this.props.addtoList(restaurantId);
-  
+  // make call to endpoint with ID, add the result to the state
+  fetch('http://localhost:3001/addtofavorites', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(restaurant),
+  })
+    .then(res => res.json())
+    .then(res => {
+      this.props.addtoList(restaurant);
+    });
 }
+
 
 const Searchresult = ({restaurant}) => {
   return (
@@ -27,7 +40,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  addToList: (restaurantId) => dispatch(addToList(restaurantId)),
+  addToList: (restaurant) => dispatch(addToList(restaurant)),
 })
 
 
