@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { addToList } from '../actions.js';
 import { connect } from 'react-redux';
 
 const addRestaurant = (restaurant) => {
-  // const restaurant = e.currentTarget.parentNode;
+  // const selected = e.currentTarget.parentNode;
 
   const selectedRestaurant = {
     uid: restaurant.id,
@@ -22,12 +22,12 @@ const addRestaurant = (restaurant) => {
     },
     body: JSON.stringify(selectedRestaurant),
   })
-    // .then(res => res.json())
-    // .then(res => {
-    //   this.props.addtoList(restaurant);
-    // });
+    .then(res => res.json())
+    .then(res => {
+      console.log(res);
+      // this.props.addtoList(res);
+    });
 }
-
 
 const Searchresult = ({restaurant}) => {
   return (

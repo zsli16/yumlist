@@ -7,13 +7,9 @@ const db = require('./models/index.js');
 // const apiKeyPlaces = 'AIzaSyBXhcKCDCTBA0RAMdmXscOqGF-ayDl0xYY';
 
 exports.addToFavorites = async (ctx) => {
-  console.log(db.Favorites);
   const selectedRestaurant = ctx.request.body;
   await db.Favorites.create(selectedRestaurant);
-
-  // SequelizeDatabaseError: relation "Favorites" does not exist
-  
-  console.log('added to favorites');
+  ctx.body = selectedRestaurant;
   ctx.status = 200;
 }
 

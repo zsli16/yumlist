@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Favorite = sequelize.define('Favorite', {
+  const Favorites = sequelize.define('Favorites', {
     uid: {
       type: DataTypes.STRING,
       primaryKey: true,
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     price: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     url: {
       type: DataTypes.STRING,
@@ -40,6 +40,6 @@ module.exports = (sequelize, DataTypes) => {
   //   });
   // };
   
-  return Favorite;
+  return Favorites;
 }
 
