@@ -3,8 +3,15 @@ import React from 'react';
 const FavoriteRestaurant = ({restaurant, removeFromList}) => {
   
   const removeRestaurant = () => {
-    const restaurantId = restaurant.uid;
-    removeFromList(restaurantId);
+    const restaurantId = restaurant.id;
+
+    fetch(`http://localhost:3001/removefromfavorites/${restaurantId}`, {
+      method: 'DELETE',
+    })
+    .then(res => res.json())
+    .then(res => {
+      removeFromList(res.id);  
+    });
   }
 
     return (
@@ -20,7 +27,5 @@ const FavoriteRestaurant = ({restaurant, removeFromList}) => {
   }
 
   export default FavoriteRestaurant;
-
-
 
 

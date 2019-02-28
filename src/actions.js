@@ -3,6 +3,11 @@ export const updateSearchResults = (results) => ({
   results
 })
 
+export const loadFavorites = (favorites) => ({
+  type: 'LOAD_LIST',
+  favorites
+})
+
 export const addToList = (restaurant) => ({
   type: 'ADDTOLIST',
   restaurant

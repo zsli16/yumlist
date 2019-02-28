@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import FavoriteRestaurant from './favoriterestaurant.js';
 import { connect } from 'react-redux';
-import { removeFromList } from '../actions.js';
+import { removeFromList, loadFavorites } from '../actions.js';
 
 class Yumlist extends Component {
+
+  componentDidMount() {
+    fetch('http://localhost:3001/')
+      .then(res => res.json())
+      .then(res => this.props.loadFavorites(res))
+  }
 
   render() {
     const list = this.props.favoritesList;
@@ -17,7 +23,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  removeFromList: (restaurant) => dispatch(removeFromList(restaurant))
+  removeFromList: (restaurant) => dispatch(removeFromList(restaurant)),
+  loadFavorites: (favorites) => dispatch(loadFavorites(favorites))
 })
 
 

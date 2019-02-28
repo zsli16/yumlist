@@ -13,10 +13,12 @@ const searchList = (state = [], action) => {
 // adds and removes restaurants in the database and in the browser
 const favoritesList = (state = [], action) => {
   switch(action.type) {
+    case 'LOAD_LIST':
+      return action.favorites
     case 'ADDTOLIST':
       return [action.restaurant, ...state]
     case 'REMOVEFROMLIST':
-      return state.filter((restaurant) => restaurant.uid !== action.restaurantId);
+      return state.filter((restaurant) => restaurant.id !== action.restaurantId);
     default:
       return state;
   }

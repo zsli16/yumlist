@@ -3,30 +3,6 @@ const apiKey = 'h4_q1q5YJlDRpeOGv3eqZKyDjvxbcbneydPEJf5JXwvTz3VaLW9tWHymOGEBvqsW
 const client = yelp.client(apiKey);
 const db = require('./models/index.js');
 
-// const citySearch = document.getElementById('location-search');
-// const apiKeyPlaces = 'AIzaSyBXhcKCDCTBA0RAMdmXscOqGF-ayDl0xYY';
-
-exports.addToFavorites = async (ctx) => {
-  const selectedRestaurant = ctx.request.body;
-
-  const existingRestaurant = await db.Favorites.findAll({
-    where: {
-      name: selectedRestaurant.name
-    }
-  });
-  console.log(existingRestaurant);
-
-  if (existingRestaurant.length !== 0) {
-    console.log('You already added this restaurant to your list');
-    ctx.status = 200;
-  } else {
-    await db.Favorites.create(selectedRestaurant);
-    ctx.body = selectedRestaurant;
-    ctx.status = 200;
-  }
-
-}
-
 exports.searchRestaurants = async (ctx) => {
   const restaurant = ctx.request.body;
   
@@ -37,4 +13,52 @@ exports.searchRestaurants = async (ctx) => {
     console.log(e);
   });
   
+}
+
+exports.loadFavorites = async (ctx) => {
+  try {
+    const favorites = await db.Favorites.findAll();
+    ctx.body = favorites;
+    ctx.status = 200;
+  } catch (err) {
+    console.log(err);
+    ctx.status = 404;
+  }
+}
+
+exports.addToFavorites = async (ctx) => {
+  const selectedRestaurant = ctx.request.body;
+
+  const existingRestaurant = await db.Favorites.findAll({
+    where: {
+      name: selectedRestaurant.name
+    }
+  });
+
+  if (existingRestaurant.length !== 0) {
+    console.log('You already added this restaurant to your list');
+    ctx.status = 200;
+  } else {
+    await db.Favorites.create(selectedRestaurant);
+    ctx.body = selectedRestaurant;
+    ctx.status = 200;
+  }
+}
+
+exports.removeFromFavorites = async (ctx) => {
+  const restaurantId = ctx.params.id;
+  const unfavorited = await db.Favorites.findById(restaurantId);
+  console.log(unfavorited);
+  try {
+    await db.Favorites.destroy({
+      where: {
+        id: restaurantId
+      }
+    });
+    ctx.body = unfavorited;
+    ctx.status = 200;
+  } catch (err) {
+    console.log(err); //eslint-disable-line
+    ctx.status = 500;
+  }
 }
