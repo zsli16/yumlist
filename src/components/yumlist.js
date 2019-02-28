@@ -5,6 +5,26 @@ import { removeFromList, loadFavorites } from '../actions.js';
 
 class Yumlist extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      listTitle: '',
+      listDescription: ''
+    };
+  }
+
+  updateTitle(evt) {
+    this.setState({
+      listTitle: evt.target.value
+    });
+  }
+
+  updateDescription(evt) {
+    this.setState({
+      listDescription: evt.target.value
+    });
+  }
+
   componentDidMount() {
     fetch('http://localhost:3001/')
       .then(res => res.json())
@@ -12,10 +32,11 @@ class Yumlist extends Component {
   }
 
   saveList = () => {
-    console.log('save list clicked');
-    const listName = 'placeholder name';
-    const listDetails = 'placeholder details';
-    // const listitems = this.props.favoritesList;
+    const listitems = this.props.favoritesList;
+
+    const listName = this.state.listTitle;
+    const listDetails = this.state.listDescription;
+    
     fetch('http://localhost:3001/createlist', {
       method: 'POST',
       headers: {
@@ -23,14 +44,13 @@ class Yumlist extends Component {
       },
       body: JSON.stringify({
         "listname": listName,
-        "listdetails": listDetails
+        "listdetails": listDetails,
+        "restaurantsinlist": listitems
       })
-        // .then(res => res.json())
-        // .then(res => console.log(res.id))
-    });
-  }
-      // then retrieve the unique ID of the list that is created in the database and show to the user
+    })
 
+  }
+    
   render() {
     const list = this.props.favoritesList;
     const items = list.map(result => <FavoriteRestaurant key={result.id} restaurant={result} removeFromList={this.props.removeFromList}/>);
@@ -38,11 +58,11 @@ class Yumlist extends Component {
     return (
       <div className="list-wrapper">
         <div className="list-input">
-          <input type="text" className="list-details" placeholder="Edit List Title" name="list-title"/>
-          <input type="text" className="list-details" placeholder="Edit List Details" name="list-details"/>
+          <input type="text" className="list-details" placeholder="Edit List Title" name="list-title" value={this.state.listTitle} onChange={evt => this.updateTitle(evt)}/>
+          <input type="text" className="list-details" placeholder="Edit List Details" name="list-details" value={this.state.listDescription} onChange={evt => this.updateDescription(evt)}/>
         </div>
         {items}
-      <button className="save-list" onClick={this.saveList}>Save List</button>
+      <button className="save-list" onClick={this.saveList}>Create New List</button>
       </div>
     )
   }
