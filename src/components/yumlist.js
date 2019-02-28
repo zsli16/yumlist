@@ -5,8 +5,6 @@ import { removeFromList } from '../actions.js';
 
 class Yumlist extends Component {
 
-  
-  
   render() {
     const list = this.props.favoritesList;
     return list.map(result => <FavoriteRestaurant restaurant={result} removeFromList={this.props.removeFromList}/>);

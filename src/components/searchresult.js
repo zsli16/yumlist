@@ -1,16 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { addToList } from '../actions.js';
 import { connect } from 'react-redux';
-
-
 
 const Searchresult = ({restaurant, ...props}) => {
 
   const addRestaurant = (restaurant) => {
-    // const selected = e.currentTarget.parentNode;
 
     const selectedRestaurant = {
-      uid: restaurant.id,
+      id: restaurant.id,
       name: restaurant.name,
       image_url: restaurant.image_url,
       rating: restaurant.rating,
@@ -32,13 +29,14 @@ const Searchresult = ({restaurant, ...props}) => {
       });
   }
 
-  const isFavorite = props.favoritesList.find((r) => r.uid === restaurant.id) !== undefined;
+  // const isFavorite = props.favoritesList.find((r) => r.id === restaurant.id) !== undefined;
 
   return (
     <div className="search-result" id={restaurant.id}>
       <img src={restaurant.image_url} className="restaurant-icon" alt="restaurant-icon"/>
       <div className="restaurant-title">{restaurant.name}</div>
-      <button className="addResult" onClick={() => addRestaurant(restaurant)} disabled={isFavorite}>Add</button>
+      <button className="addResult" onClick={() => addRestaurant(restaurant)}>Add</button>
+      {/* <button className="addResult" onClick={() => addRestaurant(restaurant)} disabled={isFavorite}>Add</button> */}
     </div>
 
   )

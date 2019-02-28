@@ -8,9 +8,23 @@ const db = require('./models/index.js');
 
 exports.addToFavorites = async (ctx) => {
   const selectedRestaurant = ctx.request.body;
-  await db.Favorites.create(selectedRestaurant);
-  ctx.body = selectedRestaurant;
-  ctx.status = 200;
+
+  const existingRestaurant = await db.Favorites.findAll({
+    where: {
+      name: selectedRestaurant.name
+    }
+  });
+  console.log(existingRestaurant);
+
+  if (existingRestaurant.length !== 0) {
+    console.log('You already added this restaurant to your list');
+    ctx.status = 200;
+  } else {
+    await db.Favorites.create(selectedRestaurant);
+    ctx.body = selectedRestaurant;
+    ctx.status = 200;
+  }
+
 }
 
 exports.searchRestaurants = async (ctx) => {

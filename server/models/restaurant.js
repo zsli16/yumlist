@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Favorites = sequelize.define('Favorites', {
-    uid: {
+    id: {
       type: DataTypes.STRING,
       primaryKey: true,
       autoIncrement: false,
