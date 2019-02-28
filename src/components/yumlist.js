@@ -25,8 +25,8 @@ class Yumlist extends Component {
         "listname": listName,
         "listdetails": listDetails
       })
-        .then(res => res.json())
-        .then(res => console.log(res.id))
+        // .then(res => res.json())
+        // .then(res => console.log(res.id))
     });
   }
       // then retrieve the unique ID of the list that is created in the database and show to the user

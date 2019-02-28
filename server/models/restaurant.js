@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 }, {});
 
   Favorites.associate = db => {
-    db.Favorites.belongsToMany(db.Lists, {as: 'Lists', through: 'FavoritesLists', foreignKey: 'id'});
+    Favorites.belongsToMany(db.Lists, {through: 'FavoritesLists', foreignKey: 'favoriteId'});
   };
   
   return Favorites;

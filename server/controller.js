@@ -65,6 +65,17 @@ exports.removeFromFavorites = async (ctx) => {
 exports.createList = async (ctx) => {
   const newList = ctx.request.body;
   const myList = await db.Lists.create(newList);
+  const fakeRestaurants = ['E3KPlOBTk6xF6K7ALnlX_A', 'R7weNNhsuDsR4o7W5HsGZA'];
+  // fakeRestaurants.map(async (restaurant) => {
+  //   await db.FavoritesList.create({
+  //     favoriteId: restaurant,
+  //     listId: 8
+  //   })
+  // });
+  await db.FavoritesList.create({
+    favoriteId: 'E3KPlOBTk6xF6K7ALnlX_A',
+    listId: 8
+  })
   ctx.body = myList;
-  console.log(myList.id);
+  //console.log(myList.id);
 }
