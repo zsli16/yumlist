@@ -35,21 +35,22 @@ const Searchresult = ({restaurant, ...props}) => {
     <div className="search-result" id={restaurant.id}>
       <img src={restaurant.image_url} className="restaurant-icon" alt="restaurant-icon"/>
       <div className="restaurant-title">{restaurant.name}</div>
-      {/* <button className="addResult" onClick={() => addRestaurant(restaurant)}>Add</button> */}
       <button className="addResult" onClick={() => addRestaurant(restaurant)} disabled={isFavorite}>Add</button>
     </div>
 
   )
 }
 
-const mapStateToProps = (state) => ({
-  searchList: state.searchList,
-  favoritesList: state.favoritesList
-})
+// const mapStateToProps = (state) => ({
+//   searchList: state.searchList,
+//   favoritesList: state.favoritesList
+// })
 
-const mapDispatchToProps = (dispatch) => ({
-  addToList: (restaurant) => dispatch(addToList(restaurant)),
-})
+// const mapDispatchToProps = (dispatch) => ({
+//   addToList: (restaurant) => dispatch(addToList(restaurant)),
+// })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Searchresult);
+// export default connect(mapStateToProps, mapDispatchToProps)(Searchresult);
+
+export default Searchresult;

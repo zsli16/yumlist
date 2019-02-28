@@ -2,6 +2,7 @@ const yelp = require('yelp-fusion');
 const apiKey = 'h4_q1q5YJlDRpeOGv3eqZKyDjvxbcbneydPEJf5JXwvTz3VaLW9tWHymOGEBvqsWlgXCahNAiXlCHk__6lNhGXJiwfVOd5dBt3HKCxPb8bvykHOJ3BCzaneanFV0XHYx';
 const client = yelp.client(apiKey);
 const db = require('./models/index.js');
+const crypto = require('crypto');
 
 exports.searchRestaurants = async (ctx) => {
   const restaurant = ctx.request.body;
@@ -71,14 +72,22 @@ exports.createList = async (ctx) => {
   });
 
   const restaurantsInList = listOfRestaurants.restaurantsinlist;
+  const hashedId = crypto.randomBytes(8).toString('hex');
 
   await Promise.all(restaurantsInList.map(async (restaurant) => {
     await db.FavoritesList.create({
       favoriteId: restaurant.id,
       listId: newList.id
     })
-  }));
+  }))
+  .then(ctx.body = hashedId)
+  .then(console.log(ctx.body))
+  .catch(err => {
+    console.log(err);
+  })
 
-  ctx.body = newList.id;
-  //console.log(myList.id);
+  // const hash = crypto.createHmac('sha256', listOfRestaurants.listname).digest('hex');
+
+
+  
 }

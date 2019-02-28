@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FavoriteRestaurant from './favoriterestaurant.js';
 import { connect } from 'react-redux';
 import { removeFromList, loadFavorites } from '../actions.js';
+import Modal from './modal';
 
 class Yumlist extends Component {
 
@@ -9,7 +10,9 @@ class Yumlist extends Component {
     super(props);
     this.state = {
       listTitle: '',
-      listDescription: ''
+      listDescription: '',
+      listId: '',
+      showModal: false
     };
   }
 
@@ -48,8 +51,18 @@ class Yumlist extends Component {
         "restaurantsinlist": listitems
       })
     })
-
+      .then(res => res.text())
+      .then(res => this.shareList(res))
   }
+
+  shareList = (res) => {
+    console.log('shared list clicked', res);
+    const container = document.querySelector('App');
+    return (
+      <Modal listId={res}/>
+    )
+  } 
+
     
   render() {
     const list = this.props.favoritesList;

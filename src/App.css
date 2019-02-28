@@ -157,6 +157,15 @@ h1 {
   font-size: 1em;
 }
 
+/* modal */
+
+.modal {
+  background-color: red;
+  width: 500px;
+  height: 800px;
+  z-index: 4;
+}
+
 
 
 
