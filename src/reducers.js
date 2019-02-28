@@ -6,7 +6,7 @@ const searchList = (state = [], action) => {
     case 'UPDATE_SEARCHRESULTS':
       return action.results
     default:
-      return [];
+      return state;
   }
 }
 
@@ -16,7 +16,7 @@ const favoritesList = (state = [], action) => {
     case 'ADDTOLIST':
       return [action.restaurant, ...state]
     case 'REMOVEFROMLIST':
-      return state.filter((restaurant) => restaurant.id !== action.restaurant.id);
+      return state.filter((restaurant) => restaurant.uid !== action.restaurantId);
     default:
       return state;
   }
