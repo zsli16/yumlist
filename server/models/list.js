@@ -1,13 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
-  const List = sequelize.define('List', {
+  const Lists = sequelize.define('Lists', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false
+    },
     listname: DataTypes.STRING,
-    eventdate: DataTypes.STRING,
-    description: DataTypes.STRING,
+    listdetails: DataTypes.STRING,
   }, {});
 
-  // List.associate = db => {
-  //   db.List.hasMany(db.Restaurant, {as: 'restaurants', foreignKey: 'uid'});
-  // };
+  Lists.associate = db => {
+    db.Lists.belongsToMany(db.Favorites, {as: 'Favorites', through: 'FavoritesLists', foreignKey: 'id'});
+  };
 
-  return List;
+  return Lists;
 };

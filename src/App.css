@@ -7,13 +7,38 @@ p {
   display: inline-block;
 }
 
+h1 {
+  color: white;
+  text-align: center;
+  margin: 8px;
+  caret-color: black;
+}
+
+/* Search Bar */
+#restaurant-search {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+}
+
+::placeholder {
+  font-size: 16px;
+}
+
+.location {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Search Results List */
 .search-fields {
   display: flex;
   flex-direction: column;
   padding: 20px;
   margin: 0 auto;
   width: 80%;
-  background-color: #C81465;
+  /* background-color: #C81465; */
+  background-color: gray;
 }
 
 .search-list {
@@ -46,19 +71,93 @@ p {
   height: 30px;
 }
 
-#restaurant-search {
+/* Yumlist */
+
+.list-input {
+  text-align: center;
+  margin: 20px;
+  width: 50%;
+}
+
+.list-details {
   width: 100%;
-  height: 50px;
-  padding: 10px;
+  display: block;
+  margin-top: 10px;
+  opacity: .3;
+  text-align: center;
+  padding: 5px;
+  font-size: 1em;
 }
 
-::placeholder {
-  font-size: 16px;
+.list-details:focus {
+  opacity: .8;
+  font-weight: bolder;
 }
 
-.location {
+.list-details::placeholder {
+  font-size: 1em;
+}
+
+.list-wrapper {
+  /* background-color: #C81465; */
+  background-color: gray;
+  margin: 0 auto;
+  width: 80%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
 }
+
+.favorite-restaurant {
+  background-color: white;
+  border-radius: 2px;
+  height: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.favorite-photo {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.favorite-left {
+  flex: 1 0 auto;
+  height: 150px;
+  width: 150px;
+  overflow: hidden;
+}
+
+.favorite-main {
+  flex: 5 0 auto;
+  padding: 10px;
+  text-align: left;
+}
+
+.favorite-right {
+  flex: 2 0 auto;
+  text-align: right;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+.favorite-title {
+  font-size: 1.5em;
+  font-weight: bolder;
+}
+
+.save-list {
+  width: 150px;
+  height: 40px;
+  font-size: 1em;
+}
+
+
+
 
 

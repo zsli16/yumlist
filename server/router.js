@@ -11,4 +11,6 @@ router.post('/addtofavorites', ctrl.addToFavorites)
 
 router.delete('/removefromfavorites/:id', ctrl.removeFromFavorites);
 
+router.post('/createlist', ctrl.createList);
+
 module.exports = router;

@@ -32,13 +32,9 @@ module.exports = (sequelize, DataTypes) => {
     }
 }, {});
 
-
-  // Restaurant.associate = db => {
-  //   db.Restaurant.belongsTo(db.List, {
-  //     onDelete: 'CASACADE',
-  //     foreignKey: {allowNull: false}
-  //   });
-  // };
+  Favorites.associate = db => {
+    db.Favorites.belongsToMany(db.Lists, {as: 'Lists', through: 'FavoritesLists', foreignKey: 'id'});
+  };
   
   return Favorites;
 }

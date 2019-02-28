@@ -48,7 +48,6 @@ exports.addToFavorites = async (ctx) => {
 exports.removeFromFavorites = async (ctx) => {
   const restaurantId = ctx.params.id;
   const unfavorited = await db.Favorites.findById(restaurantId);
-  console.log(unfavorited);
   try {
     await db.Favorites.destroy({
       where: {
@@ -61,4 +60,11 @@ exports.removeFromFavorites = async (ctx) => {
     console.log(err); //eslint-disable-line
     ctx.status = 500;
   }
+}
+
+exports.createList = async (ctx) => {
+  const newList = ctx.request.body;
+  const myList = await db.Lists.create(newList);
+  ctx.body = myList;
+  console.log(myList.id);
 }
