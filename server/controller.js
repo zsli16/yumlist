@@ -35,24 +35,20 @@ exports.loadFavoritesFromList = async (ctx) => {
 
 exports.addToFavorites = async (ctx) => {
   const selectedRestaurant = ctx.request.body;
-  const currentList = ctx.params.list;
+  const currentListId = ctx.params.list;
 
-  // const restaurantExistsInList = await db.Favorites.findAll({
-  //   where: {
-  //     favoriteId: selectedRestaurant.id,
-  //   },
-  //   include: [{
-  //     model: db.Lists,
-  //     where: { id: currentList }
-  //   }]
-  // });
-
-  const restaurantExistsInList = await db.FavoritesLists.findAll({
-    where: {
-      favoriteId: selectedRestaurant.id,
-      listId: currentList
-    }
+  // first, get all restaurants in this list
+  const list = await db.Lists.find({
+    where: { id: currentListId },
+    include: [{
+      model: db.Favorites,
+      attributes: ['id'],
+    }]
   });
+  
+  // then, check if the restaurant exists in this list
+  const restaurantExistsInList = list.dataValues.Favorites.filter(restaurant => restaurant.id === selectedRestaurant.id);
+  console.log('restaurant exists in the list', restaurantExistsInList)
 
   if (restaurantExistsInList.length !== 0) {
     ctx.body = {
@@ -61,16 +57,32 @@ exports.addToFavorites = async (ctx) => {
     ctx.status = 400;
   } else {
     try {
-      await db.Favorites.create(selectedRestaurant);
-      await db.FavoritesLists.create({favoriteId: selectedRestaurant.id, listId: currentList});
-      ctx.body = selectedRestaurant;
-      console.log(selectedRestaurant);
-      ctx.status = 200;
+
+      //check if the restaurant exists in the Favorites Database (main table)
+      const fav = await db.Favorites.find({
+        where: {
+          id: selectedRestaurant.id
+        }
+      })
+      
+      if (fav) {
+        // if it exists, then just add it to the List
+        await db.FavoritesLists.create({favoriteId: selectedRestaurant.id, listId: currentListId});
+        ctx.body = selectedRestaurant;
+        console.log(selectedRestaurant);
+        ctx.status = 200;
+      } else {
+        await db.Favorites.create(selectedRestaurant);
+        await db.FavoritesLists.create({favoriteId: selectedRestaurant.id, listId: currentListId});
+        ctx.body = selectedRestaurant;
+        console.log(selectedRestaurant);
+        ctx.status = 200;
+      }
+
     } catch (err) {
       console.log(err);
     }
   }
-
 }
 
 exports.removeFromFavorites = async (ctx) => {
@@ -122,4 +134,3 @@ exports.createList = async (ctx) => {
   }
 
 }
-

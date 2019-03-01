@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FavoriteRestaurant from './favoriterestaurant.js';
 import { connect } from 'react-redux';
 import { removeFromList, loadFavorites } from '../actions.js';
+import { BrowserRouter as Router, Link } from "react-router-dom";
 import Dialog from '@material-ui/core/Dialog';
 // import uuid from 'uuid';
 // import SharedList from './sharedlist.js';
@@ -65,9 +66,8 @@ class Yumlist extends Component {
   shareList = () => {
     this.setState({openDialog: !this.state.openDialog});
     console.log(this.state.openDialog);
-    // return (
-    //   <SharedList listId={this.state.listId}/>
-    // )
+    // this.props.history.push('/blabla')
+
   }
 
   render() {
@@ -93,7 +93,9 @@ class Yumlist extends Component {
           <input type="text" className="list-details" placeholder="Edit List Details" name="list-details" value={this.state.listDescription} onChange={evt => this.updateDescription(evt)}/>
         </div>
         {items}
-      <button className="save-list" onClick={this.shareList}>Share List</button>
+        <Link to='/blahblah'>
+          <button className="save-list" onClick={this.shareList}>Share List</button>
+        </Link>
       </div>
     )
   }
