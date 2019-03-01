@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
-import { Router, Route, Switch } from 'react-router';
-import SharedList from './sharedlist';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Yumlist from './yumlist';
 
 class CreateList extends Component {
@@ -49,14 +48,17 @@ class CreateList extends Component {
     return (
       <Router>
         <div className="list-wrapper">
+          <h1>Yumlist</h1>
+          <h2>Create New List</h2>
           <div className="list-input">
             <input type="text" className="list-details" placeholder="Edit List Title" name="list-title" value={this.state.listTitle} onChange={evt => this.updateTitle(evt)}/>
             <input type="text" className="list-details" placeholder="Edit List Details" name="list-details" value={this.state.listDescription} onChange={evt => this.updateDescription(evt)}/>
           </div>
-        <button className="save-list" onClick={this.saveList}>Create List</button>
+          <Link to="/list">
+            <button className="save-list" onClick={this.saveList}>Create List</button>
+          </Link>
+          <Route path="/list" component={Yumlist}/>
         </div>
-
-        <Route path={`/:listId`} component={Yumlist} />
 
       </Router>
     )

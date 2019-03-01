@@ -11,9 +11,9 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Searchbar/>
-          {/* <Route path="/create" component={CreateList}/> */}
-          <Route path='/' component={Yumlist} />
+          <Route path="/list" component={Searchbar}/>
+          <Route path="/create" component={CreateList}/>
+          <Route path='/list' component={Yumlist} />
         </div>
       </Router>
     );
