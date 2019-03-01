@@ -4,7 +4,6 @@ const ctrl = require('./controller');
 const router = new Router();
 
 router.get('/:listId', ctrl.loadFavoritesFromList);
-// done, just need to load the lists upon sharing!
 
 router.post('/search', ctrl.searchRestaurants); 
 

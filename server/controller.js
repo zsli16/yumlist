@@ -22,7 +22,7 @@ exports.loadFavoritesFromList = async (ctx) => {
     const favoritesOnLoad = await db.Favorites.findAll({
       include: [{
         model: db.Lists,
-        where: { id: listId}
+        where: { id: listId }
       }]
     });
     ctx.body = favoritesOnLoad;
@@ -36,6 +36,16 @@ exports.loadFavoritesFromList = async (ctx) => {
 exports.addToFavorites = async (ctx) => {
   const selectedRestaurant = ctx.request.body;
   const currentList = ctx.params.list;
+
+  // const restaurantExistsInList = await db.Favorites.findAll({
+  //   where: {
+  //     favoriteId: selectedRestaurant.id,
+  //   },
+  //   include: [{
+  //     model: db.Lists,
+  //     where: { id: currentList }
+  //   }]
+  // });
 
   const restaurantExistsInList = await db.FavoritesLists.findAll({
     where: {

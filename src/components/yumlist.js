@@ -3,9 +3,9 @@ import FavoriteRestaurant from './favoriterestaurant.js';
 import { connect } from 'react-redux';
 import { removeFromList, loadFavorites } from '../actions.js';
 import Dialog from '@material-ui/core/Dialog';
-import PropTypes from 'prop-types';
 // import uuid from 'uuid';
-import SharedList from './sharedlist.js';
+// import SharedList from './sharedlist.js';
+import Modal from './modal'
 
 class Yumlist extends Component {
 
@@ -15,6 +15,7 @@ class Yumlist extends Component {
       listTitle: '',
       listDescription: '',
       listId: 'yumlist', //by default make the first list one
+      openDialog: false
     };
   }
 
@@ -40,35 +41,34 @@ class Yumlist extends Component {
     this.getRestaurants(this.state.listId);
   }
 
-
-  saveList = () => {
-    const listitems = this.props.favoritesList;
-    const listName = this.state.listTitle;
-    const listDetails = this.state.listDescription;
+  // saveList = () => {
+  //   const listitems = this.props.favoritesList;
+  //   const listName = this.state.listTitle;
+  //   const listDetails = this.state.listDescription;
     
-    fetch('http://localhost:3001/createlist', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        "listname": listName,
-        "listdetails": listDetails,
-        "listId": this.state.listId,
-        "restaurantsinlist": listitems
-      })
-    })
-      .then(res => res.text())
-      .then(res => this.shareList(res))
-  }
+  //   fetch('http://localhost:3001/createlist', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       "listname": listName,
+  //       "listdetails": listDetails,
+  //       "listId": this.state.listId,
+  //       "restaurantsinlist": listitems
+  //     })
+  //   })
+  //     .then(res => res.text())
+  //     .then(res => this.shareList(res))
+  // }
 
   shareList = () => {
-    console.log('shared list clicked');
-    this.setState({openDialog: true});
-    return (
-      <SharedList listId={this.state.listId}/>
-    )
-  } 
+    this.setState({openDialog: !this.state.openDialog});
+    console.log(this.state.openDialog);
+    // return (
+    //   <SharedList listId={this.state.listId}/>
+    // )
+  }
 
   render() {
 
@@ -78,9 +78,15 @@ class Yumlist extends Component {
     return (
       <div className="list-wrapper">
 
-      <Dialog onClose={this.handleClose}>
-        <h1>Example Title</h1>
-      </Dialog>
+      {/* <Dialog onClose={this.handleClose} show={this.state.openDialog}>
+        <div className="modal-container">
+          <h1>Example Title</h1>
+        </div>
+      </Dialog> */}
+
+      <Modal show={this.state.openDialog} onClose={this.shareList} listId={this.state.listId}>
+        Here's my modal
+      </Modal>
 
         <div className="list-input">
           <input type="text" className="list-details" placeholder="Edit List Title" name="list-title" value={this.state.listTitle} onChange={evt => this.updateTitle(evt)}/>
