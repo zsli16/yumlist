@@ -2,7 +2,6 @@ const yelp = require('yelp-fusion');
 const apiKey = 'h4_q1q5YJlDRpeOGv3eqZKyDjvxbcbneydPEJf5JXwvTz3VaLW9tWHymOGEBvqsWlgXCahNAiXlCHk__6lNhGXJiwfVOd5dBt3HKCxPb8bvykHOJ3BCzaneanFV0XHYx';
 const client = yelp.client(apiKey);
 const db = require('./models/index.js');
-const crypto = require('crypto');
 
 exports.searchRestaurants = async (ctx) => {
   const restaurant = ctx.request.body;
@@ -20,30 +19,18 @@ exports.loadFavoritesFromList = async (ctx) => {
   const listId = ctx.params.listId;
 
   try {
-    const favorites = await db.FavoritesLists.findAll({
-      where: {
-        listId: listId
-      },
-      attributes: ['favoriteId']
+    const favoritesOnLoad = await db.Favorites.findAll({
+      include: [{
+        model: db.Lists,
+        where: { id: listId}
+      }]
     });
-    
-    const favoritesOnLoad = await Promise.all(favorites.map(async (favorite) => {
-      await db.Favorites.findAll({
-        where: {
-          id: favorite.dataValues.favoriteId
-        }
-      })
-    }))
-    .catch(err => {
-      console.log(err)
-    })
-
     ctx.body = favoritesOnLoad;
     ctx.status = 200;
   } catch (err) {
     console.log(err);
-    ctx.status = 404;
   }
+
 }
 
 exports.addToFavorites = async (ctx) => {
@@ -58,13 +45,16 @@ exports.addToFavorites = async (ctx) => {
   });
 
   if (restaurantExistsInList.length !== 0) {
-    console.log('Already exists in list')
-    ctx.status = 200;
+    ctx.body = {
+      "error": ['Already added']
+    }
+    ctx.status = 400;
   } else {
     try {
       await db.Favorites.create(selectedRestaurant);
       await db.FavoritesLists.create({favoriteId: selectedRestaurant.id, listId: currentList});
       ctx.body = selectedRestaurant;
+      console.log(selectedRestaurant);
       ctx.status = 200;
     } catch (err) {
       console.log(err);

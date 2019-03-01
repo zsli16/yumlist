@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 const Searchresult = ({restaurant, ...props}) => {
 
+
   const addRestaurant = (restaurant) => {
 
     const selectedRestaurant = {
@@ -25,10 +26,14 @@ const Searchresult = ({restaurant, ...props}) => {
       },
       body: JSON.stringify(selectedRestaurant),
     })
-      .then(res => res.json())
+      .then((res) => {
+        if (res.status === 200) return res.json()
+        else throw new Error('Already added to list')
+      })
       .then(res => {
         props.addToList(res);  
-      });
+      })
+      .catch(err => console.log(err));
   }
 
   const isFavorite = props.favoritesList.find((r) => r.id === restaurant.id) !== undefined;

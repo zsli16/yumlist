@@ -3,9 +3,6 @@ import SearchList from './searchlist';
 import { connect } from 'react-redux';
 import { updateSearchResults, addToList } from '../actions.js';
 
-// import { library } from '@fortawesome/fontawesome-svg-core';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 class Searchbar extends Component {
 
   constructor(props) {
