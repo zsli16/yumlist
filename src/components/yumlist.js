@@ -3,6 +3,8 @@ import FavoriteRestaurant from './favoriterestaurant.js';
 import { connect } from 'react-redux';
 import { removeFromList, loadFavorites } from '../actions.js';
 import Modal from './modal';
+import Dialog from '@material-ui/core/Dialog';
+import uuid from 'uuid';
 
 class Yumlist extends Component {
 
@@ -11,8 +13,7 @@ class Yumlist extends Component {
     this.state = {
       listTitle: '',
       listDescription: '',
-      listId: '',
-      showModal: false
+      listId: 'yumlist', //by default make the first list one
     };
   }
 
@@ -28,15 +29,18 @@ class Yumlist extends Component {
     });
   }
 
-  componentDidMount() {
-    fetch('http://localhost:3001/')
+  getRestaurants = (listId) => {
+    fetch(`http://localhost:3001/${listId}`)
       .then(res => res.json())
       .then(res => this.props.loadFavorites(res))
   }
 
+  componentDidMount() {
+    // this.getRestaurants(this.state.listId);
+  }
+
   saveList = () => {
     const listitems = this.props.favoritesList;
-
     const listName = this.state.listTitle;
     const listDetails = this.state.listDescription;
     
@@ -48,6 +52,7 @@ class Yumlist extends Component {
       body: JSON.stringify({
         "listname": listName,
         "listdetails": listDetails,
+        "listId": this.state.listId,
         "restaurantsinlist": listitems
       })
     })
@@ -56,17 +61,16 @@ class Yumlist extends Component {
   }
 
   shareList = (res) => {
-    console.log('shared list clicked', res);
+    console.log('shared list clicked');
     const container = document.querySelector('App');
     return (
       <Modal listId={res}/>
     )
   } 
 
-    
   render() {
     const list = this.props.favoritesList;
-    const items = list.map(result => <FavoriteRestaurant key={result.id} restaurant={result} removeFromList={this.props.removeFromList}/>);
+    const items = list.map(result => <FavoriteRestaurant list={this.state.listId} key={result.id} restaurant={result} removeFromList={this.props.removeFromList}/>);
 
     return (
       <div className="list-wrapper">
@@ -75,7 +79,7 @@ class Yumlist extends Component {
           <input type="text" className="list-details" placeholder="Edit List Details" name="list-details" value={this.state.listDescription} onChange={evt => this.updateDescription(evt)}/>
         </div>
         {items}
-      <button className="save-list" onClick={this.saveList}>Create New List</button>
+      <button className="save-list" onClick={this.saveList}>Share List</button>
       </div>
     )
   }

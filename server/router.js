@@ -3,14 +3,16 @@ const ctrl = require('./controller');
 
 const router = new Router();
 
-router.get('/', ctrl.loadFavorites);
+router.get('/:listId', ctrl.loadFavoritesFromList);
+// done, just need to load the lists upon sharing!
 
-router.post('/search', ctrl.searchRestaurants);
+router.post('/search', ctrl.searchRestaurants); 
 
-router.post('/addtofavorites', ctrl.addToFavorites)
+router.post('/createlist', ctrl.createList); 
 
-router.delete('/removefromfavorites/:id', ctrl.removeFromFavorites);
+router.post('/addtofavorites/:list', ctrl.addToFavorites); // done
 
-router.post('/createlist', ctrl.createList);
+router.delete('/removefromfavorites/:list/:id', ctrl.removeFromFavorites); // done
+
 
 module.exports = router;

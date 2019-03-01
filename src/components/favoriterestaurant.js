@@ -1,17 +1,14 @@
 import React from 'react';
 
-const FavoriteRestaurant = ({restaurant, removeFromList}) => {
+const FavoriteRestaurant = ({restaurant, removeFromList, list}) => {
   
-  const removeRestaurant = () => {
+  const removeRestaurant = (restaurant) => {
     const restaurantId = restaurant.id;
-
-    fetch(`http://localhost:3001/removefromfavorites/${restaurantId}`, {
-      method: 'DELETE',
+    console.log(restaurantId);
+    fetch(`http://localhost:3001/removefromfavorites/${list}/${restaurantId}`, {
+      method: 'DELETE'
     })
-    .then(res => res.json())
-    .then(res => {
-      removeFromList(res.id);  
-    });
+    .then(removeFromList(restaurantId))
   }
 
     return (
@@ -27,7 +24,7 @@ const FavoriteRestaurant = ({restaurant, removeFromList}) => {
         <div className="favorite-right">
           <div className="favorite-rating">{restaurant.rating}<span className="favorite-reviewcount">{restaurant.review_count}</span></div>
           <p></p>
-          <button className="deleteResult" onClick={removeRestaurant}>Remove</button>
+          <button className="deleteResult" onClick={() => removeRestaurant(restaurant)}>Remove</button>
         </div>
       </div>
     )

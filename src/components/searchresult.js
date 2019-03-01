@@ -16,7 +16,9 @@ const Searchresult = ({restaurant, ...props}) => {
       review_count: restaurant.review_count
     }
 
-    fetch('http://localhost:3001/addtofavorites', {
+    const list = 'yumlist'; // by default always add to the same list
+
+    fetch(`http://localhost:3001/addtofavorites/${list}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -41,16 +43,14 @@ const Searchresult = ({restaurant, ...props}) => {
   )
 }
 
-// const mapStateToProps = (state) => ({
-//   searchList: state.searchList,
-//   favoritesList: state.favoritesList
-// })
+const mapStateToProps = (state) => ({
+  searchList: state.searchList,
+  favoritesList: state.favoritesList
+})
 
-// const mapDispatchToProps = (dispatch) => ({
-//   addToList: (restaurant) => dispatch(addToList(restaurant)),
-// })
+const mapDispatchToProps = (dispatch) => ({
+  addToList: (restaurant) => dispatch(addToList(restaurant)),
+})
 
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Searchresult);
-
-export default Searchresult;
+export default connect(mapStateToProps, mapDispatchToProps)(Searchresult);

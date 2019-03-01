@@ -6,20 +6,39 @@ const crypto = require('crypto');
 
 exports.searchRestaurants = async (ctx) => {
   const restaurant = ctx.request.body;
-  
-  await client.search(restaurant).then(response => {
-    const results = response.jsonBody.businesses;
-    ctx.body = results;
-  }).catch(e => {
-    console.log(e);
-  });
-  
+  try {
+    await client.search(restaurant).then(response => {
+      const results = response.jsonBody.businesses;
+      ctx.body = results;
+    })
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-exports.loadFavorites = async (ctx) => {
+exports.loadFavoritesFromList = async (ctx) => {
+  const listId = ctx.params.listId;
+
   try {
-    const favorites = await db.Favorites.findAll();
-    ctx.body = favorites;
+    const favorites = await db.FavoritesLists.findAll({
+      where: {
+        listId: listId
+      },
+      attributes: ['favoriteId']
+    });
+    
+    const favoritesOnLoad = await Promise.all(favorites.map(async (favorite) => {
+      await db.Favorites.findAll({
+        where: {
+          id: favorite.dataValues.favoriteId
+        }
+      })
+    }))
+    .catch(err => {
+      console.log(err)
+    })
+
+    ctx.body = favoritesOnLoad;
     ctx.status = 200;
   } catch (err) {
     console.log(err);
@@ -29,33 +48,41 @@ exports.loadFavorites = async (ctx) => {
 
 exports.addToFavorites = async (ctx) => {
   const selectedRestaurant = ctx.request.body;
+  const currentList = ctx.params.list;
 
-  const existingRestaurant = await db.Favorites.findAll({
+  const restaurantExistsInList = await db.FavoritesLists.findAll({
     where: {
-      name: selectedRestaurant.name
+      favoriteId: selectedRestaurant.id,
+      listId: currentList
     }
   });
 
-  if (existingRestaurant.length !== 0) {
-    console.log('You already added this restaurant to your list');
+  if (restaurantExistsInList.length !== 0) {
+    console.log('Already exists in list')
     ctx.status = 200;
   } else {
-    await db.Favorites.create(selectedRestaurant);
-    ctx.body = selectedRestaurant;
-    ctx.status = 200;
+    try {
+      await db.Favorites.create(selectedRestaurant);
+      await db.FavoritesLists.create({favoriteId: selectedRestaurant.id, listId: currentList});
+      ctx.body = selectedRestaurant;
+      ctx.status = 200;
+    } catch (err) {
+      console.log(err);
+    }
   }
+
 }
 
 exports.removeFromFavorites = async (ctx) => {
   const restaurantId = ctx.params.id;
-  const unfavorited = await db.Favorites.findById(restaurantId);
+  const listId = ctx.params.list;
   try {
-    await db.Favorites.destroy({
+    await db.FavoritesLists.destroy({
       where: {
-        id: restaurantId
+         favoriteId: restaurantId,
+         listId: listId
       }
     });
-    ctx.body = unfavorited;
     ctx.status = 200;
   } catch (err) {
     console.log(err); //eslint-disable-line
@@ -66,28 +93,33 @@ exports.removeFromFavorites = async (ctx) => {
 exports.createList = async (ctx) => {
   const listOfRestaurants = ctx.request.body;
 
-  const newList = await db.Lists.create({
-    listname: listOfRestaurants.listname,
-    listdetails: listOfRestaurants.listdetails
-  });
-
-  const restaurantsInList = listOfRestaurants.restaurantsinlist;
-  const hashedId = crypto.randomBytes(8).toString('hex');
-
-  await Promise.all(restaurantsInList.map(async (restaurant) => {
-    await db.FavoritesList.create({
-      favoriteId: restaurant.id,
-      listId: newList.id
-    })
-  }))
-  .then(ctx.body = hashedId)
-  .then(console.log(ctx.body))
-  .catch(err => {
-    console.log(err);
+  const doesListExist = await db.Lists.findAll({
+    where: {
+      id: listOfRestaurants.listId
+    }
   })
 
-  // const hash = crypto.createHmac('sha256', listOfRestaurants.listname).digest('hex');
+  if (doesListExist.length !== 0) {
+    console.log('List already exists')
+  } else {
+    const newList = await db.Lists.create({
+      listname: listOfRestaurants.listname,
+      listdetails: listOfRestaurants.listdetails,
+      id: listOfRestaurants.listId
+    });
 
-
+    const restaurantsInList = listOfRestaurants.restaurantsinlist;
   
+    await Promise.all(restaurantsInList.map(async (restaurant) => {
+      await db.FavoritesList.create({
+        favoriteId: restaurant.id,
+        listId: newList.id
+      })
+    }))
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
 }
+
