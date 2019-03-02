@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 const Searchresult = ({restaurant, ...props}) => {
 
-
   const addRestaurant = (restaurant) => {
 
     const selectedRestaurant = {
@@ -16,8 +15,6 @@ const Searchresult = ({restaurant, ...props}) => {
       url: restaurant.url,
       review_count: restaurant.review_count
     }
-
-    // const list = 'yumlist'; // by default always add to the same list
 
     const list = window.location.pathname.slice('/list/'.length);
 

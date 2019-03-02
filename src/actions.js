@@ -18,7 +18,7 @@ export const removeFromList = (restaurantId) => ({
   restaurantId
 })
 
-export const listInfo = (listId) => ({
-  type: 'LIST_INFO',
-  listId
+export const voteForRestaurant = (restaurantId) => ({
+  type: 'VOTE',
+  restaurantId
 })

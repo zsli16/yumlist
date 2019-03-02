@@ -38,8 +38,7 @@ class Yumlist extends Component {
   }
 
   shareList = () => {
-    this.setState({openDialog: !this.state.openDialog});
-    // this.props.history.push('/share')
+    this.setState({openDialog: !this.state.openDialog}, () => console.log('toggled modal'));
   }
 
   render() {

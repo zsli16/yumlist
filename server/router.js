@@ -3,6 +3,11 @@ const ctrl = require('./controller');
 
 const router = new Router();
 
+// router.post('like/:listId/:restaurantId/', ctrl.likeRestaurantByList);
+// router.post('unlike/:listId/:restaurantId/', ctrl.removeLikeRestaurantByList);
+
+router.put('/:listId/:restaurantId/:vote', ctrl.updateVote);
+
 router.get('/:listId', ctrl.getListInfo);
 
 router.get('/load/:listId', ctrl.loadFavoritesFromList);

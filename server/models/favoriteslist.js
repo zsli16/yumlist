@@ -7,15 +7,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     listId: DataTypes.TEXT,
-    favoriteId: DataTypes.TEXT
+    favoriteId: DataTypes.TEXT,
+    score: DataTypes.INTEGER
   }, {});
-  
-  // FavoritesLists.associate = db => {
-  //   FavoritesLists.belongsToMany(db.Lists, {through: 'FavoritesLists', foreignKey: 'favoriteId'});
-  // };
-
-  // associate join table with the Favorites table and with the Lists table
-
 
   return FavoritesLists;
 };
