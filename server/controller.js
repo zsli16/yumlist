@@ -17,12 +17,13 @@ exports.searchRestaurants = async (ctx) => {
 
 exports.getListInfo = async (ctx) => {
   const listId = ctx.params.listId;
-  console.log('type of listId', typeof listId);
+  console.log('get listId from server', listId);
   try {
     const listInfo = await db.Lists.findOne({
       where: {
         id: listId
-      }
+      },
+      raw: true
     })
     console.log('selected list', listInfo);
     ctx.body = listInfo;
@@ -34,6 +35,7 @@ exports.getListInfo = async (ctx) => {
 
 exports.loadFavoritesFromList = async (ctx) => {
   const listId = ctx.params.listId;
+  console.log('entered load favs from list and listid is', listId);
 
   try {
     const favoritesOnLoad = await db.Favorites.findAll({
@@ -129,6 +131,7 @@ exports.createList = async (ctx) => {
       id: submittedList.listId //refactor this to generate the UUID in the backend instead of the frontend
     })
     ctx.body = newList;
+    console.log('newList created', newList);
     ctx.status = 200;
   } catch (err) {
     console.log(err);

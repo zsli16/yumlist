@@ -5,7 +5,7 @@ const router = new Router();
 
 router.get('/:listId', ctrl.getListInfo);
 
-router.get('/:listId/view', ctrl.loadFavoritesFromList);
+router.get('/load/:listId', ctrl.loadFavoritesFromList);
 
 router.post('/search', ctrl.searchRestaurants); 
 

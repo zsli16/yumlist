@@ -18,17 +18,22 @@ class Yumlist extends Component {
     };
   }
 
-
   getListInfo = (listId) => {
     fetch(`http://localhost:3001/${listId}`)
-      // .then(res => console.log(res))
-      // .then(res => res.json())
-      // .then(res => this.setState({listName: res.listname, listDetails: res.listdetails}))
+      .then(res => res.json())
+      .then(res => { 
+        this.setState({listName: res.listname, listDetails: res.listdetails }, () => {
+          this.loadRestaurantsfromList(this.state.listId) //remember you need to pass a callback to this.setState
+        })})
+  }
+
+  loadRestaurantsfromList = (listId) => {
+    fetch(`http://localhost:3001/load/${listId}/`)
+      .then(res => res.json())
+      .then(res => this.props.loadFavorites(res))
   }
 
   componentDidMount() {
-    console.log('this.props', this.props);
-    console.log('listId', this.state.listId);
     this.getListInfo(this.state.listId);
   }
 

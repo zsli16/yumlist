@@ -15,6 +15,7 @@
     "koa-router": "^7.4.0",
     "pg": "^7.8.1",
     "pg-hstore": "^2.3.2",
+    "query-string": "^6.2.0",
     "react": "^16.8.3",
     "react-debounce-input": "^3.2.0",
     "react-dom": "^16.8.3",

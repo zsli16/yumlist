@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import uuid from 'uuid';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Yumlist from './yumlist';
+import Searchbar from './searchbar';
 
 class CreateList extends Component {
 
@@ -41,7 +42,15 @@ class CreateList extends Component {
         "listId": this.state.listId, // refactor this to generate UUID from server rather than client
       })
     })
-    .then(this.props.history.push(`/list/${this.state.listId}`))
+    .then(res => res.json())
+    .then(res => { //refactor to get the id from the database
+      this.setState({listId: res.id}, () => {
+        this.props.history.push(`/list/${this.state.listId}`);
+      });
+    })
+    // .then(res => this.props.history.push(/list/res.id))
+
+    // problem: still trying to select before entry is created. title and description only appear on refresh.
   }
 
   render() {
@@ -56,8 +65,10 @@ class CreateList extends Component {
           </div>
 
           <button className="save-list" onClick={this.saveList}>Create List</button>
-          
-          <Route exact path='/list/:listId' component={Yumlist}/> 
+  
+          <Route exact path='/list/:listId' component={Yumlist}/>
+          <Route exact path='/list/:listId' component={Searchbar}/>  
+          {/* <Route exact path='/list/:listId' render={ (props) => <Yumlist {...props} /> }/>  */}
 
         </div>
 

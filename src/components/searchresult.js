@@ -17,7 +17,11 @@ const Searchresult = ({restaurant, ...props}) => {
       review_count: restaurant.review_count
     }
 
-    const list = 'yumlist'; // by default always add to the same list
+    // const list = 'yumlist'; // by default always add to the same list
+
+    const list = window.location.pathname.slice('/list/'.length);
+
+    console.log('current list from search result', list);
 
     fetch(`http://localhost:3001/addtofavorites/${list}`, {
       method: 'POST',

@@ -17,3 +17,8 @@ export const removeFromList = (restaurantId) => ({
   type: 'REMOVEFROMLIST',
   restaurantId
 })
+
+export const listInfo = (listId) => ({
+  type: 'LIST_INFO',
+  listId
+})
