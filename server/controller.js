@@ -15,6 +15,23 @@ exports.searchRestaurants = async (ctx) => {
   }
 }
 
+exports.getListInfo = async (ctx) => {
+  const listId = ctx.params.listId;
+  console.log('type of listId', typeof listId);
+  try {
+    const listInfo = await db.Lists.findOne({
+      where: {
+        id: listId
+      }
+    })
+    console.log('selected list', listInfo);
+    ctx.body = listInfo;
+    ctx.status = 200;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 exports.loadFavoritesFromList = async (ctx) => {
   const listId = ctx.params.listId;
 
@@ -103,34 +120,19 @@ exports.removeFromFavorites = async (ctx) => {
 }
 
 exports.createList = async (ctx) => {
-  const listOfRestaurants = ctx.request.body;
+  const submittedList = ctx.request.body;
 
-  const doesListExist = await db.Lists.findAll({
-    where: {
-      id: listOfRestaurants.listId
-    }
-  })
-
-  if (doesListExist.length !== 0) {
-    console.log('List already exists')
-  } else {
+  try {
     const newList = await db.Lists.create({
-      listname: listOfRestaurants.listname,
-      listdetails: listOfRestaurants.listdetails,
-      id: listOfRestaurants.listId
-    });
-
-    const restaurantsInList = listOfRestaurants.restaurantsinlist;
-  
-    await Promise.all(restaurantsInList.map(async (restaurant) => {
-      await db.FavoritesList.create({
-        favoriteId: restaurant.id,
-        listId: newList.id
-      })
-    }))
-    .catch(err => {
-      console.log(err);
+      listname: submittedList.listname,
+      listdetails: submittedList.listdetails,
+      id: submittedList.listId //refactor this to generate the UUID in the backend instead of the frontend
     })
+    ctx.body = newList;
+    ctx.status = 200;
+  } catch (err) {
+    console.log(err);
+    ctx.status = 500;
   }
-
 }
+

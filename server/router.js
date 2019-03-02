@@ -3,7 +3,9 @@ const ctrl = require('./controller');
 
 const router = new Router();
 
-router.get('/:listId', ctrl.loadFavoritesFromList);
+router.get('/:listId', ctrl.getListInfo);
+
+router.get('/:listId/view', ctrl.loadFavoritesFromList);
 
 router.post('/search', ctrl.searchRestaurants); 
 

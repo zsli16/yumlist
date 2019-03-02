@@ -10,7 +10,7 @@ class CreateList extends Component {
     this.state = {
       listTitle: '',
       listDescription: '',
-      listId: uuid.v4(),
+      listId: uuid.v4(), // refactor this to generate UUID from server rather than client
     };
   }
 
@@ -38,10 +38,10 @@ class CreateList extends Component {
       body: JSON.stringify({
         "listname": listName,
         "listdetails": listDetails,
-        "listId": this.state.listId,
+        "listId": this.state.listId, // refactor this to generate UUID from server rather than client
       })
     })
-     // then redirect or render to the searchbar component <Yumlist id={this.state.listId}>
+    .then(this.props.history.push(`/list/${this.state.listId}`))
   }
 
   render() {
@@ -54,10 +54,11 @@ class CreateList extends Component {
             <input type="text" className="list-details" placeholder="Edit List Title" name="list-title" value={this.state.listTitle} onChange={evt => this.updateTitle(evt)}/>
             <input type="text" className="list-details" placeholder="Edit List Details" name="list-details" value={this.state.listDescription} onChange={evt => this.updateDescription(evt)}/>
           </div>
-          <Link to="/list">
-            <button className="save-list" onClick={this.saveList}>Create List</button>
-          </Link>
-          <Route path="/list" component={Yumlist}/>
+
+          <button className="save-list" onClick={this.saveList}>Create List</button>
+          
+          <Route exact path='/list/:listId' component={Yumlist}/> 
+
         </div>
 
       </Router>
