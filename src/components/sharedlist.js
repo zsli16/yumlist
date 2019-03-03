@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addToList, loadFavorites, voteForRestaurant } from '../actions.js';
 import SharedRestaurant from './sharedrestaurant';
+import logo from './../assets/yumlist-logo.png';
 
 class SharedList extends Component {
 
@@ -44,15 +45,13 @@ class SharedList extends Component {
     const items = list.map(result => <SharedRestaurant list={this.state.listId} key={result.id} restaurant={result} voteForRestaurant={this.props.voteForRestaurant}/>);
 
     return (
-      <div className="list-wrapper">
-      
-      <div className="list-input">
-        <h3>{this.state.listName}</h3>
-        <h3>{this.state.listDetails}</h3>
-      </div>
-
+      <div className="sharedlist-wrapper">
+        <img src={logo} alt="Logo" className="yumlist-logo"/>
+        <div className="sharedlist-items">
+        <h1>{this.state.listName}</h1>
+        <h1>{this.state.listDetails}</h1>
         {items}
-
+        </div>
       </div>
     )
   }

@@ -22,3 +22,9 @@ export const voteForRestaurant = (restaurantId) => ({
   type: 'VOTE',
   restaurantId
 })
+
+export const unVoteForRestaurant = (restaurantId) => ({
+  type: 'UNVOTE',
+  restaurantId
+})
+

@@ -3,6 +3,9 @@ import uuid from 'uuid';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Yumlist from './yumlist';
 import Searchbar from './searchbar';
+import logo from './../assets/yumlist-logo.png';
+import write from './../assets/write.png';
+import profile from './../assets/profile.png';
 
 class CreateList extends Component {
 
@@ -48,28 +51,27 @@ class CreateList extends Component {
         this.props.history.push(`/list/${this.state.listId}`);
       });
     })
-    // .then(res => this.props.history.push(/list/res.id))
-
-    // problem: still trying to select before entry is created. title and description only appear on refresh.
   }
+
 
   render() {
     return (
       <Router>
-        <div className="list-wrapper">
-          <h1>Yumlist</h1>
-          <h2>Create New List</h2>
-          <div className="list-input">
-            <input type="text" className="list-details" placeholder="Edit List Title" name="list-title" value={this.state.listTitle} onChange={evt => this.updateTitle(evt)}/>
-            <input type="text" className="list-details" placeholder="Edit List Details" name="list-details" value={this.state.listDescription} onChange={evt => this.updateDescription(evt)}/>
+        <div class="create-list">
+          <img src={logo} alt="Logo" className="yumlist-logo"/>
+          <div className="create-list-wrapper">
+            <h2>Create New List</h2>
+            <div className="list-input">
+              <input type="text" autoComplete="off" className="list-details" placeholder="Edit List Title" name="list-title" value={this.state.listTitle} onChange={evt => this.updateTitle(evt)}/>
+              <input type="text" autoComplete="off" className="list-details" placeholder="Edit List Details" name="list-details" value={this.state.listDescription} onChange={evt => this.updateDescription(evt)}/>
+            </div>
+
+            <button className="save-list" onClick={this.saveList}>Save List</button>
+    
+            <Route exact path='/list/:listId' component={Yumlist}/>
+            <Route exact path='/list/:listId' component={Searchbar}/>  
+            {/* <Route exact path='/list/:listId' render={ (props) => <Yumlist {...props} /> }/>  */}
           </div>
-
-          <button className="save-list" onClick={this.saveList}>Create List</button>
-  
-          <Route exact path='/list/:listId' component={Yumlist}/>
-          <Route exact path='/list/:listId' component={Searchbar}/>  
-          {/* <Route exact path='/list/:listId' render={ (props) => <Yumlist {...props} /> }/>  */}
-
         </div>
 
       </Router>

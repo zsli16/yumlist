@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SearchList from './searchlist';
 import { connect } from 'react-redux';
 import { updateSearchResults, addToList } from '../actions.js';
+import logo from './../assets/yumlist-logo.png';
 
 class Searchbar extends Component {
 
@@ -43,7 +44,9 @@ class Searchbar extends Component {
   render() {
     return (
       <div className="search-fields">
-        <input type="text" id="restaurant-search" placeholder="Search restaurants" onChange={this.handleChange}/>
+        <img src={logo} alt="Logo" className="yumlist-logo"/>
+
+        <input type="text" autoComplete="off" id="restaurant-search" placeholder="Search restaurants" onKeyUp={this.handleChange}/>
         <SearchList results={this.props.searchList} /> 
         <div className="location">
           <p className="current-location">Barcelona, ES</p>

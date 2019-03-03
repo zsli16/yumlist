@@ -42,24 +42,36 @@ class Yumlist extends Component {
   }
 
   render() {
-
+    let cta;
     const list = this.props.favoritesList;
     const items = list.map(result => <FavoriteRestaurant list={this.state.listId} key={result.id} restaurant={result} removeFromList={this.props.removeFromList}/>);
+    if (items.length) {
+      cta = <button className="share-list" onClick={this.shareList}>Share List</button>
+    } else {
+      cta = <h1>Go ahead and add some restaurants to your list!</h1>
+    }
 
     return (
-      <div className="list-wrapper">
+    
+      <div className="yumlist-body-wrapper">
+        
         <Searchbar/>
 
-      <Modal show={this.state.openDialog} onClose={this.shareList} listId={this.state.listId}>
-        Here's my modal
-      </Modal>
+        <Modal show={this.state.openDialog} onClose={this.shareList} listId={this.state.listId}>
+          Here's my modal
+        </Modal>
 
-        <div className="list-input">
-          <h1>{this.state.listName}</h1>
-          <h2>{this.state.listDetails}</h2>
+        <div className="yumlist-wrapper">
+
+          <div className="yumlist-items">
+            <h1>{this.state.listName}</h1>
+            <h2>{this.state.listDetails}</h2>
+            {items}
+            {cta}
+          </div>
+
         </div>
-        {items}
-          <button className="save-list" onClick={this.shareList}>Share List</button>
+
       </div>
     )
   }

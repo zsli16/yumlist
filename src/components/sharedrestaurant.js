@@ -20,7 +20,6 @@ const SharedRestaurant = ({restaurant, voteForRestaurant, list}) => {
     // })
 
     // TODO: With response, call reducers to update the view
-
   }
 
   return (
