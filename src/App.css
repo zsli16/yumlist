@@ -350,5 +350,10 @@ body {
   padding: 40px;
 }
 
+#current-votes {
+  color: black;
+  font-weight: bold;
+}
+
 
 

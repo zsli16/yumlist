@@ -12,6 +12,8 @@ router.get('/:listId', ctrl.getListInfo);
 
 router.get('/load/:listId', ctrl.loadFavoritesFromList);
 
+router.get('/loadshared/:listId', ctrl.loadFavoritesFromListWithScore);
+
 router.post('/search', ctrl.searchRestaurants); 
 
 router.post('/createlist', ctrl.createList); 

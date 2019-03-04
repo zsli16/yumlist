@@ -13,7 +13,7 @@ const Searchresult = ({restaurant, ...props}) => {
       rating: restaurant.rating,
       price: restaurant.price,
       url: restaurant.url,
-      review_count: restaurant.review_count
+      review_count: restaurant.review_count,
     }
 
     const list = window.location.pathname.slice('/list/'.length);

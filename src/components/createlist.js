@@ -62,8 +62,8 @@ class CreateList extends Component {
           <div className="create-list-wrapper">
             <h2>Create New List</h2>
             <div className="list-input">
-              <input type="text" autoComplete="off" className="list-details" placeholder="Edit List Title" name="list-title" value={this.state.listTitle} onChange={evt => this.updateTitle(evt)}/>
-              <input type="text" autoComplete="off" className="list-details" placeholder="Edit List Details" name="list-details" value={this.state.listDescription} onChange={evt => this.updateDescription(evt)}/>
+              <input type="text" autoComplete="off" className="list-details" placeholder="List Name" name="list-title" value={this.state.listTitle} onChange={evt => this.updateTitle(evt)}/>
+              <input type="text" autoComplete="off" className="list-details" placeholder="Your Name" name="list-details" value={this.state.listDescription} onChange={evt => this.updateDescription(evt)}/>
             </div>
 
             <button className="save-list" onClick={this.saveList}>Save List</button>

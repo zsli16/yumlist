@@ -8,8 +8,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     listId: DataTypes.TEXT,
     favoriteId: DataTypes.TEXT,
-    score: DataTypes.INTEGER
+    score: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    }
   }, {});
+
+  // FavoritesLists.sync({force: true});
 
   return FavoritesLists;
 };

@@ -17,7 +17,6 @@ exports.searchRestaurants = async (ctx) => {
 
 exports.getListInfo = async (ctx) => {
   const listId = ctx.params.listId;
-  console.log('get listId from server', listId);
   try {
     const listInfo = await db.Lists.findOne({
       where: {
@@ -25,7 +24,6 @@ exports.getListInfo = async (ctx) => {
       },
       raw: true
     })
-    console.log('selected list', listInfo);
     ctx.body = listInfo;
     ctx.status = 200;
   } catch (err) {
@@ -44,12 +42,39 @@ exports.loadFavoritesFromList = async (ctx) => {
         where: { id: listId }
       }]
     });
+    console.log('favorite restaurants in list', favoritesOnLoad);
     ctx.body = favoritesOnLoad;
     ctx.status = 200;
   } catch (err) {
     console.log(err);
   }
+}
 
+exports.loadFavoritesFromListWithScore = async (ctx) => {
+  const listId = ctx.params.listId;
+
+  try {
+    const favoritesOnLoad = await db.Favorites.findAll({ // get all favorites in sharedlist
+      include: [{
+        model: db.Lists,
+        where: { id: listId },
+        through: {
+          attributes: ['score'] // A list of attributes to select from the join model for belongsToMany relations
+        }
+      }]
+    })
+
+    const result = favoritesOnLoad.map(res => ({
+      ...res.dataValues,
+      score: res.dataValues.Lists[0].FavoritesLists.score
+    }));  
+
+    console.log('result', result)
+    ctx.body = result;
+    ctx.status = 200;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 exports.addToFavorites = async (ctx) => {

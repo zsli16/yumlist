@@ -33,11 +33,11 @@ const SharedRestaurant = ({restaurant, voteForRestaurant, list}) => {
         <a href={restaurant.url} className="favorite-url">View More</a>
       </div>
       <div className="favorite-right">
-        <div className="favorite-rating">{restaurant.rating}<span className="favorite-reviewcount">{restaurant.review_count}</span></div>
+        <div className="favorite-rating">Review Score: {restaurant.rating} <span className="favorite-reviewcount">Reviewed by: {restaurant.review_count} People</span></div>
         
-        <p id="current-votes">4</p>
+        <p id="current-votes">{restaurant.score} Yums </p>
 
-        <button className="like-restaurant" onClick={() => toggleVote(restaurant)} >YUM</button>
+        <button className="like-restaurant" onClick={() => toggleVote(restaurant)} >ADD YUM</button>
       </div>
     </div>
 

@@ -15,11 +15,12 @@ class SharedList extends Component {
       }
     }
 
+  // get all restaurants from this particular list
   getRestaurants = (listId) => {
-    fetch(`http://localhost:3001/load/${listId}`)
+    fetch(`http://localhost:3001/loadshared/${listId}`)
       .then(res => res.json())
       .then(res => res.map(restaurant => {
-        this.props.addToList(restaurant)
+        this.props.addToList(restaurant) // adds restaurants to favorites list
         return restaurant // return each restaurant instead of the action object
       }))
       .then(res => this.props.loadFavorites(res))
@@ -30,6 +31,7 @@ class SharedList extends Component {
       .then(res => res.json())
       .then(res => { 
         this.setState({listName: res.listname, listDetails: res.listdetails }, () => {
+          // console.log('restaurants in list', res);
           this.getRestaurants(this.state.listId) 
         })})
   }
@@ -42,7 +44,7 @@ class SharedList extends Component {
   render() {
 
     const list = this.props.favoritesList;
-    const items = list.map(result => <SharedRestaurant list={this.state.listId} key={result.id} restaurant={result} voteForRestaurant={this.props.voteForRestaurant}/>);
+    const items = list.map(result => <SharedRestaurant score={result.score} list={this.state.listId} key={result.id} restaurant={result} voteForRestaurant={this.props.voteForRestaurant}/>);
 
     return (
       <div className="sharedlist-wrapper">

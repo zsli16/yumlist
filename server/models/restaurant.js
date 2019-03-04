@@ -36,7 +36,6 @@ module.exports = (sequelize, DataTypes) => {
     Favorites.belongsToMany(db.Lists, {through: 'FavoritesLists', foreignKey: 'favoriteId'});
   };
   
-  // Favorites.sync();
 
   return Favorites;
 }
