@@ -44,7 +44,7 @@ class SharedList extends Component {
   render() {
 
     const list = this.props.favoritesList;
-    const items = list.map(result => <SharedRestaurant score={result.score} list={this.state.listId} key={result.id} restaurant={result} voteForRestaurant={this.props.voteForRestaurant}/>);
+    const items = list.map(result => <SharedRestaurant score={result.score} list={this.state.listId} key={result.id} restaurant={result} reloadScore={this.getRestaurants}/>);
 
     return (
       <div className="sharedlist-wrapper">

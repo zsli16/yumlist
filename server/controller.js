@@ -69,7 +69,6 @@ exports.loadFavoritesFromListWithScore = async (ctx) => {
       score: res.dataValues.Lists[0].FavoritesLists.score
     }));  
 
-    console.log('result', result)
     ctx.body = result;
     ctx.status = 200;
   } catch (err) {
@@ -164,24 +163,29 @@ exports.createList = async (ctx) => {
   }
 }
 
-// exports.likeRestaurantByList = async (ctx) => {
-//   const listId = ctx.params.listId;
-//   const restaurantId = ctx.params.restaurantId;
-//   console.log('you liked this restaurant!')
-// }
-
-// exports.removeLikeRestaurantByList = async (ctx) => {
-//   const listId = ctx.params.listId;
-//   const restaurantId = ctx.params.restaurantId;
-//   console.log('you unliked this restaurant!')
-// }
-
 exports.updateVote = async (ctx) => {
+  const { listId, restaurantId, voted } = ctx.params;
+  
+
+  // const updated = await db.FavoritesList.update({
+  //   score: db.FavoritesList.col('score') + 1
+  // }, {where})
   try {
-    const { listId, restaurantId, vote } = ctx.params;
-    const updatedRestaurant = 'find the restaurant by restaurantId and by listId and update the score conditionally'; 
-    // vote === 'up' ? {score: 1} : {score: 0} , {new: true} ) PSEUDOCODE FROM MONGO - FIND SEQUELIZE VERSION
-    ctx.body = updatedRestaurant;
+    const selectedRestaurant = await db.FavoritesLists.findOne({
+      where: {
+         favoriteId: restaurantId,
+         listId: listId
+      }
+    })
+      .then(selectedRestaurant => {
+        console.log('voted value', voted); // returns true or false
+        return voted === 'true' ? selectedRestaurant.increment('score', {by: 1}) : selectedRestaurant.decrement('score', {by: 1});
+      })
+      .then(selectedRestaurant => {
+        selectedRestaurant.reload();
+        return selectedRestaurant;
+      });
+    ctx.body = selectedRestaurant;
     ctx.status = 201;
   } catch (err) {
     console.log(err);

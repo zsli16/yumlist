@@ -6,7 +6,7 @@ const router = new Router();
 // router.post('like/:listId/:restaurantId/', ctrl.likeRestaurantByList);
 // router.post('unlike/:listId/:restaurantId/', ctrl.removeLikeRestaurantByList);
 
-router.put('/:listId/:restaurantId/:vote', ctrl.updateVote);
+router.put('/:listId/:restaurantId/:voted', ctrl.updateVote);
 
 router.get('/:listId', ctrl.getListInfo);
 

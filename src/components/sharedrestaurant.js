@@ -1,23 +1,24 @@
 import React from 'react';
 
-const SharedRestaurant = ({restaurant, voteForRestaurant, list}) => {
+const SharedRestaurant = ({restaurant, reloadScore, list}) => {
   
- 
+  let voted = false;
+
   const toggleVote = (restaurant) => {
-    console.log('restaurantId', restaurant.id);
-    console.log('listId', list);
+    const listId = list;
+    const restaurantId = restaurant.id;
+    voted = !voted;
+    console.log(voted);
 
-    // TODO:
-    // if button state is inactive, set :vote to up increase score
-    // if button state is active, set :vote to decrease score
-
-    // TODO: Finish writing fetch and pass in the parameters
-    // fetch(`http://localhost:3000/${listId}/${restaurantId}/${vote}`, {
-    //   method: 'PUT',
-    //   headers: {
-    //     'Content-Length': 0
-    //   }
-    // })
+    fetch(`http://localhost:3001/${listId}/${restaurantId}/${voted}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "resturantId": restaurantId
+      })
+    })
 
     // TODO: With response, call reducers to update the view
   }
@@ -37,7 +38,7 @@ const SharedRestaurant = ({restaurant, voteForRestaurant, list}) => {
         
         <p id="current-votes">{restaurant.score} Yums </p>
 
-        <button className="like-restaurant" onClick={() => toggleVote(restaurant)} >ADD YUM</button>
+        <button className="like-restaurant" onClick={() => toggleVote(restaurant)}>ADD YUM</button>
       </div>
     </div>
 
