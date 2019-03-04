@@ -18,7 +18,7 @@ class Yumlist extends Component {
     };
   }
 
-  getListInfo = (listId) => {
+  getListInfo = (listId) => { //runs on componentDidMount
     fetch(`http://localhost:3001/${listId}`)
       .then(res => res.json())
       .then(res => { 
@@ -27,7 +27,8 @@ class Yumlist extends Component {
         })})
   }
 
-  loadRestaurantsfromList = (listId) => {
+  loadRestaurantsfromList = (listId) => { // goes to ctrl.loadFavoritesFromList
+    console.log('fetching restaurants saved to list');
     fetch(`http://localhost:3001/load/${listId}/`)
       .then(res => res.json())
       .then(res => this.props.loadFavorites(res))
@@ -45,6 +46,7 @@ class Yumlist extends Component {
     let cta;
     const list = this.props.favoritesList;
     const items = list.map(result => <FavoriteRestaurant list={this.state.listId} key={result.id} restaurant={result} removeFromList={this.props.removeFromList}/>);
+    
     if (items.length) {
       cta = <button className="share-list" onClick={this.shareList}>Share List</button>
     } else {
@@ -57,9 +59,7 @@ class Yumlist extends Component {
         
         <Searchbar/>
 
-        <Modal show={this.state.openDialog} onClose={this.shareList} listId={this.state.listId}>
-          Here's my modal
-        </Modal>
+        <Modal show={this.state.openDialog} onClose={this.shareList} listId={this.state.listId}/>
 
         <div className="yumlist-wrapper">
 

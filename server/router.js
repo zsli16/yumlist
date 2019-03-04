@@ -3,8 +3,16 @@ const ctrl = require('./controller');
 
 const router = new Router();
 
-// router.post('like/:listId/:restaurantId/', ctrl.likeRestaurantByList);
-// router.post('unlike/:listId/:restaurantId/', ctrl.removeLikeRestaurantByList);
+// add and remove votes on each list
+router.post('/addvote', ctrl.addVote);
+router.delete('/removevote', ctrl.removeVote);
+
+
+router.put('/updateshared/:listId', ctrl.loadVotesFromAllUsers);
+
+router.get('/loadshared/:listId', ctrl.loadFavoritesFromListWithScore);
+
+
 
 router.put('/:listId/:restaurantId/:voted', ctrl.updateVote);
 
@@ -12,7 +20,6 @@ router.get('/:listId', ctrl.getListInfo);
 
 router.get('/load/:listId', ctrl.loadFavoritesFromList);
 
-router.get('/loadshared/:listId', ctrl.loadFavoritesFromListWithScore);
 
 router.post('/search', ctrl.searchRestaurants); 
 

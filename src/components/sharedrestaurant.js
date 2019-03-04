@@ -1,26 +1,37 @@
 import React from 'react';
 
-const SharedRestaurant = ({restaurant, reloadScore, list}) => {
+const SharedRestaurant = ({restaurant, reloadScore, list, username}) => {
   
   let voted = false;
 
   const toggleVote = (restaurant) => {
-    const listId = list;
-    const restaurantId = restaurant.id;
     voted = !voted;
-    console.log(voted);
-
-    fetch(`http://localhost:3001/${listId}/${restaurantId}/${voted}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        "resturantId": restaurantId
+    console.log(voted, 'you voted!');
+    if (voted) {
+      fetch('http://localhost:3001/addvote', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "listId": list,
+          "restaurantId": restaurant.id,
+          "username": username
+        })
       })
-    })
-
-    // TODO: With response, call reducers to update the view
+    } else {
+      fetch('http://localhost:3001/removevote', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "listId": list,
+          "restaurantId": restaurant.id,
+          "username": username
+        })
+      })
+    }
   }
 
   return (
@@ -36,7 +47,8 @@ const SharedRestaurant = ({restaurant, reloadScore, list}) => {
       <div className="favorite-right">
         <div className="favorite-rating">Review Score: {restaurant.rating} <span className="favorite-reviewcount">Reviewed by: {restaurant.review_count} People</span></div>
         
-        <p id="current-votes">{restaurant.score} Yums </p>
+        <p id="current-votes">{restaurant.score} Yums </p> 
+
 
         <button className="like-restaurant" onClick={() => toggleVote(restaurant)}>ADD YUM</button>
       </div>

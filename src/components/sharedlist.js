@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { addToList, loadFavorites, voteForRestaurant } from '../actions.js';
 import SharedRestaurant from './sharedrestaurant';
 import logo from './../assets/yumlist-logo.png';
+import CreateUserModal from './createuser';
 
 class SharedList extends Component {
 
@@ -12,6 +13,9 @@ class SharedList extends Component {
         listId: window.location.pathname.slice('/share/'.length),
         listName: '',
         listDetails: '',
+        username: '',
+        voted: '',
+        createUserDialog: true  
       }
     }
 
@@ -36,6 +40,26 @@ class SharedList extends Component {
         })})
   }
 
+  createUser = (username) => {
+    this.setState({username: username, createUserDialog: false},  () => console.log('new username is', this.state.username))
+  }
+
+  updateShared = () => {
+    
+    fetch(`http://localhost:3001/updateshared/${this.state.listId}`, {
+      method: 'PUT',
+      'Content-Type': 'application/json',
+      body: JSON.stringify({"update": "ok"})
+    })
+    .then(res => res.text())
+    .then(res => this.getRestaurants(res))
+
+    this.setState({createUserDialog: false});
+    
+    // window.location.reload();
+
+  }
+
   componentDidMount() {
     const list = this.state.listId;
     this.getListInfo(list);
@@ -44,16 +68,24 @@ class SharedList extends Component {
   render() {
 
     const list = this.props.favoritesList;
-    const items = list.map(result => <SharedRestaurant score={result.score} list={this.state.listId} key={result.id} restaurant={result} reloadScore={this.getRestaurants}/>);
+    const items = list.map(result => <SharedRestaurant score={result.score} list={this.state.listId} key={result.id} username={this.state.username} restaurant={result} reloadScore={this.getRestaurants}/>);
 
     return (
+
       <div className="sharedlist-wrapper">
+
+        <CreateUserModal createUser={this.createUser} show={this.state.createUserDialog} listId={this.state.listId}>
+            Here's my modal
+        </CreateUserModal>
+
         <img src={logo} alt="Logo" className="yumlist-logo"/>
         <div className="sharedlist-items">
         <h1>{this.state.listName}</h1>
         <h1>{this.state.listDetails}</h1>
         {items}
         </div>
+
+        <button onClick={this.updateShared}>Save Yums</button>
       </div>
     )
   }
