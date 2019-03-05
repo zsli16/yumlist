@@ -4,6 +4,7 @@ import { loadFavorites, voteForRestaurant, addMultipleToList } from '../actions.
 import SharedRestaurant from './sharedrestaurant';
 import logo from './../assets/yumlist-logo.png';
 import CreateUserModal from './createuser';
+import VotesSubmitted from './votessubmitted';
 import {withRouter} from 'react-router-dom';
 
 class SharedList extends Component {
@@ -17,7 +18,8 @@ class SharedList extends Component {
         username: '',
         voted: '',
         createUserDialog: true,
-        thanksForSharing: false // to open a dialog to confirm sharing
+        votesSubmitted: false, // to open a dialog to confirm sharing
+        url: 'http://sues-macbook-pro.local:3001'
       }
     }
   
@@ -28,9 +30,8 @@ class SharedList extends Component {
 
   // get all restaurants from this particular list
   getRestaurants = (listId) => {
-    const url = 'http://sues-macbook-pro.local:3001';
 
-    fetch(`${url}/loadshared/${listId}`)
+    fetch(`${this.state.url}/loadshared/${listId}`)
       .then(res => res.json())
       .then(res => {
         this.props.addMultipleToList(res) // adds all restaurants to favoritesList in redux
@@ -40,9 +41,8 @@ class SharedList extends Component {
   }
 
   getListInfo = (listId) => {
-    const url = 'http://sues-macbook-pro.local:3001';
 
-    fetch(`${url}/${listId}`)
+    fetch(`${this.state.url}/${listId}`)
       .then(res => res.json())
       .then(res => { 
         this.setState({listName: res.listname, listDetails: res.listdetails }, () => {
@@ -52,20 +52,18 @@ class SharedList extends Component {
   }
 
   createUser = (username) => {
-    this.setState({username: username, createUserDialog: false},  () => console.log('new username is', this.state.username))
+    this.setState({username: username, createUserDialog: false},  () => console.log('user created'))
   }
 
   updateShared = () => {
-    this.setState({createUserDialog: false});
-    
-    fetch(`http://localhost:3001/updateshared/${this.state.listId}`, {
+    this.setState({createUserDialog: false, votesSubmitted: true}, () => console.log('updated votes!'));
+    fetch(`${this.state.url}/updateshared/${this.state.listId}`, {
       method: 'PUT',
       'Content-Type': 'application/json',
       body: JSON.stringify({"update": "ok"})
     })
     .then(res => res.text())
     .then(res => this.getRestaurants(res))
-
   }
 
 
@@ -77,6 +75,8 @@ class SharedList extends Component {
     return (
 
       <div className="sharedlist-wrapper">
+        
+        <VotesSubmitted show={this.state.votesSubmitted} onClose={this.props.onClose}/>
 
         <CreateUserModal createUser={this.createUser} show={this.state.createUserDialog} listId={this.state.listId} listDetails={this.state.listDetails} listName={this.state.listName}/>
 
