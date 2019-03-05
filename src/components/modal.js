@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import SharedList from './sharedlist';
 import close from './../assets/close.png';
+import { Link } from "react-router-dom";
 
 class Modal extends React.Component {
   

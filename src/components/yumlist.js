@@ -20,7 +20,7 @@ class Yumlist extends Component {
 
   getListInfo = (listId) => { //runs on componentDidMount
     const url = 'http://sues-macbook-pro.local:3001';
-    
+
     fetch(`${url}/${listId}`)
       .then(res => res.json())
       .then(res => { 
@@ -68,8 +68,8 @@ class Yumlist extends Component {
           <div className="yumlist-wrapper">
 
             <div className="yumlist-items">
-              <h1>{this.state.listName}</h1>
-              <h2>{this.state.listDetails}</h2>
+              <h1>{this.state.listName} </h1>
+              <h2>A List Created By {this.state.listDetails}</h2>
               {items}
               {cta}
             </div>

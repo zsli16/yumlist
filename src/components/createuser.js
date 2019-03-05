@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import SharedList from './sharedlist';
 
 class CreateUserModal extends React.Component {
   
@@ -35,16 +33,11 @@ class CreateUserModal extends React.Component {
           <h1>Join List</h1>
 
           <div className="copy-input">
-            <input type="text" placeholder="Your Name" id="username" className="list-url" onChange={this.onChange} value={this.state.username} />
+            <input type="text" autoComplete="off" placeholder="Your Name" id="username" className="list-url" onChange={this.onChange} value={this.state.username} />
           </div>
-
-          {/* <Link to={ {pathname: `/share/${this.props.listId}`}} >  */}
             <button className="go-there" onClick={this.handleClose} >Join List</button>
-          {/* </Link> */}
-
           </div>
         </div>
-          {/* <Route exact path={`/share/${this.props.listId}/${this.state.username}`} component={SharedList}/>   */}
       </div>
 
 

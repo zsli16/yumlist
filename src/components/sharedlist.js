@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addToList, loadFavorites, voteForRestaurant, addMultipleToList } from '../actions.js';
+import { loadFavorites, voteForRestaurant, addMultipleToList } from '../actions.js';
 import SharedRestaurant from './sharedrestaurant';
 import logo from './../assets/yumlist-logo.png';
 import CreateUserModal from './createuser';
@@ -16,7 +16,8 @@ class SharedList extends Component {
         listDetails: '',
         username: '',
         voted: '',
-        createUserDialog: true  
+        createUserDialog: true,
+        thanksForSharing: false // to open a dialog to confirm sharing
       }
     }
   
@@ -32,10 +33,10 @@ class SharedList extends Component {
     fetch(`${url}/loadshared/${listId}`)
       .then(res => res.json())
       .then(res => {
-        this.props.addMultipleToList(res) // adds restaurants to favorites list
-        return res // return each restaurant instead of the action object
+        this.props.addMultipleToList(res) // adds all restaurants to favoritesList in redux
+        return res
       })
-      .then(res => this.props.loadFavorites(res))
+      .then(res => this.props.loadFavorites(res)) // loads all restaurants but apparently not necessary
   }
 
   getListInfo = (listId) => {
@@ -65,10 +66,8 @@ class SharedList extends Component {
     .then(res => res.text())
     .then(res => this.getRestaurants(res))
 
-    
-    // window.location.reload();
-
   }
+
 
   render() {
 
@@ -79,9 +78,7 @@ class SharedList extends Component {
 
       <div className="sharedlist-wrapper">
 
-        <CreateUserModal createUser={this.createUser} show={this.state.createUserDialog} listId={this.state.listId}>
-            Here's my modal
-        </CreateUserModal>
+        <CreateUserModal createUser={this.createUser} show={this.state.createUserDialog} listId={this.state.listId}/>
 
         <img src={logo} alt="Logo" className="yumlist-logo"/>
         <div className="sharedlist-items">
@@ -102,7 +99,6 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  // addToList: (restaurant) => dispatch(addToList(restaurant)),
   addMultipleToList: (restaurants) => dispatch(addMultipleToList(restaurants)),
   loadFavorites: (favorites) => dispatch(loadFavorites(favorites)),
   voteForRestaurant: (restaurantId) => dispatch(voteForRestaurant(restaurantId))

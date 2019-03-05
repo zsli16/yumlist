@@ -1,24 +1,19 @@
 import React from 'react';
 import emoji from './../assets/emoji-icon.png';
 
-
-const SharedRestaurant = ({restaurant, reloadScore, list, username}) => {
+class SharedRestaurant extends React.Component  {
   
-  let voted = false;
-  let emoji = null;
+  state = {
+    voted : false,
+    url : 'http://sues-macbook-pro.local:3001'
+  }
 
-  const url = 'http://sues-macbook-pro.local:3001';
+  toggleVote = async (restaurant, username, list) => {
+    await this.setState({voted: !this.state.voted}, () => console.log(this.state.voted, 'toggledVote'));
 
-  const toggleVote = (restaurant) => {
-    voted = !voted;
-    console.log(voted, 'you voted!');
-    
-    if (voted) {
-      emoji = <img src={emoji} alt="emoji"/>
-    }
-
-    if (voted) {
-      fetch(`${url}/addvote`, {
+    if (this.state.voted) {
+      console.log(this.state.voted, 'inside of if statement')
+      fetch(`${this.state.url}/addvote`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -30,7 +25,7 @@ const SharedRestaurant = ({restaurant, reloadScore, list, username}) => {
         })
       })
     } else {
-      fetch(`${url}/removevote`, {
+      fetch(`${this.state.url}/removevote`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
@@ -42,8 +37,12 @@ const SharedRestaurant = ({restaurant, reloadScore, list, username}) => {
         })
       })
     }
+
   }
 
+
+render () {
+  const {restaurant, list, username} = this.props;
   return (
     <div className="favorite-restaurant">
       <div className="favorite-left">
@@ -57,16 +56,17 @@ const SharedRestaurant = ({restaurant, reloadScore, list, username}) => {
       <div className="favorite-right">
         <div className="favorite-rating">Review Score: {restaurant.rating} <span className="favorite-reviewcount">Reviewed by: {restaurant.review_count} People</span></div>
         
-        
         <p id="current-votes">{restaurant.score} Yums </p>
-
-        {emoji}
-
-        <button className="like-restaurant" onClick={() => toggleVote(restaurant)}>ADD YUM</button>
+        {console.log('this.state.voted', this.state.voted)}
+        { this.state.voted
+          ? <img src={emoji} alt="emoji"/> 
+          : null
+        }
+        <button className="like-restaurant" onClick={() => this.toggleVote(restaurant, username, list)}>ADD YUM</button>
       </div>
     </div>
-
-  )
+    )
+  }
 }
 
 export default SharedRestaurant;
