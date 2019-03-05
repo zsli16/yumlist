@@ -14,6 +14,8 @@ class Searchbar extends Component {
   }
 
   searchRestaurants = (userInput) => {
+    const url = 'http://sues-macbook-pro.local:3001';
+
     const searchTerm = {
       "term": userInput,
       "categories": "restaurants, bars, food",
@@ -22,7 +24,7 @@ class Searchbar extends Component {
       "limit": 5
     }
 
-    fetch('http://localhost:3001/search', {
+    fetch(`${url}/search`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -46,7 +48,7 @@ class Searchbar extends Component {
       <div className="search-fields">
         <img src={logo} alt="Logo" className="yumlist-logo"/>
 
-        <input type="text" autoComplete="off" id="restaurant-search" placeholder="Search restaurants" onKeyUp={this.handleChange}/>
+        <input type="text" autoComplete="off" id="restaurant-search" placeholder="Search restaurants" onChange={this.handleChange}/>
         <SearchList results={this.props.searchList} /> 
         <div className="location">
           <p className="current-location">Barcelona, ES</p>

@@ -17,10 +17,9 @@ const Searchresult = ({restaurant, ...props}) => {
     }
 
     const list = window.location.pathname.slice('/list/'.length);
+    const url = 'http://sues-macbook-pro.local:3001';
 
-    console.log('current list from search result', list);
-
-    fetch(`http://localhost:3001/addtofavorites/${list}`, {
+    fetch(`${url}/addtofavorites/${list}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -34,6 +33,7 @@ const Searchresult = ({restaurant, ...props}) => {
       .then(res => {
         props.addToList(res);  
       })
+      // .then() close the searchlist
       .catch(err => console.log(err));
   }
 

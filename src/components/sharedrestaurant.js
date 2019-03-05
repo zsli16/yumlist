@@ -1,14 +1,24 @@
 import React from 'react';
+import emoji from './../assets/emoji-icon.png';
+
 
 const SharedRestaurant = ({restaurant, reloadScore, list, username}) => {
   
   let voted = false;
+  let emoji = null;
+
+  const url = 'http://sues-macbook-pro.local:3001';
 
   const toggleVote = (restaurant) => {
     voted = !voted;
     console.log(voted, 'you voted!');
+    
     if (voted) {
-      fetch('http://localhost:3001/addvote', {
+      emoji = <img src={emoji} alt="emoji"/>
+    }
+
+    if (voted) {
+      fetch(`${url}/addvote`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -20,7 +30,7 @@ const SharedRestaurant = ({restaurant, reloadScore, list, username}) => {
         })
       })
     } else {
-      fetch('http://localhost:3001/removevote', {
+      fetch(`${url}/removevote`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
@@ -47,8 +57,10 @@ const SharedRestaurant = ({restaurant, reloadScore, list, username}) => {
       <div className="favorite-right">
         <div className="favorite-rating">Review Score: {restaurant.rating} <span className="favorite-reviewcount">Reviewed by: {restaurant.review_count} People</span></div>
         
-        <p id="current-votes">{restaurant.score} Yums </p> 
+        
+        <p id="current-votes">{restaurant.score} Yums </p>
 
+        {emoji}
 
         <button className="like-restaurant" onClick={() => toggleVote(restaurant)}>ADD YUM</button>
       </div>

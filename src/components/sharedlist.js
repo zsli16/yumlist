@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addToList, loadFavorites, voteForRestaurant } from '../actions.js';
+import { addToList, loadFavorites, voteForRestaurant, addMultipleToList } from '../actions.js';
 import SharedRestaurant from './sharedrestaurant';
 import logo from './../assets/yumlist-logo.png';
 import CreateUserModal from './createuser';
+import {withRouter} from 'react-router-dom';
 
 class SharedList extends Component {
 
@@ -18,20 +19,29 @@ class SharedList extends Component {
         createUserDialog: true  
       }
     }
+  
+    componentDidMount() {
+      const list = this.state.listId;
+      this.getListInfo(list);
+    }
 
   // get all restaurants from this particular list
   getRestaurants = (listId) => {
-    fetch(`http://localhost:3001/loadshared/${listId}`)
+    const url = 'http://sues-macbook-pro.local:3001';
+
+    fetch(`${url}/loadshared/${listId}`)
       .then(res => res.json())
-      .then(res => res.map(restaurant => {
-        this.props.addToList(restaurant) // adds restaurants to favorites list
-        return restaurant // return each restaurant instead of the action object
-      }))
+      .then(res => {
+        this.props.addMultipleToList(res) // adds restaurants to favorites list
+        return res // return each restaurant instead of the action object
+      })
       .then(res => this.props.loadFavorites(res))
   }
 
   getListInfo = (listId) => {
-    fetch(`http://localhost:3001/${listId}`)
+    const url = 'http://sues-macbook-pro.local:3001';
+
+    fetch(`${url}/${listId}`)
       .then(res => res.json())
       .then(res => { 
         this.setState({listName: res.listname, listDetails: res.listdetails }, () => {
@@ -45,6 +55,7 @@ class SharedList extends Component {
   }
 
   updateShared = () => {
+    this.setState({createUserDialog: false});
     
     fetch(`http://localhost:3001/updateshared/${this.state.listId}`, {
       method: 'PUT',
@@ -54,21 +65,15 @@ class SharedList extends Component {
     .then(res => res.text())
     .then(res => this.getRestaurants(res))
 
-    this.setState({createUserDialog: false});
     
     // window.location.reload();
 
   }
 
-  componentDidMount() {
-    const list = this.state.listId;
-    this.getListInfo(list);
-  }
-
   render() {
 
     const list = this.props.favoritesList;
-    const items = list.map(result => <SharedRestaurant score={result.score} list={this.state.listId} key={result.id} username={this.state.username} restaurant={result} reloadScore={this.getRestaurants}/>);
+    const items = list.map(result => <SharedRestaurant score={result.score} list={this.state.listId} key={result.id + this.state.listId} username={this.state.username} restaurant={result} reloadScore={this.getRestaurants}/>);
 
     return (
 
@@ -97,7 +102,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  addToList: (restaurant) => dispatch(addToList(restaurant)),
+  // addToList: (restaurant) => dispatch(addToList(restaurant)),
+  addMultipleToList: (restaurants) => dispatch(addMultipleToList(restaurants)),
   loadFavorites: (favorites) => dispatch(loadFavorites(favorites)),
   voteForRestaurant: (restaurantId) => dispatch(voteForRestaurant(restaurantId))
 })
@@ -105,4 +111,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(SharedList);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SharedList));

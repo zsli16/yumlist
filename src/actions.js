@@ -13,6 +13,11 @@ export const addToList = (restaurant) => ({
   restaurant
 })
 
+export const addMultipleToList = (restaurants) => ({
+  type: 'ADDMULTIPLETOLIST',
+  restaurants
+})
+
 export const removeFromList = (restaurantId) => ({
   type: 'REMOVEFROMLIST',
   restaurantId

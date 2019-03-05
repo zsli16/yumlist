@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Yumlist from './yumlist';
-import Searchbar from './searchbar';
 import logo from './../assets/yumlist-logo.png';
-import write from './../assets/write.png';
-import profile from './../assets/profile.png';
 
 class CreateList extends Component {
 
@@ -31,10 +26,11 @@ class CreateList extends Component {
   }
 
   saveList = () => {
+    const url = 'http://sues-macbook-pro.local:3001';
     const listName = this.state.listTitle;
     const listDetails = this.state.listDescription;
     
-    fetch('http://localhost:3001/createlist', {
+    fetch(`${url}/createlist`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -56,7 +52,6 @@ class CreateList extends Component {
 
   render() {
     return (
-      <Router>
         <div class="create-list">
           <img src={logo} alt="Logo" className="yumlist-logo"/>
           <div className="create-list-wrapper">
@@ -68,13 +63,8 @@ class CreateList extends Component {
 
             <button className="save-list" onClick={this.saveList}>Save List</button>
     
-            <Route exact path='/list/:listId' component={Yumlist}/>
-            <Route exact path='/list/:listId' component={Searchbar}/>  
-            {/* <Route exact path='/list/:listId' render={ (props) => <Yumlist {...props} /> }/>  */}
           </div>
         </div>
-
-      </Router>
     )
 
  

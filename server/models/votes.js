@@ -1,11 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
   const Votes = sequelize.define('Votes', {
-    id: {
-      type: DataTypes.TEXT,
-      primaryKey: true,
-      // autoIncrement: true,
-      allowNull: false
-    },
+    // id: {
+    //   type: DataTypes.TEXT,
+    //   primaryKey: true,
+    //   // autoIncrement: true,
+    //   allowNull: false
+    // },
     list: {
       type: DataTypes.TEXT,
       allowNull: false
@@ -19,6 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {});
+
+  Votes.removeAttribute('id');
 
   return Votes;
 };

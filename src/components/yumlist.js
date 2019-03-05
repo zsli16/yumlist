@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import FavoriteRestaurant from './favoriterestaurant.js';
 import { connect } from 'react-redux';
 import { removeFromList, loadFavorites } from '../actions.js';
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import Modal from './modal'
 import Searchbar from './searchbar.js';
 
@@ -19,7 +19,9 @@ class Yumlist extends Component {
   }
 
   getListInfo = (listId) => { //runs on componentDidMount
-    fetch(`http://localhost:3001/${listId}`)
+    const url = 'http://sues-macbook-pro.local:3001';
+    
+    fetch(`${url}/${listId}`)
       .then(res => res.json())
       .then(res => { 
         this.setState({listName: res.listname, listDetails: res.listdetails }, () => {
@@ -28,8 +30,10 @@ class Yumlist extends Component {
   }
 
   loadRestaurantsfromList = (listId) => { // goes to ctrl.loadFavoritesFromList
+    const url = 'http://sues-macbook-pro.local:3001';
+
     console.log('fetching restaurants saved to list');
-    fetch(`http://localhost:3001/load/${listId}/`)
+    fetch(`${url}/load/${listId}/`)
       .then(res => res.json())
       .then(res => this.props.loadFavorites(res))
   }
@@ -55,24 +59,24 @@ class Yumlist extends Component {
 
     return (
     
-      <div className="yumlist-body-wrapper">
-        
-        <Searchbar/>
+        <div className="yumlist-body-wrapper">
+          
+          <Searchbar/>
 
-        <Modal show={this.state.openDialog} onClose={this.shareList} listId={this.state.listId}/>
+          <Modal show={this.state.openDialog} onClose={this.shareList} listId={this.state.listId}/>
 
-        <div className="yumlist-wrapper">
+          <div className="yumlist-wrapper">
 
-          <div className="yumlist-items">
-            <h1>{this.state.listName}</h1>
-            <h2>{this.state.listDetails}</h2>
-            {items}
-            {cta}
+            <div className="yumlist-items">
+              <h1>{this.state.listName}</h1>
+              <h2>{this.state.listDetails}</h2>
+              {items}
+              {cta}
+            </div>
+
           </div>
-
         </div>
 
-      </div>
     )
   }
   
@@ -88,4 +92,4 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Yumlist);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Yumlist));

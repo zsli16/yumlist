@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import SharedList from './sharedlist';
 import close from './../assets/close.png';
 
@@ -12,9 +12,9 @@ class Modal extends React.Component {
     document.execCommand('copy');
     alert('copied to clipboard!' + toCopy.value);
   }
-  render() {
 
-    const url = 'http://localhost:3000/share/';
+  render() {
+    const url = 'http://sues-macbook-pro.local:3000/share/';
 
     // Render nothing if the "show" prop is false
     if(!this.props.show) {
@@ -22,31 +22,24 @@ class Modal extends React.Component {
     }
     
     return (
-      <Router>
-
       <div className="backdrop">
         <div className="modal">
           <img src={close} className="close-button" onClick={this.props.onClose} alt="close-modal" width="20px" />
           <div className="modal-container">
           <h1>Share Your List</h1>
 
-          <div class="copy-input">
-            <input type="text" value={url + this.props.listId} className="list-url" readOnly="true"/>
+          <div className="copy-input">
+            <input type="text" value={url + this.props.listId} className="list-url" readOnly={true} />
             <div className="copy-url" onClick={this.copyUrl}>Copy</div>
           </div>
 
-          <Link to={{pathname: `/share/${this.props.listId}`}}> 
+          <Link to={`/share/${this.props.listId}`}> 
             <button className="go-there">View List</button>
           </Link>  
 
           </div>
         </div>
-
-      <Route path='/share/:listId' component={SharedList}/>  
-
       </div>
-
-      </Router>
 
     );
   }

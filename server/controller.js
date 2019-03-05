@@ -171,7 +171,7 @@ exports.addVote = async (ctx) => {
   const user = ctx.request.body.username;
   try {
     await db.Votes.create({
-      id: list + favorited,
+      // id: list + favorited,
       list: list,
       favorited: favorited,
       user: user

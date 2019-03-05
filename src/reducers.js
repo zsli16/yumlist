@@ -17,6 +17,8 @@ const favoritesList = (state = [], action) => {
       return action.favorites
     case 'ADDTOLIST':
       return [action.restaurant, ...state]
+    case 'ADDMULTIPLETOLIST':
+      return action.restaurants
     case 'REMOVEFROMLIST':
       return state.filter((restaurant) => restaurant.id !== action.restaurantId);
     default:

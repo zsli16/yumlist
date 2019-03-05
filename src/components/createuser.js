@@ -34,7 +34,7 @@ class CreateUserModal extends React.Component {
           <div className="modal-container">
           <h1>Join List</h1>
 
-          <div class="copy-input">
+          <div className="copy-input">
             <input type="text" placeholder="Your Name" id="username" className="list-url" onChange={this.onChange} value={this.state.username} />
           </div>
 
@@ -54,7 +54,7 @@ class CreateUserModal extends React.Component {
 }
 
 CreateUserModal.propTypes = {
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
   show: PropTypes.bool,
   children: PropTypes.node
 };
