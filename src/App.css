@@ -4,7 +4,9 @@
   --yumlist-color: #C81465;
   --gray: gray; 
   --secondary-green: #26BDC3;
+
 }
+
 * {
   box-sizing: border-box;
 }
@@ -19,12 +21,19 @@ h1 {
   text-align: center;
   margin: 4px;
   caret-color: black;
+  font-family: 'Dosis', sans-serif;
 }
 
 h2 {
   font-size: 1.8em;
   text-align: center;
   margin: 4px;
+  font-family: 'Dosis', sans-serif;
+}
+
+h3 {
+  text-align: center;
+  font-size: 1.4em;
 }
 
 body {
@@ -35,30 +44,36 @@ body {
 
 /* Search Bar */
 #restaurant-search {
-  width: 100%;
-  height: 60px;
+  width: 90%;
+  min-height: 60px;
   padding: 0px 20px;
-  margin: 0;
+  margin: 0 auto;
+  font-size: 16px;
+  border: 0px;
 }
 
 ::placeholder {
-  font-size: 1.8em;
+  font-size: 1em;
 }
 
 .location {
   display: flex;
   justify-content: space-between;
+  width: 90%;
+  margin: 0 auto;
+  font-size: 1em;
 }
 
 /* Search Results List */
 .search-fields {
   display: flex;
   flex-direction: column;
-  padding: 10px 0px;
+  padding: 20px;
   margin: 0 auto;
-  margin-top: 10px;
-  width: 90%;
-  position: sticky;
+  width: 100%;
+  height: 25vh;
+  position: fixed;
+  background-color: var(--yumlist-color);
 }
 
 .search-list {
@@ -72,10 +87,18 @@ body {
   background-color: white;
   border-bottom: 1px gray;
   padding: 10px;
-  height: 50px;
+  min-height: 60px;
+  width: 90%;
+  margin: 0 auto;
+  z-index: 4;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.search-result:hover {
+  background-color: var(--secondary-green);
+  color: white;
 }
 
 .restaurant-icon {
@@ -110,6 +133,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
+  margin-top: 10px;
   width: 150px;
 }
 
@@ -130,6 +154,7 @@ body {
 .list-input {
   text-align: left;
   margin: 10px 5px;
+  font-size: 16px;
   width: 90%;
 }
 
@@ -179,9 +204,8 @@ body {
 .yumlist-wrapper {
   background-color: white;
   width: 100%;
-  height: 100vh;
-  padding-top: 20px;
-  overflow: auto;
+  padding-top: 28vh;
+  padding-bottom: 40px;
 }
 
 .yumlist-items {
@@ -210,17 +234,27 @@ body {
   text-align: center;
 }
 
+.yum-score {
+  color: black;
+  display: inline-block;
+  font-size: 1.4em;
+  font-weight: 800;
+  font-family: 'Dosis', sans-serif;
+  padding-right: 10px;
+  margin: 0;
+}
+
 /* favorite-restaurant items */
 
 .favorite-restaurant {
   background-color: white;
   width: 100%;
   border-radius: 2px;
-  height: 10%;
+  height: 175px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 20px;
   -webkit-box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
@@ -229,33 +263,44 @@ body {
 
 .favorite-photo {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
 }
 
 .favorite-left {
-  flex: 1 0 auto;
-  height: 150px;
-  width: 150px;
+  flex: 1 1 auto;
+  height: 175px;
+  width: 175px;
   overflow: hidden;
 }
 
 .favorite-main {
-  flex: 5 0 auto;
-  padding: 10px;
+  flex: 5 1 auto;
+  padding: 20px 20px;
   text-align: left;
 }
 
 .favorite-right {
-  flex: 2 0 auto;
+  flex: 2 3 auto;
   text-align: right;
-  margin-top: 10px;
-  margin-right: 20px;
+  margin: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .favorite-title {
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: bolder;
+}
+
+.deleteResult {
+  border: 0px;
+  padding: 0px;
+}
+
+.emoji {
+  margin-bottom: 5px;
 }
 
 
@@ -263,6 +308,8 @@ body {
 
 .backdrop {
   position: fixed;
+  width: 100%;
+  height: 100%;
   top: 0;
   bottom: 0;
   left: 0;
@@ -277,14 +324,14 @@ body {
   background-color: white;
   border-radius: 15px;
   margin: 0 auto;
-  min-width: 450px;
-  max-width: 80%;
-  height: 600px;
+  width: 50%;
+  height: 60%;
   -webkit-box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
   box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
   padding: 20px;
   font-family: 'Dosis', sans-serif;
+  font-size: 16px;
 }
 
 .modal-container {
@@ -292,6 +339,14 @@ body {
   flex-direction: column;
   justify-content: center;
   padding: 0px 20px;
+}
+
+.modal-container .join-description {
+  color: black;
+  font-size: 1em;
+  text-align: center;
+  margin-top: 20px;
+  overflow: auto;
 }
 
 .close-button {
@@ -305,6 +360,12 @@ body {
   flex-wrap: no-wrap;
   height: 60px;
   margin: 20px 0px;
+}
+
+#username {
+  width: 100%;
+  font-size: 16px;
+  padding: 10px;
 }
 
 .list-url {
@@ -332,25 +393,28 @@ body {
 }
 
 
-
 /* shared list */
 
 .sharedlist-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-content: center;
   margin: 40px;
   padding-bottom: 40px;
 }
 
 .sharedlist-items {
-  background-color: #E7E7E7;
-  border-radius: 5px; 
-  width: 80%;
+  background-color: #f9f9f9;
+  border-radius: 20px; 
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  -webkit-box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
   margin: 0 auto;
+  margin-top: 20px;
   padding: 40px;
 }
 
@@ -359,5 +423,121 @@ body {
   font-weight: bold;
 }
 
+.like-button {
+  width: 80px;
+  height: 30px;
+  font-weight: 800;
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.2em;
+}
+
+@media only screen and (max-width: 768px) {
+
+  h1 {
+    font-size: 1.6em;
+  }
+
+  h2 {
+    font-size: 1.4em;
+  }
+
+  h3 {
+    font-size: 1.2em;
+  }
+  
+  .yumlist-items {
+    width: 100%;
+    background-color: white;
+  }
+  
+  .favorite-right {
+    margin: 10px;
+    margin-left: 0px;
+  }
+
+  .favorite-restaurant {
+    height: 120px;
+  }
+
+  .favorite-left {
+    width: 120px;
+    height: 120px;
+  }
+
+  .favorite-main {
+    padding: 8px;
+    padding-right: 0px;
+  }
+
+  .favorite-reviewcount {
+    display: none;
+  }
+
+  #yelp-rating {
+    width: 80px;
+  }
+
+  .emoji {
+    width: 35px;
+  }
+  
+  .modal {
+    background-color: white;
+    border-radius: 15px;
+    margin: 0 auto;
+    min-width: 80%;
+    min-height: 80%;
+    -webkit-box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    padding-bottom: 30px;
+    font-family: 'Dosis', sans-serif;
+    font-size: 16px;
+  }
+
+  .sharedlist-wrapper {
+    margin: 20px;
+    padding-bottom: 40px;
+  }
+  
+  .sharedlist-items {
+    padding: 20px;
+  }
+
+  .favorite-title {
+    font-size: 1em;
+  }
+
+  /* search and yumlist on mobile */
+
+  .search-fields {
+    height: 28vh;
+    padding: 10px;
+  }
+
+  .yumlist-wrapper {
+    padding-top: 28vh;
+  }
+
+  .yumlist-logo {
+    margin-top: 0;
+  }
+
+  .location {
+    font-size: .8em;
+  }
+
+  /* sharedlist mobile */
+
+  .like-button {
+    padding: 0px;
+    border-radius: 5px;
+    width: 70px;
+  }
+
+ 
+
+} 
 
 

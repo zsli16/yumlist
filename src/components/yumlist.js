@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import FavoriteRestaurant from './favoriterestaurant.js';
 import { connect } from 'react-redux';
 import { removeFromList, loadFavorites } from '../actions.js';
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Modal from './modal'
 import Searchbar from './searchbar.js';
 
@@ -29,7 +29,7 @@ class Yumlist extends Component {
         })})
   }
 
-  loadRestaurantsfromList = (listId) => { // goes to ctrl.loadFavoritesFromList
+  loadRestaurantsfromList = (listId) => { // goes to ctrl.loadFavoritesFromListWithScore
     const url = 'http://sues-macbook-pro.local:3001';
 
     console.log('fetching restaurants saved to list');
@@ -49,12 +49,12 @@ class Yumlist extends Component {
   render() {
     let cta;
     const list = this.props.favoritesList;
-    const items = list.map(result => <FavoriteRestaurant list={this.state.listId} key={result.id} restaurant={result} removeFromList={this.props.removeFromList}/>);
+    const items = list.map(result => <FavoriteRestaurant rating={this.renderRating} score={this.score} list={this.state.listId} key={result.id} restaurant={result} removeFromList={this.props.removeFromList}/>);
     
     if (items.length) {
       cta = <button className="share-list" onClick={this.shareList}>Share List</button>
     } else {
-      cta = <h1>Go ahead and add some restaurants to your list!</h1>
+      cta = <h2>Go ahead and add some restaurants to your list!</h2>
     }
 
     return (

@@ -42,10 +42,9 @@ const Searchresult = ({restaurant, ...props}) => {
   return (
     <div className="search-result" id={restaurant.id}>
       <img src={restaurant.image_url} className="restaurant-icon" alt="restaurant-icon"/>
-      <div className="restaurant-title">{restaurant.name}</div>
+      <div className="search-title">{restaurant.name}</div>
       <button className="addResult" onClick={() => addRestaurant(restaurant)} disabled={isFavorite}>Add</button>
     </div>
-
   )
 }
 

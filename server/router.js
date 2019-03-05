@@ -12,14 +12,9 @@ router.put('/updateshared/:listId', ctrl.loadVotesFromAllUsers);
 
 router.get('/loadshared/:listId', ctrl.loadFavoritesFromListWithScore);
 
-
-
-router.put('/:listId/:restaurantId/:voted', ctrl.updateVote);
-
 router.get('/:listId', ctrl.getListInfo);
 
-router.get('/load/:listId', ctrl.loadFavoritesFromList);
-
+router.get('/load/:listId', ctrl.loadFavoritesFromListWithScore);
 
 router.post('/search', ctrl.searchRestaurants); 
 
@@ -29,5 +24,8 @@ router.post('/addtofavorites/:list', ctrl.addToFavorites); // done
 
 router.delete('/removefromfavorites/:list/:id', ctrl.removeFromFavorites); // done
 
+
+// router.put('/:listId/:restaurantId/:voted', ctrl.updateVote);
+// router.get('/load/:listId', ctrl.loadFavoritesFromList);
 
 module.exports = router;

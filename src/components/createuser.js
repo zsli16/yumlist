@@ -30,12 +30,15 @@ class CreateUserModal extends React.Component {
         <div className="modal">
 
           <div className="modal-container">
-          <h1>Join List</h1>
+            <h3>You've been invited to {this.props.listDetails}'s yumlist:</h3>
+            <h1>{this.props.listName}</h1>
+            <p className="join-description">Vote for your favorite restaurants. Decide where to eat with your friends! Ready?</p>
 
-          <div className="copy-input">
-            <input type="text" autoComplete="off" placeholder="Your Name" id="username" className="list-url" onChange={this.onChange} value={this.state.username} />
-          </div>
+            <div className="copy-input" id="name-input">
+              <input type="text" autoComplete="off" placeholder="What's your name?" id="username" className="list-url" onChange={this.onChange} value={this.state.username} />
+            </div>
             <button className="go-there" onClick={this.handleClose} >Join List</button>
+
           </div>
         </div>
       </div>

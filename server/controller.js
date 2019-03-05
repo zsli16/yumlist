@@ -139,32 +139,6 @@ exports.createList = async (ctx) => {
   }
 }
 
-exports.updateVote = async (ctx) => {
-  const { listId, restaurantId, voted } = ctx.params;
-  
-  try {
-    const selectedRestaurant = await db.FavoritesLists.findOne({
-      where: {
-        favoriteId: restaurantId,
-        listId: listId
-      }
-    })
-    .then(selectedRestaurant => {
-      console.log('voted value', voted); // returns true or false
-      return voted === 'true' ? selectedRestaurant.increment('score', {by: 1}) : selectedRestaurant.decrement('score', {by: 1});
-    })
-    .then(selectedRestaurant => {
-      selectedRestaurant.reload();
-      return selectedRestaurant;
-    });
-    ctx.body = selectedRestaurant;
-    ctx.status = 201;
-  } catch (err) {
-    console.log(err);
-    ctx.status = 400;
-  }
-}
-
 exports.addVote = async (ctx) => {
   const list = ctx.request.body.listId;
   const favorited = ctx.request.body.restaurantId;
@@ -274,3 +248,30 @@ exports.loadFavoritesFromListWithScore = async (ctx) => {
     console.log(err);
   }
 }
+
+
+// exports.updateVote = async (ctx) => {
+//   const { listId, restaurantId, voted } = ctx.params;
+  
+//   try {
+//     const selectedRestaurant = await db.FavoritesLists.findOne({
+//       where: {
+//         favoriteId: restaurantId,
+//         listId: listId
+//       }
+//     })
+//     .then(selectedRestaurant => {
+//       console.log('voted value', voted); // returns true or false
+//       return voted === 'true' ? selectedRestaurant.increment('score', {by: 1}) : selectedRestaurant.decrement('score', {by: 1});
+//     })
+//     .then(selectedRestaurant => {
+//       selectedRestaurant.reload();
+//       return selectedRestaurant;
+//     });
+//     ctx.body = selectedRestaurant;
+//     ctx.status = 201;
+//   } catch (err) {
+//     console.log(err);
+//     ctx.status = 400;
+//   }
+// }

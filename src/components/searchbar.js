@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { updateSearchResults, addToList } from '../actions.js';
 import logo from './../assets/yumlist-logo.png';
 
+
 class Searchbar extends Component {
 
   constructor(props) {
@@ -12,6 +13,31 @@ class Searchbar extends Component {
       searchTerm: '',
     }
   }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  // handleScroll = () => {
+  //   if (window.scrollY > 100) {
+  //     this.shrinkHeader();
+  //   } else {
+  //     console.log('nope');
+  //   }
+  // }
+
+  // shrinkHeader = () => {
+  //   document.querySelector('.yumlist-logo').style.display = 'none';
+  // }
+
+  // growHeader = () => {
+  //   document.querySelector('.yumlist-logo').style.display = 'block';
+  // }
+
 
   searchRestaurants = (userInput) => {
     const url = 'http://sues-macbook-pro.local:3001';
@@ -38,9 +64,29 @@ class Searchbar extends Component {
   }
 
   handleChange = (e) => {
-    const userInput = e.target.value;
-    if (userInput.length === 0) this.props.updateSearchResults([]);
-    else this.searchRestaurants(userInput);
+    
+    this.setState({searchTerm: e.target.value}, () => {
+      if (this.state.searchTerm.length === 0) this.props.updateSearchResults([]);
+      else this.throttleSearch(this.searchRestaurants(this.state.searchTerm), 2000);
+    })
+  }
+
+  throttleSearch = (func, wait) => {  
+    let lastTime = 0; 
+    let lastResult; // should return the last computed result when throttled
+    return function throttled () { 
+      let timeSinceLastRun = Date.now() - lastTime;
+      if (timeSinceLastRun >= wait) {
+        lastResult = func.apply(this, arguments); 
+        lastTime = Date.now();
+      }
+      console.log('lastResult', lastResult);
+      return lastResult;
+    }; 
+  };
+
+  handleBackspace = (e) => {
+    if (e.keyCode === 8 || e.keyCode === 46) this.props.updateSearchResults([])
   }
 
   render() {
@@ -48,12 +94,13 @@ class Searchbar extends Component {
       <div className="search-fields">
         <img src={logo} alt="Logo" className="yumlist-logo"/>
 
-        <input type="text" autoComplete="off" id="restaurant-search" placeholder="Search restaurants" onChange={this.handleChange}/>
-        <SearchList results={this.props.searchList} /> 
+        <input type="text" onKeyDown={this.handleBackspace} autoComplete="off" id="restaurant-search" placeholder="Search restaurants" value={this.state.searchInput} onChange={this.handleChange}/>
+        
         <div className="location">
           <p className="current-location">Barcelona, ES</p>
           <p className="change-location">Change Location</p>
         </div>
+          <SearchList results={this.props.searchList} /> 
       </div>
     )
   }

@@ -5,10 +5,12 @@ class SharedRestaurant extends React.Component  {
   
   state = {
     voted : false,
-    url : 'http://sues-macbook-pro.local:3001'
+    url : 'http://sues-macbook-pro.local:3001',
+    showEmoji: ''
   }
 
-  toggleVote = async (restaurant, username, list) => {
+  toggleVote = async (e, restaurant, username, list) => {
+
     await this.setState({voted: !this.state.voted}, () => console.log(this.state.voted, 'toggledVote'));
 
     if (this.state.voted) {
@@ -37,12 +39,18 @@ class SharedRestaurant extends React.Component  {
         })
       })
     }
-
   }
-
 
 render () {
   const {restaurant, list, username} = this.props;
+
+  let file;
+  if (restaurant.rating % 1 === 0) {
+    file = restaurant.rating
+  } else {
+    file = Math.floor(restaurant.rating) + '_half';
+  }
+  
   return (
     <div className="favorite-restaurant">
       <div className="favorite-left">
@@ -54,15 +62,18 @@ render () {
         <a href={restaurant.url} className="favorite-url">View More</a>
       </div>
       <div className="favorite-right">
-        <div className="favorite-rating">Review Score: {restaurant.rating} <span className="favorite-reviewcount">Reviewed by: {restaurant.review_count} People</span></div>
+        <div className="favorite-rating"><img src={require(`../ratings/large/large_${file}.png`)} alt="yelp-rating" id="yelp-rating"/><div className="favorite-reviewcount"> {restaurant.review_count} Reviews </div></div>
         
-        <p id="current-votes">{restaurant.score} Yums </p>
-        {console.log('this.state.voted', this.state.voted)}
-        { this.state.voted
-          ? <img src={emoji} alt="emoji"/> 
-          : null
-        }
-        <button className="like-restaurant" onClick={() => this.toggleVote(restaurant, username, list)}>ADD YUM</button>
+        <div>
+          {/* <p id="current-votes">{restaurant.score} Yums </p> */}
+          { this.state.voted
+            ? <img src={emoji} alt="emoji" width="45px" className="emoji"/> 
+            : null
+          }
+          <div>
+            <button className="like-button" onClick={() => this.toggleVote(restaurant, username, list)}>YUM!</button>
+          </div>
+        </div>
       </div>
     </div>
     )

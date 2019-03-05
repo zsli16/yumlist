@@ -78,16 +78,16 @@ class SharedList extends Component {
 
       <div className="sharedlist-wrapper">
 
-        <CreateUserModal createUser={this.createUser} show={this.state.createUserDialog} listId={this.state.listId}/>
+        <CreateUserModal createUser={this.createUser} show={this.state.createUserDialog} listId={this.state.listId} listDetails={this.state.listDetails} listName={this.state.listName}/>
 
         <img src={logo} alt="Logo" className="yumlist-logo"/>
         <div className="sharedlist-items">
         <h1>{this.state.listName}</h1>
-        <h1>{this.state.listDetails}</h1>
+        <h2>A List Made By {this.state.listDetails}</h2>
         {items}
+        <button onClick={this.updateShared} className="go-there">Save Yums</button>
         </div>
 
-        <button onClick={this.updateShared}>Save Yums</button>
       </div>
     )
   }
