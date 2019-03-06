@@ -3,6 +3,9 @@ const app = new Koa();
 const bodyParser = require('koa-bodyparser')();
 const router = require('./router');
 const cors = require('@koa/cors');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 app.use(cors());
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import emoji from './../assets/emoji-icon.png';
+import opentab from './../assets/opentab.png';
+
 
 class SharedRestaurant extends React.Component  {
   
@@ -41,6 +43,10 @@ class SharedRestaurant extends React.Component  {
     }
   }
 
+  openYelp = () => {
+    console.log(this.props.restaurant.url);
+  }
+
 render () {
   const {restaurant, list, username} = this.props;
 
@@ -59,7 +65,8 @@ render () {
       <div className="favorite-main">
         <div className="favorite-title">{restaurant.name}<span className="favorite-price">({restaurant.price})</span></div>
         <p></p>
-        <a href={restaurant.url} className="favorite-url">View More</a>
+        <a href={restaurant.url} className="favorite-url" target="_blank" rel="noopener noreferrer" onClick={this.openYelp}>View More <img src={opentab} alt="open-tab" width="12px"/></a>
+
       </div>
       <div className="favorite-right">
         <div className="favorite-rating"><img src={require(`../ratings/large/large_${file}.png`)} alt="yelp-rating" id="yelp-rating"/><div className="favorite-reviewcount"> {restaurant.review_count} Reviews </div></div>
