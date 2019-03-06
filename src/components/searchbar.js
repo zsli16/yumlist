@@ -40,12 +40,12 @@ class Searchbar extends Component {
     document.querySelector('.yumlist-logo').style.display = 'block';
     document.querySelector('.location').style.display = 'flex';
     document.querySelector('.search-fields').style.height = '30vh';
-
   }
 
 
   searchRestaurants = (userInput) => {
-    const url = 'http://sues-macbook-pro.local:3001';
+    // const url = 'http://sues-macbook-pro.local:3001';
+    const url = 'https://yumlist.herokuapp.com/';
 
     const searchTerm = {
       "term": userInput,

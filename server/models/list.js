@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     Lists.belongsToMany(db.Favorites, {through: 'FavoritesLists', onDelete: "CASCADE", foreignKey: 'listId'});
   };
 
-  // Lists.sync();
+  Lists.sync();
 
   return Lists;
 };

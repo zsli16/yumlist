@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
 
-  // FavoritesLists.sync({force: true});
+  FavoritesLists.sync();
 
   return FavoritesLists;
 };
