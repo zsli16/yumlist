@@ -1,6 +1,5 @@
 const yelp = require('yelp-fusion');
-const apiKey = 'h4_q1q5YJlDRpeOGv3eqZKyDjvxbcbneydPEJf5JXwvTz3VaLW9tWHymOGEBvqsWlgXCahNAiXlCHk__6lNhGXJiwfVOd5dBt3HKCxPb8bvykHOJ3BCzaneanFV0XHYx';
-const client = yelp.client(apiKey);
+const client = yelp.client(process.env.YELP_APIKEY);
 const db = require('./models/index.js');
 
 exports.searchRestaurants = async (ctx) => {
