@@ -4,6 +4,7 @@ const bodyParser = require('koa-bodyparser')();
 const router = require('./router');
 const cors = require('@koa/cors');
 const dotenv = require('dotenv');
+// const koaStatic = require('koa-static');
 
 dotenv.config();
 
@@ -17,4 +18,4 @@ app.use(bodyParser);
 app.use(router.routes());
 
 
-app.listen(3001, () => console.log('Listening at port 3001')); // eslint-disable-line no-console
+app.listen(3001, () => console.log('Listening at port 3001'));

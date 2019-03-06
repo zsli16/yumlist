@@ -7,7 +7,6 @@ const router = new Router();
 router.post('/addvote', ctrl.addVote);
 router.delete('/removevote', ctrl.removeVote);
 
-
 router.put('/updateshared/:listId', ctrl.loadVotesFromAllUsers);
 
 router.get('/loadshared/:listId', ctrl.loadFavoritesFromListWithScore);
