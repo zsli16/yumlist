@@ -1,5 +1,5 @@
 import React from 'react';
-import { addToList } from '../actions.js';
+import { addToList, updateSearchResults } from '../actions.js';
 import { connect } from 'react-redux';
 
 const Searchresult = ({restaurant, ...props}) => {
@@ -33,7 +33,7 @@ const Searchresult = ({restaurant, ...props}) => {
       .then(res => {
         props.addToList(res);  
       })
-      // .then() close the searchlist
+      .then(props.updateSearchResults([]))
       .catch(err => console.log(err));
   }
 
@@ -55,6 +55,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addToList: (restaurant) => dispatch(addToList(restaurant)),
+  updateSearchResults: (results) => dispatch(updateSearchResults(results))
 })
 
 

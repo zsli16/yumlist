@@ -34,7 +34,7 @@ class VotesSubmitted extends React.Component {
 }
 
 VotesSubmitted.propTypes = {
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
   show: PropTypes.bool,
   children: PropTypes.node
 };

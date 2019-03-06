@@ -9,7 +9,7 @@ class SharedRestaurant extends React.Component  {
     showEmoji: ''
   }
 
-  toggleVote = async (e, restaurant, username, list) => {
+  toggleVote = async (restaurant, username, list) => {
 
     await this.setState({voted: !this.state.voted}, () => console.log(this.state.voted, 'toggledVote'));
 

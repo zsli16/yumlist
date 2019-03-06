@@ -14,14 +14,14 @@ class Yumlist extends Component {
       openDialog: false,
       listId: this.props.match.params.id, // this is working!
       listName: '',
-      listDetails: ''
+      listDetails: '',
+      url: 'http://sues-macbook-pro.local:3001'
     };
   }
 
   getListInfo = (listId) => { //runs on componentDidMount
-    const url = 'http://sues-macbook-pro.local:3001';
 
-    fetch(`${url}/${listId}`)
+    fetch(`${this.state.url}/${listId}`)
       .then(res => res.json())
       .then(res => { 
         this.setState({listName: res.listname, listDetails: res.listdetails }, () => {
@@ -30,10 +30,8 @@ class Yumlist extends Component {
   }
 
   loadRestaurantsfromList = (listId) => { // goes to ctrl.loadFavoritesFromListWithScore
-    const url = 'http://sues-macbook-pro.local:3001';
 
-    console.log('fetching restaurants saved to list');
-    fetch(`${url}/load/${listId}/`)
+    fetch(`${this.state.url}/load/${listId}/`)
       .then(res => res.json())
       .then(res => this.props.loadFavorites(res))
   }

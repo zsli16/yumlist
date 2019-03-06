@@ -22,21 +22,26 @@ class Searchbar extends Component {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  // handleScroll = () => {
-  //   if (window.scrollY > 100) {
-  //     this.shrinkHeader();
-  //   } else {
-  //     console.log('nope');
-  //   }
-  // }
+  handleScroll = () => {
+    if (window.scrollY > 50) {
+      this.shrinkHeader();
+    } else {
+      this.growHeader();
+    }
+  }
 
-  // shrinkHeader = () => {
-  //   document.querySelector('.yumlist-logo').style.display = 'none';
-  // }
+  shrinkHeader = () => {
+    document.querySelector('.yumlist-logo').style.display = 'none';
+    document.querySelector('.location').style.display = 'none';
+    document.querySelector('.search-fields').style.height = '15vh';
+  }
 
-  // growHeader = () => {
-  //   document.querySelector('.yumlist-logo').style.display = 'block';
-  // }
+  growHeader = () => {
+    document.querySelector('.yumlist-logo').style.display = 'block';
+    document.querySelector('.location').style.display = 'flex';
+    document.querySelector('.search-fields').style.height = '30vh';
+
+  }
 
 
   searchRestaurants = (userInput) => {

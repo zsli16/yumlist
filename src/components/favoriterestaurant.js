@@ -22,7 +22,7 @@ const FavoriteRestaurant = ({restaurant, removeFromList, list, score}) => {
 
   let voted;
   if (restaurant.score > 0) {
-    voted = <div><p class="yum-score">{restaurant.score}</p><img src={emoji} alt="emoji" width="40px" className="emoji"/></div>;
+    voted = <div><p className="yum-score">{restaurant.score}</p><img src={emoji} alt="emoji" width="40px" className="emoji"/></div>;
   } else {
     voted = null;
   }

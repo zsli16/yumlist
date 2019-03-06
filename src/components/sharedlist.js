@@ -66,6 +66,10 @@ class SharedList extends Component {
     .then(res => this.getRestaurants(res))
   }
 
+  closeDialog = () => {
+    this.setState({votesSubmitted: false}, () => console.log('closed dialog'))
+  }
+
 
   render() {
 
@@ -76,7 +80,7 @@ class SharedList extends Component {
 
       <div className="sharedlist-wrapper">
         
-        <VotesSubmitted show={this.state.votesSubmitted} onClose={this.props.onClose}/>
+        <VotesSubmitted show={this.state.votesSubmitted} onClose={this.closeDialog}/>
 
         <CreateUserModal createUser={this.createUser} show={this.state.createUserDialog} listId={this.state.listId} listDetails={this.state.listDetails} listName={this.state.listName}/>
 
@@ -103,8 +107,6 @@ const mapDispatchToProps = (dispatch) => ({
   loadFavorites: (favorites) => dispatch(loadFavorites(favorites)),
   voteForRestaurant: (restaurantId) => dispatch(voteForRestaurant(restaurantId))
 })
-
-
 
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SharedList));
