@@ -23,6 +23,9 @@ router.post('/addtofavorites/:list', ctrl.addToFavorites); // done
 
 router.delete('/removefromfavorites/:list/:id', ctrl.removeFromFavorites); // done
 
+router.get('/*', async (ctx) => {
+  ctx.redirect('/index.html')
+})
 
 // router.put('/:listId/:restaurantId/:voted', ctrl.updateVote);
 // router.get('/load/:listId', ctrl.loadFavoritesFromList);
