@@ -17,7 +17,7 @@ const Searchresult = ({restaurant, ...props}) => {
     }
 
     const list = window.location.pathname.slice('/list/'.length);
-    const url = 'http://sues-macbook-pro.local:3001';
+    const url = 'https://yumlist.herokuapp.com';
 
     fetch(`${url}/addtofavorites/${list}`, {
       method: 'POST',
