@@ -1,3 +1,4 @@
+
 {
   "development": {
     "username": "postgres",
@@ -17,7 +18,7 @@
     "username": "postgres",
     "password": null,
     "database": "yumlist",
-    "host": "127.0.0.1",
+    "host": "https://yumlist.herokuapp.com",
     "dialect": "postgres"
   }
 }

@@ -3,7 +3,6 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       type: DataTypes.STRING,
       primaryKey: true,
-      autoIncrement: false,
       allowNull: false
     },
     name: {
@@ -34,10 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Favorites.associate = db => {
     Favorites.belongsToMany(db.Lists, {through: 'FavoritesLists', foreignKey: 'favoriteId'});
-  };
-
-  Favorites.sync();
-  
+  };  
 
   return Favorites;
 }

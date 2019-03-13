@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 const path = require('path');
+const db = require('./models');
 
 console.log('loading dotenv from', __dirname+'/.env');
 dotenv.config({path: path.resolve(__dirname+'/.env') });
@@ -26,4 +27,9 @@ app.use(koaStatic(path.join(__dirname + '../build')));
 
 app.use(router.routes());
 
-app.listen(process.env.PORT, () => console.log(`listening at ${port}`));
+(async () => {
+  await db.sequelize.sync();
+  app.listen(port, () => {
+    console.log(`Listening on port ${port}`)
+  });
+})()

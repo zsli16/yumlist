@@ -3,7 +3,6 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       type: DataTypes.TEXT,
       primaryKey: true,
-      autoIncrement: true,
       allowNull: false
     },
     listname: DataTypes.TEXT,
@@ -13,8 +12,6 @@ module.exports = (sequelize, DataTypes) => {
   Lists.associate = db => {
     Lists.belongsToMany(db.Favorites, {through: 'FavoritesLists', onDelete: "CASCADE", foreignKey: 'listId'});
   };
-
-  Lists.sync();
 
   return Lists;
 };

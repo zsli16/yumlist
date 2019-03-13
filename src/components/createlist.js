@@ -26,7 +26,7 @@ class CreateList extends Component {
   }
 
   saveList = () => {
-    const url = 'https://yumlist.herokuapp.com/';
+    const url = 'https://yumlist.herokuapp.com';
     const listName = this.state.listTitle;
     const listDetails = this.state.listDescription;
     
