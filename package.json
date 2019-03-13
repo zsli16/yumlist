@@ -49,5 +49,6 @@
   ],
   "devDependencies": {
     "eslint": "^5.6.0"
-  }
+  },
+  "start": "webpack-dev-server --inline --content-base . --history-api-fallback"
 }

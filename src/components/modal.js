@@ -13,7 +13,7 @@ class Modal extends React.Component {
   }
 
   render() {
-    const url = 'https://yumlist.herokuapp.com/share/';
+    const url = 'https://yumlist.surge.sh';
 
     // Render nothing if the "show" prop is false
     if(!this.props.show) {
@@ -28,7 +28,7 @@ class Modal extends React.Component {
           <h1>Share Your List</h1>
 
           <div className="copy-input">
-            <input type="text" value={url + this.props.listId} className="list-url" readOnly={true} />
+            <input type="text" value={url + '/share/'+ this.props.listId} className="list-url" readOnly={true} />
             <div className="copy-url" onClick={this.copyUrl}>Copy</div>
           </div>
 
