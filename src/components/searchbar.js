@@ -45,7 +45,7 @@ class Searchbar extends Component {
 
   searchRestaurants = (userInput) => {
     // const url = 'http://sues-macbook-pro.local:3001';
-    const url = 'https://yumlist.herokuapp.com/';
+    const url = 'https://yumlist.herokuapp.com';
 
     const searchTerm = {
       "term": userInput,
