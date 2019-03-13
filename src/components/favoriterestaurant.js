@@ -8,7 +8,7 @@ const FavoriteRestaurant = ({restaurant, removeFromList, list, score}) => {
   const removeRestaurant = (restaurant) => {
     const restaurantId = restaurant.id;
     console.log(restaurantId);
-    fetch(`http://localhost:3001/removefromfavorites/${list}/${restaurantId}`, {
+    fetch(`https://yumlist.herokuapp.com/removefromfavorites/${list}/${restaurantId}`, {
       method: 'DELETE'
     })
     .then(removeFromList(restaurantId))

@@ -15,7 +15,8 @@ class Yumlist extends Component {
       listId: this.props.match.params.id, // this is working!
       listName: '',
       listDetails: '',
-      url: 'http://sues-macbook-pro.local:3001'
+      url: 'https://yumlist.herokuapp.com'
+      // url: 'http://sues-macbook-pro.local:3001'
     };
   }
 

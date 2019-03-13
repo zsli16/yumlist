@@ -19,7 +19,7 @@ class SharedList extends Component {
         voted: '',
         createUserDialog: true,
         votesSubmitted: false, // to open a dialog to confirm sharing
-        url: 'http://sues-macbook-pro.local:3001'
+        url: 'https://yumlist.herokuapp.com'
       }
     }
   

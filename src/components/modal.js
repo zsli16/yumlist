@@ -13,7 +13,7 @@ class Modal extends React.Component {
   }
 
   render() {
-    const url = 'http://sues-macbook-pro.local:3000/share/';
+    const url = 'https://yumlist.herokuapp.com/share/';
 
     // Render nothing if the "show" prop is false
     if(!this.props.show) {

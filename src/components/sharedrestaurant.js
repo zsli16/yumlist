@@ -7,7 +7,7 @@ class SharedRestaurant extends React.Component  {
   
   state = {
     voted : false,
-    url : 'http://sues-macbook-pro.local:3001',
+    url : 'https://yumlist.herokuapp.com',
     showEmoji: ''
   }
 
