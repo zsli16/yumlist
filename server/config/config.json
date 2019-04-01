@@ -1,20 +1,20 @@
 {
   "development": {
-    "username": "natalia",
+    "username": "postgres",
     "password": null,
     "database": "yumlist",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "username": "natalia",
+    "username": "postgres",
     "password": null,
     "database": "yumlist_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "username": "natalia",
+    "username": "postgres",
     "password": null,
     "database": "yumlist",
     "host": "127.0.0.1",
