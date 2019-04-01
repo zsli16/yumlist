@@ -5,7 +5,7 @@ class SharedRestaurant extends React.Component  {
 
   state = {
     voted : false,
-    url : 'http://localhost:3001',
+    url : `http://${process.env.REACT_APP_LOCAL_URL}:3001`,
     showEmoji: ''
   }
 

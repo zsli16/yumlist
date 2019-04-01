@@ -4,7 +4,7 @@ const db = require('./models');
 const router = new Router();
 
 const yelp = require('yelp-fusion');
-const apiKey = 'h4_q1q5YJlDRpeOGv3eqZKyDjvxbcbneydPEJf5JXwvTz3VaLW9tWHymOGEBvqsWlgXCahNAiXlCHk__6lNhGXJiwfVOd5dBt3HKCxPb8bvykHOJ3BCzaneanFV0XHYx';
+const apiKey = process.env.YELP_KEY;
 const client = yelp.client(apiKey);
 
 // add and remove votes on each list

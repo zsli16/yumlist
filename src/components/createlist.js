@@ -46,7 +46,7 @@ class CreateList extends Component {
   }
 
   saveList = () => {
-    const url = 'http://localhost:3001';
+    const url = `http://${process.env.REACT_APP_LOCAL_URL}:3001`;
     const listName = this.state.listTitle;
     const listDetails = this.state.listDescription;
     const listLocation = this.state.listLocation;

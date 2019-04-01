@@ -19,7 +19,7 @@ class SharedList extends Component {
       voted: '',
       createUserDialog: true,
       votesSubmitted: false, // to open a dialog to confirm sharing
-      url: 'http://localhost:3001'
+      url: `http://${process.env.REACT_APP_LOCAL_URL}:3001`
     }
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }

@@ -3,11 +3,11 @@ import emoji from './../assets/emoji-icon.png';
 import trash from './../assets/trash.png';
 
 const FavoriteRestaurant = ({restaurant, removeFromList, list, score}) => {
-  
+
   const removeRestaurant = (restaurant) => {
     const restaurantId = restaurant.id;
     console.log(restaurantId);
-    fetch(`http://localhost:3001/removefromfavorites/${list}/${restaurantId}`, {
+    fetch(`http://${process.env.REACT_APP_LOCAL_URL}:3001/removefromfavorites/${list}/${restaurantId}`, {
       method: 'DELETE'
     })
     .then(removeFromList(restaurantId))
@@ -28,7 +28,7 @@ const FavoriteRestaurant = ({restaurant, removeFromList, list, score}) => {
   }
 
     return (
-      
+
       <div className="favorite-restaurant">
         <div className="favorite-left">
           <img src={restaurant.image_url} className="favorite-photo" alt="favorite-restaurant"/>

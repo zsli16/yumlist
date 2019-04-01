@@ -18,7 +18,7 @@ const Searchresult = ({restaurant, ...props}) => {
 
     //REVIEW! USO DE PROPS VS THIS.PROPS
     const list = window.location.pathname.slice('/list/'.length);
-    const url = 'http://localhost:3001';
+    const url = `http://${process.env.REACT_APP_LOCAL_URL}:3001`;
 
     fetch(`${url}/addtofavorites/${list}`, {
       method: 'POST',

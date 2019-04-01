@@ -1,3 +1,5 @@
+require('dotenv').config({ path: "../.env" });
+
 const Koa = require('koa');
 const app = new Koa();
 
@@ -6,6 +8,7 @@ const router = require('./router');
 const cors = require('@koa/cors');
 const port = 3001;
 const db = require('./models');
+
 
 app.use(cors());
 
