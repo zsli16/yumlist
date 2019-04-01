@@ -39,8 +39,8 @@ class CreateList extends Component {
     }, this.updateSendEnable);
   }
 
-  updateLocation = (evt) => {
-    this.setState({
+  updateLocation = async (evt) => {
+    await this.setState({
       listLocation: evt.target.value
     }, this.updateSendEnable);
   }
@@ -81,7 +81,21 @@ class CreateList extends Component {
             <div className="list-input">
               <input type="text" autoComplete="off" className="list-details" placeholder="List Name" name="list-title" value={this.state.listTitle} onChange={this.updateTitle}/>
               <input type="text" autoComplete="off" className="list-details" placeholder="Your Name" name="list-details" value={this.state.listDescription} onChange={this.updateDescription}/>
-              <input type="text" autoComplete="off" className="list-details" placeholder="List Location" name="list-location" value={this.state.listLocation} onChange={this.updateLocation}/>
+                            
+              <select className="list-details" value={this.state.listLocation} onChange={this.updateLocation}>
+                <option value="">Choose a city</option>
+                <option value="Amsterdam">Amsterdam</option>
+                <option value="Barcelona">Barcelona</option>
+                <option value="Berlin">Berlin</option>
+                <option value="London">London</option>
+                <option value="Los Angeles">Los Angeles</option>
+                <option value="New York">New York</option>
+                <option value="Paris">Paris</option>
+                <option value="San Francisco">San Francisco</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Sydney">Sydney</option>
+              </select>
+
             </div>
             <button className="save-list" disabled={!this.state.sendEnable} onClick={this.saveList}>Save List</button>
           </div>

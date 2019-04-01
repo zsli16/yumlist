@@ -6,10 +6,31 @@ import { Link } from "react-router-dom";
 class Modal extends React.Component {
 
   copyUrl = () => {
-    const toCopy = document.querySelector('.list-url');
-    toCopy.select();
+    const input = document.querySelector('.list-url');
+    const iOSDevice = navigator.userAgent.match(/ipad|iphone/i);
+
+    if (iOSDevice) {
+      var editable = input.contentEditable;
+      var readOnly = input.readOnly;
+
+      input.contentEditable = true;
+      input.readOnly = false;
+
+      var range = document.createRange();
+      range.selectNodeContents(input);
+
+      var selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      input.setSelectionRange(0, 999999);
+      input.contentEditable = editable;
+      input.readOnly = readOnly;
+    } else {
+      input.select();
+    }
     document.execCommand('copy');
-    alert('copied to clipboard!' + toCopy.value);
+    alert('Copied to clipboard! Your yumlist is ready to share with friends');
   }
 
   render() {
