@@ -9,27 +9,48 @@ class CreateList extends Component {
     this.state = {
       listTitle: '',
       listDescription: '',
+      listLocation: '',
       listId: uuid.v4(), // refactor this to generate UUID from server rather than client
+      sendEnable: false
     };
   }
 
-  updateTitle(evt) {
-    this.setState({
-      listTitle: evt.target.value
-    });
+  updateSendEnable = () => {
+    if (this.state.listTitle && this.state.listDescription && this.state.listLocation) {
+      this.setState({
+        sendEnable: true
+      });
+    } else {
+      this.setState({
+        sendEnable: false
+      });
+    }
   }
 
-  updateDescription(evt) {
+  updateTitle = (evt) => {
+    this.setState({
+      listTitle: evt.target.value
+    }, this.updateSendEnable);
+  }
+
+  updateDescription = (evt) => {
     this.setState({
       listDescription: evt.target.value
-    });
+    }, this.updateSendEnable);
+  }
+
+  updateLocation = (evt) => {
+    this.setState({
+      listLocation: evt.target.value
+    }, this.updateSendEnable);
   }
 
   saveList = () => {
-    const url = 'https://yumlist.herokuapp.com';
+    const url = 'http://localhost:3001';
     const listName = this.state.listTitle;
     const listDetails = this.state.listDescription;
-    
+    const listLocation = this.state.listLocation;
+
     fetch(`${url}/createlist`, {
       method: 'POST',
       headers: {
@@ -38,6 +59,7 @@ class CreateList extends Component {
       body: JSON.stringify({
         "listname": listName,
         "listdetails": listDetails,
+        "listlocation": listLocation,
         "listId": this.state.listId, // refactor this to generate UUID from server rather than client
       })
     })
@@ -52,27 +74,20 @@ class CreateList extends Component {
 
   render() {
     return (
-        <div class="create-list">
+        <div className="create-list">
           <img src={logo} alt="Logo" className="yumlist-logo"/>
           <div className="create-list-wrapper">
             <h2>Create New List</h2>
             <div className="list-input">
-              <input type="text" autoComplete="off" className="list-details" placeholder="List Name" name="list-title" value={this.state.listTitle} onChange={evt => this.updateTitle(evt)}/>
-              <input type="text" autoComplete="off" className="list-details" placeholder="Your Name" name="list-details" value={this.state.listDescription} onChange={evt => this.updateDescription(evt)}/>
+              <input type="text" autoComplete="off" className="list-details" placeholder="List Name" name="list-title" value={this.state.listTitle} onChange={this.updateTitle}/>
+              <input type="text" autoComplete="off" className="list-details" placeholder="Your Name" name="list-details" value={this.state.listDescription} onChange={this.updateDescription}/>
+              <input type="text" autoComplete="off" className="list-details" placeholder="List Location" name="list-location" value={this.state.listLocation} onChange={this.updateLocation}/>
             </div>
-
-            <button className="save-list" onClick={this.saveList}>Save List</button>
-    
+            <button className="save-list" disabled={!this.state.sendEnable} onClick={this.saveList}>Save List</button>
           </div>
         </div>
     )
-
- 
-
   }
-
-  
-
 }
 
 

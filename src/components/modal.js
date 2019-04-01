@@ -4,7 +4,7 @@ import close from './../assets/close.png';
 import { Link } from "react-router-dom";
 
 class Modal extends React.Component {
-  
+
   copyUrl = () => {
     const toCopy = document.querySelector('.list-url');
     toCopy.select();
@@ -13,13 +13,13 @@ class Modal extends React.Component {
   }
 
   render() {
-    const url = 'https://yumlist.surge.sh';
+    const url = 'http://localhost:3000/share/';
 
     // Render nothing if the "show" prop is false
     if(!this.props.show) {
       return null;
     }
-    
+
     return (
       <div className="backdrop">
         <div className="modal">
@@ -28,13 +28,13 @@ class Modal extends React.Component {
           <h1>Share Your List</h1>
 
           <div className="copy-input">
-            <input type="text" value={url + '/share/'+ this.props.listId} className="list-url" readOnly={true} />
+            <input type="text" value={url + this.props.listId} className="list-url" readOnly={true} />
             <div className="copy-url" onClick={this.copyUrl}>Copy</div>
           </div>
 
-          <Link to={`/share/${this.props.listId}`}> 
+          <Link to={`/share/${this.props.listId}`}>
             <button className="go-there">View List</button>
-          </Link>  
+          </Link>
 
           </div>
         </div>

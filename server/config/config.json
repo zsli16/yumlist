@@ -1,24 +1,23 @@
-
 {
   "development": {
-    "username": "postgres",
+    "username": "natalia",
     "password": null,
     "database": "yumlist",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "username": "postgres",
+    "username": "natalia",
     "password": null,
-    "database": "yumlist",
+    "database": "yumlist_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "username": "postgres",
+    "username": "natalia",
     "password": null,
     "database": "yumlist",
-    "host": "https://yumlist.herokuapp.com",
+    "host": "127.0.0.1",
     "dialect": "postgres"
   }
 }

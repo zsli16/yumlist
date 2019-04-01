@@ -1,20 +1,19 @@
-const yelp = require('yelp-fusion');
-const client = yelp.client(process.env.YELP_APIKEY);
-const db = require('./models/index.js');
-
-exports.searchRestaurants = async (ctx) => {
-  const restaurant = ctx.request.body;
+exports.searchRestaurants = async (ctx, client) => {
+  const input = ctx.request.body;
   try {
-    await client.search(restaurant).then(response => {
+    await client.search(input).then(response => {
       const results = response.jsonBody.businesses;
       ctx.body = results;
+      ctx.status = 200;
     })
   } catch (err) {
     console.log(err);
+    ctx.body = err;
+    ctx.status = 500;
   }
 }
 
-exports.getListInfo = async (ctx) => {
+exports.getListInfo = async (ctx, db) => {
   const listId = ctx.params.listId;
   try {
     const listInfo = await db.Lists.findOne({
@@ -24,37 +23,24 @@ exports.getListInfo = async (ctx) => {
       raw: true
     })
     ctx.body = listInfo;
-    ctx.status = 200;
+    if (listInfo) ctx.status = 200;
+    else {
+      ctx.body = {error: 'list not found'};
+      ctx.status = 404;
+    }
+
   } catch (err) {
     console.log(err);
+    ctx.body = err;
+    ctx.status = 500;
   }
 }
 
-// this is only on yumlist
-exports.loadFavoritesFromList = async (ctx) => {
-  const listId = ctx.params.listId;
-  console.log('entered load favs from list and listid is', listId);
-
-  try {
-    const favoritesOnLoad = await db.Favorites.findAll({
-      include: [{
-        model: db.Lists,
-        where: { id: listId }
-      }]
-    });
-    console.log('favorite restaurants in list', favoritesOnLoad);
-    ctx.body = favoritesOnLoad;
-    ctx.status = 200;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-
-exports.addToFavorites = async (ctx) => {
+//REVIEW! QUÉ HACE INCLUDE ATTRIBUTES
+exports.addToFavorites = async (ctx, db) => {
   const selectedRestaurant = ctx.request.body;
   const currentListId = ctx.params.list;
-  
+
   // first, get all restaurants in this list
   const list = await db.Lists.find({
     where: { id: currentListId },
@@ -63,47 +49,46 @@ exports.addToFavorites = async (ctx) => {
       attributes: ['id'],
     }]
   });
-  
+
   // then, check if the restaurant exists in this list
   const restaurantExistsInList = list.dataValues.Favorites.filter(restaurant => restaurant.id === selectedRestaurant.id);
-  console.log('restaurant exists in the list', restaurantExistsInList)
-  
+
   if (restaurantExistsInList.length !== 0) {
     ctx.body = {
-      "error": ['Already added']
+      "error": 'Already added'
     }
     ctx.status = 400;
   } else {
     try {
-      
+
       //check if the restaurant exists in the Favorites Database (main table)
       const fav = await db.Favorites.find({
         where: {
           id: selectedRestaurant.id
         }
       })
-      
+
       if (fav) {
         // if it exists, then just add it to the List
         await db.FavoritesLists.create({favoriteId: selectedRestaurant.id, listId: currentListId});
         ctx.body = selectedRestaurant;
-        console.log(selectedRestaurant);
         ctx.status = 200;
       } else {
         await db.Favorites.create(selectedRestaurant);
         await db.FavoritesLists.create({favoriteId: selectedRestaurant.id, listId: currentListId});
         ctx.body = selectedRestaurant;
-        console.log(selectedRestaurant);
         ctx.status = 200;
       }
-      
+
     } catch (err) {
       console.log(err);
+      ctx.body = err;
+      ctx.status = 500;
     }
   }
 }
 
-exports.removeFromFavorites = async (ctx) => {
+exports.removeFromFavorites = async (ctx, db) => {
   const restaurantId = ctx.params.id;
   const listId = ctx.params.list;
   try {
@@ -116,29 +101,31 @@ exports.removeFromFavorites = async (ctx) => {
     ctx.status = 200;
   } catch (err) {
     console.log(err); //eslint-disable-line
+    ctx.body = err;
     ctx.status = 500;
   }
 }
 
-exports.createList = async (ctx) => {
+exports.createList = async (ctx, db) => {
   const submittedList = ctx.request.body;
-  
+
   try {
     const newList = await db.Lists.create({
       listname: submittedList.listname,
       listdetails: submittedList.listdetails,
+      listlocation: submittedList.listlocation,
       id: submittedList.listId //refactor this to generate the UUID in the backend instead of the frontend
     })
     ctx.body = newList;
-    console.log('newList created', newList);
     ctx.status = 200;
   } catch (err) {
     console.log(err);
+    ctx.body = err;
     ctx.status = 500;
   }
 }
 
-exports.addVote = async (ctx) => {
+exports.addVote = async (ctx, db) => {
   const list = ctx.request.body.listId;
   const favorited = ctx.request.body.restaurantId;
   const user = ctx.request.body.username;
@@ -150,11 +137,13 @@ exports.addVote = async (ctx) => {
     })
     ctx.status = 200;
   } catch (err) {
-    console.log(err)
+    console.log(err);
+    ctx.body = err;
+    ctx.status = 500;
   }
 }
 
-exports.removeVote = async (ctx) => {
+exports.removeVote = async (ctx, db) => {
   const list = ctx.request.body.listId;
   const favorited = ctx.request.body.restaurantId;
   const user = ctx.request.body.username;
@@ -168,24 +157,26 @@ exports.removeVote = async (ctx) => {
     })
     ctx.status = 200;
   } catch (err) {
-    console.log(err)
+    console.log(err);
+    ctx.body = err;
+    ctx.status = 500;
   }
 }
 
-exports.loadVotesFromAllUsers = async (ctx) => {
+exports.loadVotesFromAllUsers = async (ctx, db) => {
   const listId = ctx.params.listId;
-  
+
   try {
     const votesInList = await db.Votes.findAll({
       where: {
         list: listId
       }
     })
-    
+
     const objs = votesInList.map(res => res.dataValues);
-    
+
     // {}, value, 0/1/3/3, input array
-    function reducer(acc, currentValue, currentIndex, objs) { 
+    function reducer(acc, currentValue, currentIndex, objs) {
       // on the currentValue, check if the favoriteId exists. if it does, add 1 to its value. else, create new key
       if (acc[currentValue.favorited]) {
         acc[currentValue.favorited]++;
@@ -194,14 +185,29 @@ exports.loadVotesFromAllUsers = async (ctx) => {
       }
       return acc;
     }
-    
+
+    const favoritesOnLoad = await db.Favorites.findAll({ // get all favorites in sharedlist
+      include: [{
+        model: db.Lists,
+        where: { id: listId },
+        through: {
+          attributes: ['score'] // A list of attributes to select from the join model for belongsToMany relations
+        }
+      }]
+    })
+
+    const ids = favoritesOnLoad.map((res) => res.dataValues.id);
+
     const voteCounts = objs.reduce(reducer, {}); // returns an object where key is the restaurantId and the value is the accumulated score
+    ids.forEach(el => {
+      if (!voteCounts[el]) voteCounts[el] = 0;
+    })
     const props = Object.entries(voteCounts);
 
     const updated = props.map(prop => {
       return db.FavoritesLists.update(
-        { 
-          score: prop[1] 
+        {
+          score: prop[1]
         },
         {
         where: {
@@ -211,18 +217,18 @@ exports.loadVotesFromAllUsers = async (ctx) => {
       })
     })
 
-    const result = await Promise.all(updated);
-    console.log(result);
+    await Promise.all(updated);
 
     ctx.body = listId;
     ctx.status = 200;
   } catch (err) {
     console.log(err);
+    ctx.body = err;
+    ctx.status = 500;
   }
 }
 
-
-exports.loadFavoritesFromListWithScore = async (ctx) => {
+exports.loadFavoritesFromListWithScore = async (ctx, db) => {
   const listId = ctx.params.listId;
 
   try {
@@ -239,38 +245,13 @@ exports.loadFavoritesFromListWithScore = async (ctx) => {
     const result = favoritesOnLoad.map(res => ({
       ...res.dataValues,
       score: res.dataValues.Lists[0].FavoritesLists.score
-    }));  
+    }));
 
     ctx.body = result;
     ctx.status = 200;
   } catch (err) {
     console.log(err);
+    ctx.body = err;
+    ctx.status = 500;
   }
 }
-
-
-// exports.updateVote = async (ctx) => {
-//   const { listId, restaurantId, voted } = ctx.params;
-  
-//   try {
-//     const selectedRestaurant = await db.FavoritesLists.findOne({
-//       where: {
-//         favoriteId: restaurantId,
-//         listId: listId
-//       }
-//     })
-//     .then(selectedRestaurant => {
-//       console.log('voted value', voted); // returns true or false
-//       return voted === 'true' ? selectedRestaurant.increment('score', {by: 1}) : selectedRestaurant.decrement('score', {by: 1});
-//     })
-//     .then(selectedRestaurant => {
-//       selectedRestaurant.reload();
-//       return selectedRestaurant;
-//     });
-//     ctx.body = selectedRestaurant;
-//     ctx.status = 201;
-//   } catch (err) {
-//     console.log(err);
-//     ctx.status = 400;
-//   }
-// }

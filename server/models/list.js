@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     listname: DataTypes.TEXT,
     listdetails: DataTypes.TEXT,
+    listlocation: DataTypes.TEXT,
   }, {});
 
   Lists.associate = db => {

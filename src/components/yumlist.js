@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import FavoriteRestaurant from './favoriterestaurant.js';
 import { connect } from 'react-redux';
 import { removeFromList, loadFavorites } from '../actions.js';
-import { withRouter } from "react-router-dom";
 import Modal from './modal'
-import Searchbar from './searchbar.js';
+import { ConnectedSearchbar } from './searchbar.js';
 
 class Yumlist extends Component {
 
@@ -15,17 +14,19 @@ class Yumlist extends Component {
       listId: this.props.match.params.id, // this is working!
       listName: '',
       listDetails: '',
-      url: 'https://yumlist.herokuapp.com'
-      // url: 'http://sues-macbook-pro.local:3001'
+      listLocation: '',
+      url: `http://${process.env.REACT_APP_LOCAL_URL}:3001`
     };
+
+    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
   getListInfo = (listId) => { //runs on componentDidMount
 
     fetch(`${this.state.url}/${listId}`)
       .then(res => res.json())
-      .then(res => { 
-        this.setState({listName: res.listname, listDetails: res.listdetails }, () => {
+      .then(res => {
+        this.setState({listName: res.listname, listDetails: res.listdetails, listLocation: res.listlocation }, () => {
           this.loadRestaurantsfromList(this.state.listId) //remember you need to pass a callback to this.setState
         })})
   }
@@ -37,8 +38,19 @@ class Yumlist extends Component {
       .then(res => this.props.loadFavorites(res))
   }
 
+  handleClickOutside(event) {
+    if (event.target.classList.contains('backdrop')) {
+      this.shareList();
+    }
+  }
+
   componentDidMount() {
     this.getListInfo(this.state.listId);
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
   }
 
   shareList = () => {
@@ -48,19 +60,30 @@ class Yumlist extends Component {
   render() {
     let cta;
     const list = this.props.favoritesList;
+
+    list.sort((a,b) => {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
+
     const items = list.map(result => <FavoriteRestaurant rating={this.renderRating} score={this.score} list={this.state.listId} key={result.id} restaurant={result} removeFromList={this.props.removeFromList}/>);
-    
+
     if (items.length) {
-      cta = <button className="share-list" onClick={this.shareList}>Share List</button>
+      cta = <button className="share-list" onClick={() => this.shareList()}>Share List</button>
     } else {
       cta = <h2>Go ahead and add some restaurants to your list!</h2>
     }
 
     return (
-    
+
         <div className="yumlist-body-wrapper">
-          
-          <Searchbar/>
+
+          <ConnectedSearchbar history={this.props.history} location={this.state.listLocation}/>
 
           <Modal show={this.state.openDialog} onClose={this.shareList} listId={this.state.listId}/>
 
@@ -78,7 +101,7 @@ class Yumlist extends Component {
 
     )
   }
-  
+
 }
 
 const mapStateToProps = (state) => ({
@@ -90,5 +113,5 @@ const mapDispatchToProps = (dispatch) => ({
   loadFavorites: (favorites) => dispatch(loadFavorites(favorites))
 })
 
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Yumlist));
+const ConnectedYumlist = connect(mapStateToProps, mapDispatchToProps)(Yumlist);
+export { ConnectedYumlist, Yumlist };
