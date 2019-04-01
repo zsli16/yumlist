@@ -9,10 +9,10 @@
     "@koa/cors": "^2.2.3",
     "@material-ui/core": "^3.9.2",
     "bcrypt": "^3.0.4",
-    "dotenv": "^6.2.0",
-    "eslint-plugin-react": "^7.12.4",
-    "eslint": "^5.6.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.10.0",
     "express": "^4.16.4",
+    "jest-enzyme": "^7.0.2",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
@@ -26,16 +26,18 @@
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
+    "react-test-renderer": "^16.8.4",
     "redux": "^4.0.1",
     "sequelize": "^4.42.1",
     "uuid": "^3.3.2",
     "yelp-fusion": "^2.2.1"
   },
   "scripts": {
-    "start-frontend": "react-scripts start",
-    "start": "node server/index.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "client-test": "react-scripts test",
+    "server-unit-test": "jest server/ --testPathIgnorePatterns */specs/*.js",
+    "server-integration-test": "jest server/specs/",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -48,7 +50,19 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "eslint": "^5.6.0"
-  },
-  "start": "webpack-dev-server --inline --content-base . --history-api-fallback"
+    "@fortawesome/fontawesome-free": "^5.7.2",
+    "dotenv": "^7.0.0",
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-standard": "^4.0.0",
+    "jest": "^24.3.1",
+    "jest-dom": "^3.1.3",
+    "react-testing-library": "^6.0.0"
+  }
 }

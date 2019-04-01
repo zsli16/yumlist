@@ -1,8 +1,9 @@
 import React from 'react';
-import SearchResult from './searchresult';
+import { ConnectedSearchresult } from './searchresult';
 
 const SearchList = ({results}) => {
-  return results.map(result => <SearchResult restaurant={result}/>);
+
+  return results.map((result, index) => <ConnectedSearchresult key={index} restaurant={result}/>);
 }
 
 export default SearchList;

@@ -2,13 +2,17 @@
 
 :root {
   --yumlist-color: #C81465;
-  --gray: gray; 
+  --gray: gray;
   --secondary-green: #26BDC3;
-
+  --secondary-green-shadow: rgb(142, 204, 206);
 }
 
 * {
   box-sizing: border-box;
+}
+
+.blankDiv {
+  height: 40px;
 }
 
 p {
@@ -42,20 +46,6 @@ body {
   padding: 0;
 }
 
-a {
-  color: var(--secondary-green);
-  font-weight: lighter;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-a:visited {
-  color: gray;
-}
-
 /* Search Bar */
 #restaurant-search {
   width: 90%;
@@ -64,6 +54,7 @@ a:visited {
   margin: 0 auto;
   font-size: 16px;
   border: 0px;
+  margin-top: 15px;
 }
 
 ::placeholder {
@@ -84,7 +75,7 @@ a:visited {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px 0px;
+  padding: 20px 10px;
   margin: 0 auto;
   width: 100%;
   height: 30vh;
@@ -124,7 +115,7 @@ a:visited {
 }
 
 .restaurant-title {
-  text-align: right; 
+  text-align: right;
 }
 
 .addResult {
@@ -135,6 +126,7 @@ a:visited {
 
 .create-list {
   margin: 0 auto;
+  padding-top: 0.1px;
   margin-top: 20px;
   font-family: 'Dosis', sans-serif;
   height: 100vh;
@@ -147,14 +139,14 @@ a:visited {
 
 .yumlist-logo {
   display: block;
-  margin: 10px auto;
+  margin: 20px auto;
   width: 180px;
 }
 
 .create-list-wrapper {
   background-color: white;
   border-radius: 20px;
-  margin-top: 40px !important; 
+  margin-top: 40px !important;
   margin: 0 auto;
   width: 80%;
   display: flex;
@@ -163,10 +155,6 @@ a:visited {
   padding-bottom: 60px;
   align-items: center;
   overflow: hidden;
-}
-
-.create-list-wrapper h2 {
-  margin: 10px auto;
 }
 
 .list-input {
@@ -211,6 +199,25 @@ a:visited {
   font-size: 1.2em;
   font-weight: 700;
   border: 0px;
+  font-weight: 500;
+  color: #000;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.save-list:disabled {
+  background: rgb(209, 209, 209);
+}
+
+.save-list:hover:enabled {
+  background-color: var(--secondary-green);
+  box-shadow: 0px 15px 20px var(--secondary-green-shadow);
+  color: #fff;
+  transform: translateY(-7px);
 }
 
 /* yumlist */
@@ -417,7 +424,7 @@ a:visited {
   height: 60px;
   color: white;
   border: 0px;
-  margin: 5px 0px;
+  margin: 20px 0px;
   font-size: 1.2em;
   border-radius: 5px;
 }
@@ -435,7 +442,7 @@ a:visited {
 
 .sharedlist-items {
   background-color: #f9f9f9;
-  border-radius: 20px; 
+  border-radius: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -461,6 +468,48 @@ a:visited {
   font-size: 1.2em;
 }
 
+ @media only screen and (min-width: 769px) {
+  .create-list {
+    max-width: 960px;
+  }
+
+  .create-list-wrapper {
+    width: 100%;
+  }
+
+  .yumlist-body-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .yumlist-wrapper {
+    border-radius: 25px 25px 25px 25px;
+    flex: 0 0 960px;
+    padding-top: 40px;
+    margin-top: 30vh;
+  }
+
+  .yumlist-items {
+    margin-bottom: 0;
+  }
+
+  #restaurant-search {
+    max-width: 960px;
+  }
+
+  .location {
+    max-width: 960px;
+  }
+
+  .search-result {
+    max-width: 960px;
+  }
+
+  .sharedlist-items {
+    max-width: 960px;
+  }
+}
+
 @media only screen and (max-width: 768px) {
 
   h1 {
@@ -474,13 +523,13 @@ a:visited {
   h3 {
     font-size: 1.2em;
   }
-  
+
   .yumlist-items {
     width: 100%;
     background-color: white;
     margin-top: 20px;
   }
-  
+
   .favorite-right {
     margin: 10px;
     margin-left: 0px;
@@ -511,7 +560,7 @@ a:visited {
   .emoji {
     width: 35px;
   }
-  
+
   .modal {
     background-color: white;
     border-radius: 15px;
@@ -531,7 +580,7 @@ a:visited {
     margin: 20px;
     padding-bottom: 40px;
   }
-  
+
   .sharedlist-items {
     padding: 20px;
   }
@@ -563,7 +612,7 @@ a:visited {
   #restaurant-search {
     margin-top: 5px;
   }
-  
+
 
   /* sharedlist mobile */
 
@@ -573,8 +622,8 @@ a:visited {
     width: 70px;
   }
 
- 
 
-} 
+
+}
 
 
