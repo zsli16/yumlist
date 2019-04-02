@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
 import logo from './../assets/yumlist-logo.png';
+import btoa from 'btoa';
 
 class CreateList extends Component {
 
@@ -10,8 +11,8 @@ class CreateList extends Component {
       listTitle: '',
       listDescription: '',
       listLocation: '',
-      listId: uuid.v4(), // refactor this to generate UUID from server rather than client
-      sendEnable: false
+      sendEnable: false,
+      errorMessage: ''
     };
   }
 
@@ -50,6 +51,7 @@ class CreateList extends Component {
     const listName = this.state.listTitle;
     const listDetails = this.state.listDescription;
     const listLocation = this.state.listLocation;
+    const listId = btoa(listName + listDetails + listLocation);
 
     fetch(`${url}/createlist`, {
       method: 'POST',
@@ -60,14 +62,16 @@ class CreateList extends Component {
         "listname": listName,
         "listdetails": listDetails,
         "listlocation": listLocation,
-        "listId": this.state.listId, // refactor this to generate UUID from server rather than client
+        "listId": listId, // refactor this to generate UUID from server rather than client
       })
     })
     .then(res => res.json())
     .then(res => { //refactor to get the id from the database
-      this.setState({listId: res.id}, () => {
-        this.props.history.push(`/list/${this.state.listId}`);
-      });
+      if (res.error) {
+        this.setState({errorMessage: res.error})
+      } else {
+        this.props.history.push(`/list/${listId}`);
+      }
     })
   }
 
@@ -79,6 +83,7 @@ class CreateList extends Component {
     } else {
       button = <button className="save-list" disabled={!this.state.sendEnable} onClick={this.findList}>Find Yumlist</button>
     }
+
     return (
         <div className="create-list">
           <img src={logo} alt="Logo" className="yumlist-logo"/>
@@ -101,9 +106,13 @@ class CreateList extends Component {
                 <option value="Singapore">Singapore</option>
                 <option value="Sydney">Sydney</option>
               </select>
-              
+
             </div>
             {button}
+            <div>
+              <br></br>
+            {this.state.errorMessage}
+            </div>
           </div>
         </div>
     )

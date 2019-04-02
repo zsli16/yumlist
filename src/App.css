@@ -207,7 +207,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  padding-bottom: 60px;
+  padding-bottom: 40px;
   align-items: center;
   overflow: hidden;
 }
@@ -539,8 +539,10 @@ body {
 
   .yumlist-wrapper {
     border-radius: 25px 25px 25px 25px;
-    flex: 0 0 960px;
+    flex: 0 1 960px;
     padding-top: 40px;
+    margin-left: 50px;
+    margin-right: 50px;
     margin-top: 30vh;
   }
 

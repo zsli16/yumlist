@@ -1,4 +1,4 @@
-const atob = require('atob');
+const btoa = require('btoa');
 
 exports.searchRestaurants = async (ctx, client) => {
   const input = ctx.request.body;
@@ -16,12 +16,11 @@ exports.searchRestaurants = async (ctx, client) => {
 }
 
 exports.getListInfo = async (ctx, db) => {
-  const hash = ctx.request.body;
-  // const listId = ctx.params.listId;
+  const listId = ctx.params.listId;
   try {
     const listInfo = await db.Lists.findOne({
       where: {
-        id: hash
+        id: listId
       },
       raw: true
     })
@@ -37,6 +36,36 @@ exports.getListInfo = async (ctx, db) => {
     ctx.body = err;
     ctx.status = 500;
   }
+}
+
+exports.createList = async (ctx, db) => {
+  const submittedList = ctx.request.body;
+  try {
+    await db.Lists.findOrCreate({
+      where: {
+        listname: submittedList.listname,
+        listdetails: submittedList.listdetails,
+        listlocation: submittedList.listlocation,
+        id: submittedList.listId
+      },
+      raw: true
+    })
+      .spread((list, created) => {
+        if (created) {
+          ctx.body = list;
+          ctx.status = 200;
+        } else {
+          ctx.body = {
+            "error": "This list already exists. Try another name!"
+          }
+          ctx.status = 400;
+        }
+      })
+     } catch (err) {
+        console.log(err);
+        ctx.status = 500;
+    }
+
 }
 
 //REVIEW! QUÉ HACE INCLUDE ATTRIBUTES
@@ -109,24 +138,7 @@ exports.removeFromFavorites = async (ctx, db) => {
   }
 }
 
-exports.createList = async (ctx, db) => {
-  const submittedList = ctx.request.body;
 
-  try {
-    const newList = await db.Lists.create({
-      listname: submittedList.listname,
-      listdetails: submittedList.listdetails,
-      listlocation: submittedList.listlocation,
-      id: submittedList.listId //refactor this to generate the UUID in the backend instead of the frontend
-    })
-    ctx.body = newList;
-    ctx.status = 200;
-  } catch (err) {
-    console.log(err);
-    ctx.body = err;
-    ctx.status = 500;
-  }
-}
 
 exports.addVote = async (ctx, db) => {
   const list = ctx.request.body.listId;
