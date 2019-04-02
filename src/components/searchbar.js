@@ -64,19 +64,22 @@ class Searchbar extends Component {
     })
       .then(res => res.json())
       .then(res => {
-        this.props.updateSearchResults(res);
+        if (res.statusCode === 429) {
+          res = {}
+        } else {
+          this.props.updateSearchResults(res);
+        }
       });
   }
 
   returnHome = () => {
-    this.props.history.push('/create');
+    this.props.history.push('/home');
   }
 
   handleChange = (e) => {
-
     this.setState({searchTerm: e.target.value}, () => {
       if (this.state.searchTerm.length === 0) this.props.updateSearchResults([]);
-      else this.throttleSearch(this.searchRestaurants(this.state.searchTerm), 2000);
+      else this.throttleSearch(this.searchRestaurants(this.state.searchTerm), 1000);
     })
   }
 
