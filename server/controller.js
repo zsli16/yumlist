@@ -1,3 +1,5 @@
+const atob = require('atob');
+
 exports.searchRestaurants = async (ctx, client) => {
   const input = ctx.request.body;
   try {
@@ -14,11 +16,12 @@ exports.searchRestaurants = async (ctx, client) => {
 }
 
 exports.getListInfo = async (ctx, db) => {
-  const listId = ctx.params.listId;
+  const hash = ctx.request.body;
+  // const listId = ctx.params.listId;
   try {
     const listInfo = await db.Lists.findOne({
       where: {
-        id: listId
+        id: hash
       },
       raw: true
     })

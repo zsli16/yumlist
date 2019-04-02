@@ -73,11 +73,17 @@ class CreateList extends Component {
 
 
   render() {
+    let button;
+    if (!this.props.location.state) {
+      button = <button className="save-list" disabled={!this.state.sendEnable} onClick={this.saveList}>Save List</button>
+    } else {
+      button = <button className="save-list" disabled={!this.state.sendEnable} onClick={this.findList}>Find Yumlist</button>
+    }
     return (
         <div className="create-list">
           <img src={logo} alt="Logo" className="yumlist-logo"/>
           <div className="create-list-wrapper">
-            <h2>Create New List</h2>
+            <h2>{!this.props.location.state ? 'Create New List' : 'Find My List'}</h2>
             <div className="list-input">
               <input type="text" autoComplete="off" className="list-details" placeholder="List Name" name="list-title" value={this.state.listTitle} onChange={this.updateTitle}/>
               <input type="text" autoComplete="off" className="list-details" placeholder="Your Name" name="list-details" value={this.state.listDescription} onChange={this.updateDescription}/>
@@ -95,9 +101,9 @@ class CreateList extends Component {
                 <option value="Singapore">Singapore</option>
                 <option value="Sydney">Sydney</option>
               </select>
-
+              
             </div>
-            <button className="save-list" disabled={!this.state.sendEnable} onClick={this.saveList}>Save List</button>
+            {button}
           </div>
         </div>
     )
