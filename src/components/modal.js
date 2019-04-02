@@ -46,15 +46,17 @@ class Modal extends React.Component {
           <img src={close} className="close-button" onClick={this.props.onClose} alt="close-modal" width="20px" />
           <div className="modal-container">
           <h1>Share Your List</h1>
-
+          <p className="join-description">Send this link to your friends so they can give YUMS for their favorite restaurants!</p>
           <div className="copy-input">
             <input type="text" value={url + this.props.listId} className="list-url" readOnly={true} />
             <div className="copy-url" onClick={this.copyUrl}>Copy</div>
           </div>
 
+          <p className="join-description">Or, want to vote on your own list?</p>
           <Link to={`/share/${this.props.listId}`}>
-            <button className="go-there">View List</button>
+            <button className="go-there">Go to my Yumlist</button>
           </Link>
+
 
           </div>
         </div>
