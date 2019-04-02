@@ -8,7 +8,6 @@ exports.searchRestaurants = async (ctx, client) => {
       ctx.status = 200;
     })
   } catch (err) {
-    console.log(err);
     ctx.body = err;
     ctx.status = 500;
   }
@@ -25,7 +24,6 @@ exports.getListInfo = async (ctx, db) => {
     })
     if (listInfo) {
       ctx.body = listInfo;
-      console.log('list we found', listInfo);
       ctx.status = 200;
     } else {
       ctx.body = {"error": "List not found"};
@@ -245,7 +243,6 @@ exports.loadVotesFromAllUsers = async (ctx, db) => {
 
 exports.loadFavoritesFromListWithScore = async (ctx, db) => {
   const listId = ctx.params.listId;
-
   try {
     const favoritesOnLoad = await db.Favorites.findAll({ // get all favorites in sharedlist
       include: [{

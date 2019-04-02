@@ -108,7 +108,6 @@ class Searchbar extends Component {
             <p className="current-location">{this.props.location}</p>
             <p className="change-location">Change Location</p>
           </div>
-          {/* Add blanck element so that results do not move searchBar */}
           <div className="blankDiv"></div>
         </div>
         )
@@ -116,7 +115,6 @@ class Searchbar extends Component {
       return (
       <div>
         <SearchList results={this.props.searchList} />
-        {/* Add blanck element so results do not move */}
         <div className="blankDiv"></div>
       </div>
       )

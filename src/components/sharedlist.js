@@ -90,6 +90,7 @@ class SharedList extends Component {
   render() {
 
     const list = this.props.favoritesList;
+
     list.sort((a,b) => {
       if (a.name < b.name) {
         return -1;
@@ -99,13 +100,12 @@ class SharedList extends Component {
       }
       return 0;
     });
-    const items = list.map(result => <SharedRestaurant score={result.score} list={this.state.listId} key={result.id + this.state.listId} username={this.state.username} restaurant={result} reloadScore={this.getRestaurants}/>);
-
+    const items = list.map(result => <SharedRestaurant voting={true} score={result.score} list={this.state.listId} key={result.id + this.state.listId} username={this.state.username} restaurant={result} reloadScore={this.getRestaurants}/>);
     return (
 
       <div className="sharedlist-wrapper">
 
-        <VotesSubmitted show={this.state.votesSubmitted} onClose={this.closeDialog}/>
+        <VotesSubmitted listId={this.state.listId} show={this.state.votesSubmitted} onClose={this.closeDialog}/>
 
         <CreateUserModal createUser={this.createUser} show={this.state.createUserDialog} listId={this.state.listId} listDetails={this.state.listDetails} listName={this.state.listName} listLocation={this.state.listLocation}/>
 

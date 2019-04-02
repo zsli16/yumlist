@@ -7,15 +7,23 @@ class CreateUserModal extends React.Component {
     super(props)
     this.state = {
       username: '',
+      sendEnable: false
     }
   }
 
   handleClose = () => {
-    this.props.createUser(this.state.username);
+    if (this.state.sendEnable) {
+      this.props.createUser(this.state.username);
+    }
   }
 
-  onChange = (e) => {
-    this.setState({username: e.target.value}, ()=> console.log('username changed to', this.state.username))
+  onChange = async (e) => {
+    await this.setState({username: e.target.value});
+    if (this.state.username) {
+      this.setState({sendEnable: true})
+    } else {
+      this.setState({sendEnable: false})
+    }
   }
 
   render() {
@@ -37,7 +45,7 @@ class CreateUserModal extends React.Component {
             <div className="copy-input" id="name-input">
               <input type="text" autoComplete="off" placeholder="What's your name?" id="username" className="list-url" onChange={this.onChange} value={this.state.username} />
             </div>
-            <button className="go-there" onClick={this.handleClose} >Join List</button>
+            <button className="go-there" disabled={!this.state.sendEnable} onClick={this.handleClose} >Join List</button>
 
           </div>
         </div>

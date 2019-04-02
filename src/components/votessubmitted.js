@@ -19,11 +19,20 @@ class VotesSubmitted extends React.Component {
           <div className="modal-container">
           <h1>Thanks for Voting!</h1>
           <h3>Your votes have been saved successfully in your friend's list.</h3>
-            <p className="join-description">Have a yummy time!</p>
+          
+          <p className="join-description">What would you like to do now?</p>
+
+          <Link to={`/view/${this.props.listId}`}> 
+            <button className="go-there">View Results</button>
+          </Link> 
+
+          <p className="join-description">or</p>
 
           <Link to='/create'> 
             <button className="go-there">Make My Own Yumlist</button>
-          </Link>  
+          </Link> 
+
+           
 
           </div>
         </div>

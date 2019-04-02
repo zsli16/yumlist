@@ -15,7 +15,7 @@ router.put('/updateshared/:listId', (ctx) => ctrl.loadVotesFromAllUsers(ctx, db)
 
 router.get('/loadshared/:listId', (ctx) => ctrl.loadFavoritesFromListWithScore(ctx, db));
 
-router.get('/:listId', (ctx) => ctrl.getListInfo(ctx, db)); // todo: check if listtitle + listcreator matches the hashed ID or not
+router.get('/:listId', (ctx) => ctrl.getListInfo(ctx, db)); 
 
 router.get('/load/:listId', (ctx) => ctrl.loadFavoritesFromListWithScore(ctx, db));
 

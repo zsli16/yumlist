@@ -42,13 +42,24 @@ class SharedRestaurant extends React.Component  {
   }
 
 render () {
-  const {restaurant, list, username} = this.props;
+  const {restaurant, list, username, view, voting} = this.props;
 
   let file;
   if (restaurant.rating % 1 === 0) {
     file = restaurant.rating
   } else {
     file = Math.floor(restaurant.rating) + '_half';
+  }
+
+  let yums;
+  if (view) {
+    yums = <div><span id="current-votes">{restaurant.score}</span><img src={emoji} alt="emoji" width="45px" className="emoji"/> </div>
+  } else if (voting) {
+    if (this.state.voted) {
+      yums = <div><span id="add-vote">1✗</span><img src={emoji} alt="emoji" width="45px" className="emoji"/></div>
+    } else {
+      yums = ''
+    }
   }
 
   return (
@@ -62,17 +73,18 @@ render () {
         <a href={restaurant.url} className="favorite-url">View More</a>
       </div>
       <div className="favorite-right">
-        <div className="favorite-rating"><img src={require(`../ratings/large/large_${file}.png`)} alt="yelp-rating" id="yelp-rating"/><div className="favorite-reviewcount"> {restaurant.review_count} Reviews </div></div>
+        <div className="favorite-rating">
+          <img src={require(`../ratings/large/large_${file}.png`)} alt="yelp-rating" id="yelp-rating"/>
+          {/* <div className="favorite-reviewcount">{restaurant.review_count} Reviews</div> */}
+        </div>
 
+          {yums}
+    
         <div>
-          {/* <p id="current-votes">{restaurant.score} Yums </p> */}
-          { this.state.voted
-            ? <img src={emoji} alt="emoji" width="45px" className="emoji"/>
+          {this.props.voting 
+            ? <button className="like-button" onClick={() => this.toggleVote(restaurant, username, list)}>YUM!</button>
             : null
           }
-          <div>
-            <button className="like-button" onClick={() => this.toggleVote(restaurant, username, list)}>YUM!</button>
-          </div>
         </div>
       </div>
     </div>
