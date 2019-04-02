@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import uuid from 'uuid';
 import logo from './../assets/yumlist-logo.png';
 import btoa from 'btoa';
 
@@ -12,7 +11,8 @@ class CreateList extends Component {
       listDescription: '',
       listLocation: '',
       sendEnable: false,
-      errorMessage: ''
+      errorMessage: '',
+      url: `http://${process.env.REACT_APP_LOCAL_URL}:3001`
     };
   }
 
@@ -28,14 +28,14 @@ class CreateList extends Component {
     }
   }
 
-  updateTitle = (evt) => {
-    this.setState({
+  updateTitle = async (evt) => {
+    await this.setState({
       listTitle: evt.target.value
     }, this.updateSendEnable);
   }
 
-  updateDescription = (evt) => {
-    this.setState({
+  updateDescription = async (evt) => {
+    await this.setState({
       listDescription: evt.target.value
     }, this.updateSendEnable);
   }
@@ -47,13 +47,12 @@ class CreateList extends Component {
   }
 
   saveList = () => {
-    const url = `http://${process.env.REACT_APP_LOCAL_URL}:3001`;
     const listName = this.state.listTitle;
     const listDetails = this.state.listDescription;
     const listLocation = this.state.listLocation;
     const listId = btoa(listName + listDetails + listLocation);
 
-    fetch(`${url}/createlist`, {
+    fetch(`${this.state.url}/createlist`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -62,15 +61,33 @@ class CreateList extends Component {
         "listname": listName,
         "listdetails": listDetails,
         "listlocation": listLocation,
-        "listId": listId, // refactor this to generate UUID from server rather than client
+        "listId": listId, 
       })
     })
     .then(res => res.json())
-    .then(res => { //refactor to get the id from the database
+    .then(res => { 
       if (res.error) {
         this.setState({errorMessage: res.error})
       } else {
         this.props.history.push(`/list/${listId}`);
+      }
+    })
+  }
+
+  findList = () => {
+    const listId = btoa(this.state.listTitle + this.state.listDescription + this.state.listLocation);
+    fetch(`${this.state.url}/${listId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(res => res.json())
+    .then(res => {
+      if (res.id) {
+        this.props.history.push(`/list/${res.id}`);
+      } else {
+        this.setState({errorMessage: res.error})
       }
     })
   }

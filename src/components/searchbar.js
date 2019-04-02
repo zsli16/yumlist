@@ -92,7 +92,6 @@ class Searchbar extends Component {
         lastResult = func.apply(this, arguments);
         lastTime = Date.now();
       }
-      console.log('lastResult', lastResult);
       return lastResult;
     };
   };

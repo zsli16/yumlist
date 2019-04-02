@@ -1,4 +1,3 @@
-const btoa = require('btoa');
 
 exports.searchRestaurants = async (ctx, client) => {
   const input = ctx.request.body;
@@ -24,13 +23,14 @@ exports.getListInfo = async (ctx, db) => {
       },
       raw: true
     })
-    ctx.body = listInfo;
-    if (listInfo) ctx.status = 200;
-    else {
-      ctx.body = {error: 'list not found'};
+    if (listInfo) {
+      ctx.body = listInfo;
+      console.log('list we found', listInfo);
+      ctx.status = 200;
+    } else {
+      ctx.body = {"error": "List not found"};
       ctx.status = 404;
     }
-
   } catch (err) {
     console.log(err);
     ctx.body = err;
