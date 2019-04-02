@@ -258,7 +258,7 @@ exports.loadFavoritesFromListWithScore = async (ctx, db) => {
       ...res.dataValues,
       score: res.dataValues.Lists[0].FavoritesLists.score
     }));
-
+    
     ctx.body = result;
     ctx.status = 200;
   } catch (err) {
