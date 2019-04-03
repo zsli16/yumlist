@@ -9,7 +9,7 @@ const cors = require('@koa/cors');
 const port = 3001;
 const db = require('./models');
 
-app.use(cors());
+app.use(cors({ origin: 'http://yumlist.surge.sh' }));
 
 app.use(bodyParser);
 // app.use(bodyParser.urlencoded({extended: true}));
