@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config(); comment out when deploying to production because heroku has the env variables
 
 const Koa = require('koa');
 const app = new Koa();
