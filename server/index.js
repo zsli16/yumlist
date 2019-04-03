@@ -7,7 +7,8 @@ const bodyParser = require('koa-bodyparser')();
 const router = require('./router');
 // const cors = require('@koa/cors');
 const cors = require('koa-cors');
-const port = 3001;
+
+const port = process.env.PORT || 80;
 const db = require('./models');
 
 app.use(cors());
