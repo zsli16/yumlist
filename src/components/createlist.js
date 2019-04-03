@@ -13,6 +13,7 @@ class CreateList extends Component {
       sendEnable: false,
       errorMessage: '',
       url: `${process.env.REACT_APP_SERVER}`
+      // url: 'https://yumlist.herokuapp.com'
     };
   }
 

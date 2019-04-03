@@ -11,6 +11,8 @@ const cors = require('koa-cors');
 const port = process.env.PORT || 80;
 const db = require('./models');
 
+const hello = 'igor'; // forcing heroku to run again
+
 app.use(cors());
 
 app.use(bodyParser);
@@ -26,4 +28,6 @@ app.use(router.routes());
     console.log(`Listening on port ${port}`) // eslint-disable-line no-console
   });
 })()
+
+
 
