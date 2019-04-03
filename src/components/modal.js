@@ -34,7 +34,7 @@ class Modal extends React.Component {
   }
 
   render() {
-    const url = `http://${process.env.REACT_APP_LOCAL_URL}:3000/share/`;
+    const url = `${process.env.REACT_APP_URL}/share/`;
     // Render nothing if the "show" prop is false
     if(!this.props.show) {
       return null;

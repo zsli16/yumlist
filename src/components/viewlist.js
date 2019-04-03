@@ -10,7 +10,7 @@ class ViewList extends Component {
     listId: window.location.pathname.slice('/view/'.length),
     listName: '',
     listDetails: '',
-    url: `http://${process.env.REACT_APP_LOCAL_URL}:3001`
+    url: `http://${process.env.REACT_APP_SERVER}`
   }
 
   componentDidMount() {

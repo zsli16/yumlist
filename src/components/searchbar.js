@@ -44,7 +44,7 @@ class Searchbar extends Component {
 
 
   searchRestaurants = (userInput) => {
-    const url = `http://${process.env.REACT_APP_LOCAL_URL}:3001`;
+    const url = `${process.env.REACT_APP_SERVER}`;
     this.props.updateSearchResults([]);
 
     const searchTerm = {

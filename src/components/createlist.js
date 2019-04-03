@@ -12,7 +12,7 @@ class CreateList extends Component {
       listLocation: '',
       sendEnable: false,
       errorMessage: '',
-      url: `http://${process.env.REACT_APP_LOCAL_URL}:3001`
+      url: `${process.env.REACT_APP_SERVER}`
     };
   }
 

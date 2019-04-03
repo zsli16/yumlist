@@ -14,5 +14,5 @@ Yumlist is a React app that leverages the Yelp Fusion API to help you search for
 6. Open `System Preferences -> Sharing -> File Sharing`.
    1. Tick the *File Sharing* option.
    2. Copy the URL located at the top of the preferences, after `Computers on your local network can access your computer at:`. It should resemble *Admins-MacBook-Pro.local*
-   3. Paste this copied URL into a new *REACT_APP_LOCAL_URL* variable of the **.env** file if you want to enable sharing lists. Otherwise, create the *REACT_APP_LOCAL_URL* variable with **localhost** as its value.
+   3. Paste this copied URL into a new *REACT_APP_URL* variable of the **.env** file if you want to enable sharing lists. Otherwise, create the *REACT_APP_URL* variable with **localhost** as its value.
    4. Create a variable called *YELP_KEY* and set as its value the key provided by your administrator.

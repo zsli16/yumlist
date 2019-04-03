@@ -6,7 +6,7 @@ const FavoriteRestaurant = ({restaurant, removeFromList, list, score}) => {
 
   const removeRestaurant = (restaurant) => {
     const restaurantId = restaurant.id;
-    fetch(`http://${process.env.REACT_APP_LOCAL_URL}:3001/removefromfavorites/${list}/${restaurantId}`, {
+    fetch(`${process.env.REACT_APP_SERVER}/removefromfavorites/${list}/${restaurantId}`, {
       method: 'DELETE'
     })
     .then(removeFromList(restaurantId))
