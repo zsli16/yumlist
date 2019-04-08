@@ -1,4 +1,6 @@
-// require('dotenv').config(); comment out when deploying to production because heroku has the env variables
+// todo: comment out in production? what does dotenv do?
+
+require('dotenv').config();
 
 const Koa = require('koa');
 const app = new Koa();
@@ -10,8 +12,6 @@ const cors = require('koa-cors');
 
 const port = process.env.PORT || 80;
 const db = require('./models');
-
-const hello = 'igor'; // forcing heroku to run again
 
 app.use(cors());
 

@@ -8,20 +8,15 @@ const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
 
 let sequelize;
-sequelize = new Sequelize(process.env.DATABASE_URL, config);
+// sequelize = new Sequelize(process.env.DATABASE_URL, config);
 
-// development only
-// if (config.use_env_variable) {
-//   sequelize = new Sequelize(process.env[config.use_env_variable], {
-//     ...config,
-//     logging: false
-//   });
-// } else {
-//   sequelize = new Sequelize(config.database, config.username, config.password, {
-//     ...config,
-//     logging: false
-//   });
-// }
+if (config.use_env_variable) {
+  // Basically for production enviroments
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else {
+  // Or for developing enviroments
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
 
 fs
   .readdirSync(__dirname)
