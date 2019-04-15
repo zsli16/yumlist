@@ -125,7 +125,7 @@ class Searchbar extends Component {
     return (
       <div className="search-fields">
         <img src={logo} alt="Logo" className="yumlist-logo" onClick={this.returnHome}/>
-        <input type="text" onKeyDown={this.handleBackspace} autoComplete="off" id="restaurant-search" placeholder="Search restaurants" value={this.state.searchInput} onChange={this.handleChange}/>
+        <input type="text" onKeyDown={this.handleBackspace} autoComplete="off" id="restaurant-search" placeholder="Search by name or category (ex: pizza, sushi)" value={this.state.searchInput} onChange={this.handleChange}/>
         {this.handleSearchBar()}
       </div>
     )
