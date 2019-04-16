@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import close from './../assets/close.png';
 import { Link } from "react-router-dom";
 
+import facebook from './../assets/facebook.png';
+import whatsapp from './../assets/whatsapp.png';
+import messenger from './../assets/messenger.png';
+
 class Modal extends React.Component {
 
   copyUrl = () => {
@@ -46,16 +50,22 @@ class Modal extends React.Component {
           <img src={close} className="close-button" onClick={this.props.onClose} alt="close-modal" width="20px" />
           <div className="modal-container">
           <h1>Share Your List</h1>
-          <a href={`whatsapp://send?text=Vote%20on%20my%20yumlist!%20${url}`}>Open in Whatsapp</a>
-          <p className="join-description">Send this link to your friends so they can give YUMS for their favorite restaurants!</p>
+          <p className="join-description">Send your Yumlist to friends on social media!</p>
+          <div className="social">
+            {/* <a href={`whatsapp://send?text=Vote%20on%20my%20yumlist!%20${url}`}><img src={whatsapp} alt="whatsapp"/></a> */}
+            <a href={`whatsapp://send?text=Vote%20on%20my%20yumlist!%20${url}`}><img src={messenger} className="social-icon" alt="messenger" width="50px"/></a>
+            <a href={`whatsapp://send?text=Vote%20on%20my%20yumlist!%20${url}`}><img src={whatsapp} className="social-icon" alt="whatsapp" width="50px"/></a>
+            <a href={`whatsapp://send?text=Vote%20on%20my%20yumlist!%20${url}`}><img src={facebook} className="social-icon" alt="facebook" width="50px"/></a>
+          </div>
+          <p className="join-description">Or copy the link to clipboard:</p>
           <div className="copy-input">
             <input type="text" value={url + this.props.listId} className="list-url" readOnly={true} />
             <div className="copy-url" onClick={this.copyUrl}>Copy</div>
           </div>
 
-          <p className="join-description">Or, want to vote on your own list?</p>
+          <p className="join-description">You can give your own YUMS too!</p>
           <Link to={`/share/${this.props.listId}`}>
-            <button className="go-there">Go to my Yumlist</button>
+            <button className="go-there">Vote on My Yumlist</button>
           </Link>
 
 

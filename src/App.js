@@ -5,7 +5,7 @@ import ViewList from './components/viewlist';
 import Home from './components/home';
 import { ConnectedYumlist } from './components/yumlist';
 import { ConnectedSharedList } from './components/sharedlist';
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect, withRouter } from "react-router-dom";
 
 class App extends Component {
 
@@ -13,12 +13,12 @@ class App extends Component {
     return (
       <Router>
         <Switch>
+          <Route exact path='/' component={withRouter(Home)}/>
           <Route exact path='/list' component={CreateList}/>
-          <Route path='/home' component={Home}/>
-          <Route exact path='/list/:id' component={ConnectedYumlist} />
+          <Route path='/list/:id' component={ConnectedYumlist} />
           <Route path='/share/:id' component={ConnectedSharedList}/>
           <Route path='/view/:id' component={ViewList}/>
-          <Redirect to='/home'/>
+          <Redirect to='/'/>
         </Switch>
       </Router>
     )

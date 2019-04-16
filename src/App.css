@@ -529,6 +529,15 @@ body {
   overflow: auto;
 }
 
+.social {
+  align-self: center;
+  padding: 10px;
+}
+
+.social-icon {
+  margin: 5px;
+}
+
 .close-button {
   position: relative;
   left: 95%;
@@ -539,8 +548,8 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: no-wrap;
-  height: 60px;
-  margin: 20px 0px;
+  height: 50px;
+  margin: 10px 0px;
 }
 
 #username {
@@ -554,13 +563,16 @@ body {
 }
 
 .list-url {
-  width: 80%;
+  width: 75%;
   height: 100%;
+  border: 1px solid darkgray;
+  padding-left: 10px;
 }
 
 .copy-url {
-  width: 30%;
-  border: 1px solid darkgray;
+  width: 25%;
+  background-color: var(--secondary-green);
+  color: white; 
   text-align: center;
   height: 100%;
   line-height: 50px;
