@@ -52,10 +52,9 @@ class Modal extends React.Component {
           <h1>Share Your List</h1>
           <p className="join-description">Send your Yumlist to friends on social media!</p>
           <div className="social">
-            {/* <a href={`whatsapp://send?text=Vote%20on%20my%20yumlist!%20${url}`}><img src={whatsapp} alt="whatsapp"/></a> */}
-            <a href={`whatsapp://send?text=Vote%20on%20my%20yumlist!%20${url}`}><img src={messenger} className="social-icon" alt="messenger" width="50px"/></a>
-            <a href={`whatsapp://send?text=Vote%20on%20my%20yumlist!%20${url}`}><img src={whatsapp} className="social-icon" alt="whatsapp" width="50px"/></a>
-            <a href={`whatsapp://send?text=Vote%20on%20my%20yumlist!%20${url}`}><img src={facebook} className="social-icon" alt="facebook" width="50px"/></a>
+            <img src={messenger} className="social-icon" alt="messenger" width="50px"/>
+            <a href={`whatsapp://send?text=Vote%20on%20my%20yumlist!%20${url + this.props.listId}`}><img src={whatsapp} className="social-icon" alt="whatsapp" width="50px"/></a>
+            <img src={facebook} className="social-icon" alt="facebook" width="50px"/>
           </div>
           <p className="join-description">Or copy the link to clipboard:</p>
           <div className="copy-input">
