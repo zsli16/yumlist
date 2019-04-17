@@ -18,6 +18,7 @@
 p {
   color: white;
   display: inline-block;
+  margin: 12px;
 }
 
 h1 {
@@ -95,10 +96,25 @@ body {
 .home-content .how-it-works {
   width: 100vw;
   background-image: linear-gradient(to top, #E7E7E7, white, white);
-  padding: 30px;
-  padding-top: 30px;
-  padding-bottom: 20px; 
+  text-align: center;
+  padding-top: 20px;
+}
+
+.how-it-works p {
   color: black;
+  margin-bottom: 0px;
+}
+
+#yelp-logo {
+  position: relative;
+  top: -10px;
+  width: 150px;
+}
+
+#yelp-label {
+  margin-top: 30px;
+  color: darkgray;
+  font-weight: bolder;
 }
 
 #get-started {
@@ -114,21 +130,31 @@ body {
   font-size: 1em;
 }
 
-#its-free {
-  color: black;
-}
-
 .get-started  {
   background-color: var(--yumlist-color);
+  width: 80vw;
+  margin-top: 16px;
+  margin-bottom: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.get-started-option {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  width: 100vw;
+  justify-content: center;
+  color: white;
 }
 
 .get-started p {
   margin-bottom: 5px;
+}
+
+.illustration {
+  vertical-align: middle;
+  width: 250px;
 }
 
 .home-button {
@@ -136,10 +162,17 @@ body {
   color: white;
   text-decoration: none;
   border-radius: 30px;
-  padding: 15px 50px;
+  padding: 15px 40px;
   font-weight: 700;
-  font-size: 1.5em;
+  font-size: 1.2em;
   margin-bottom: 10px;
+  vertical-align: middle;
+  margin: 20px;
+}
+
+.home-button:hover {
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
 }
 
 .find-list {
@@ -695,6 +728,7 @@ body {
   .home-content .how-it-works {
     padding-top: 20px;
     padding-bottom: 10px;
+
   }
 
   .home-button {
@@ -703,7 +737,6 @@ body {
     padding-right: 25px;
   }
 
-  
   .yumlist-items {
     width: 100%;
     background-color: white;
@@ -801,8 +834,16 @@ body {
     width: 70px;
   }
 
-
-
 }
 
+@media only screen and (max-width: 540px) {
+  .get-started  {
+    background-color: var(--yumlist-color);
+    margin-top: 16px;
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }  
+}
 
