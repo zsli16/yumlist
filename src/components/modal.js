@@ -52,17 +52,15 @@ class Modal extends React.Component {
           <h1>Share Your List</h1>
           <p className="join-description">Send your Yumlist to friends on social media!</p>
           <div className="social">
-            <img src={messenger} className="social-icon" alt="messenger" width="50px"/>
+            <a href={`http://www.facebook.com/dialog/send?app_id=373327316836098&redirect_uri=http://www.yumlist.io&display=popup&link=${url + this.props.listId}`}><img src={messenger} className="social-icon" alt="messenger" width="50px"/></a>
             <a href={`whatsapp://send?text=Vote%20on%20my%20yumlist!%20${url + this.props.listId}`}><img src={whatsapp} className="social-icon" alt="whatsapp" width="50px"/></a>
-            <img src={facebook} data-href={url + this.props.listId} className="social-icon" alt="facebook" width="50px"/>
-
+            <a href={`https://www.facebook.com/sharer/sharer.php?u=${url + this.props.listId}&display=popup&app_id=373327316836098&quote=I%20made%20a%20list%20of%20my%20favorite%20restaurants%20on%20Yumlist.%20Click%20below%20to%20vote%20now!`}><img src={facebook} className="social-icon" alt="facebook" width="50px"/></a>
           </div>
           <p className="join-description">Or copy the link to clipboard:</p>
           <div className="copy-input">
             <input type="text" value={url + this.props.listId} className="list-url" readOnly={true} />
             <div className="copy-url" onClick={this.copyUrl}>Copy</div>
           </div>
-
           <p className="join-description">You can give your own YUMS too!</p>
           <Link to={`/share/${this.props.listId}`}>
             <button className="go-there">Vote on My Yumlist</button>
