@@ -44,7 +44,7 @@
     "server-unit-test": "jest server/ --testPathIgnorePatterns */specs/*.js",
     "server-integration-test": "jest server/specs/",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && mv build/index.html build/200.html && surge build yumlist.io"
+    "deploy": "npm run build && mv build/index.html build/200.html && surge build http://www.yumlist.io"
   },
   "browserslist": [
     ">0.2%",

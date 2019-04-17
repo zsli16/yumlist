@@ -836,11 +836,8 @@ body {
 
 }
 
-@media only screen and (max-width: 540px) {
+@media (max-width: 540px) {
   .get-started  {
-    background-color: var(--yumlist-color);
-    margin-top: 16px;
-    margin-bottom: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
