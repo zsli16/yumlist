@@ -23,6 +23,9 @@ app.use(bodyParser);
 app.use(router.routes());
 
 (async () => {
+  await db.sequelize.drop();                 // drop db and
+  await db.sequelize.sync({ force: true });  // restart it
+
   await db.sequelize.sync();
   app.listen(port, () => {
     console.log(`Listening on port ${port}`) // eslint-disable-line no-console

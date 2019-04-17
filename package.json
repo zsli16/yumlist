@@ -37,13 +37,14 @@
     "yelp-fusion": "^2.2.1"
   },
   "scripts": {
+    "start-js": "react-scripts start",
     "start": "node server/index.js",
     "build": "react-scripts build",
     "client-test": "react-scripts test",
     "server-unit-test": "jest server/ --testPathIgnorePatterns */specs/*.js",
     "server-integration-test": "jest server/specs/",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && mv build/index.html build/200.html && surge build yumlist.surge.sh"
+    "deploy": "npm run build && mv build/index.html build/200.html && surge build yumlist.io"
   },
   "browserslist": [
     ">0.2%",

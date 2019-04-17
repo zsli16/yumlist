@@ -38,7 +38,7 @@ class Modal extends React.Component {
   }
 
   render() {
-    const url = `${process.env.REACT_APP_URL}/share/`;
+    const url = 'http://www.yumlist.io/share/';
     // Render nothing if the "show" prop is false
     if(!this.props.show) {
       return null;
@@ -54,7 +54,8 @@ class Modal extends React.Component {
           <div className="social">
             <img src={messenger} className="social-icon" alt="messenger" width="50px"/>
             <a href={`whatsapp://send?text=Vote%20on%20my%20yumlist!%20${url + this.props.listId}`}><img src={whatsapp} className="social-icon" alt="whatsapp" width="50px"/></a>
-            <img src={facebook} className="social-icon" alt="facebook" width="50px"/>
+            <img src={facebook} data-href={url + this.props.listId} className="social-icon" alt="facebook" width="50px"/>
+
           </div>
           <p className="join-description">Or copy the link to clipboard:</p>
           <div className="copy-input">

@@ -8,6 +8,12 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="theme-color" content="#000000" />
+
+    <!-- Extra Info for Facebook Link Sharing-->
+    <meta property="og:url" content="http://www.yumlist.io" />
+    <meta property="og:title" content="Yumlist - Where Should We Eat?" />
+    <meta property="og:description" content="Your friend has shared a yumlist with you! Click YUM to vote for your favorite restaurants!" />
+    <meta property="og:image" content="https://media.licdn.com/dms/image/C560BAQEBWi9fWCOAXQ/company-logo_400_400/0?e=1563408000&v=beta&t=kApWuXMKQ7ULL-dKAzGuy-oZBx8G2blU_VDvQ562xfw" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -25,6 +31,7 @@
     <title>Yumlist</title>
   </head>
   <body>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2&appId=373327316836098&autoLogAppEvents=1"></script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--

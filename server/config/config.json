@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "suli",
+    "username": "postgres",
     "password": "password",
     "database": "yumlist",
     "host": "127.0.0.1",
