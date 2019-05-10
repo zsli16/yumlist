@@ -117,6 +117,12 @@ body {
   font-weight: bolder;
 }
 
+.get-started-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 15%;
+}
+
 #get-started {
   margin: 20px;
   color: white !important;
@@ -130,7 +136,7 @@ body {
   font-size: 1em;
 }
 
-.get-started  {
+.get-started {
   background-color: var(--yumlist-color);
   width: 80vw;
   margin-top: 16px;
@@ -138,6 +144,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items:
 }
 
 .get-started-option {
@@ -841,6 +848,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }  
+  } 
+  
+
 }
 

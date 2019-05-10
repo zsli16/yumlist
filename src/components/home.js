@@ -24,7 +24,7 @@ class Home extends Component {
                   />
                 </div>
             </div>
-            <div>
+            <div className="get-started-container">
               <h1 id="get-started">Get Started</h1>
               <p align="center">It's free and there's no registration needed. Just remember the name of your Yumlist!</p>
               <div className="get-started">
@@ -42,7 +42,7 @@ class Home extends Component {
                 </div>
               
               </div>
-              
+
             </div>
        
           </div>
