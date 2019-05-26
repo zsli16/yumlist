@@ -25,23 +25,25 @@ class Home extends Component {
                 </div>
             </div>
             <div className="get-started-container">
-              <h1 id="get-started">Get Started</h1>
-              <p align="center">It's free and there's no registration needed. Just remember the name of your Yumlist!</p>
-              <div className="get-started">
-                
-                <div className="get-started-option">
-                  <Link to="/list"><img src={Create} className="illustration"/></Link>
-                  <Link to="/list" className="home-button"><span role="img" aria-label="search">📝</span> Create New List</Link>
-                </div>
-                
-                <div className="get-started-option"><h2>OR</h2></div>
-                
-                <div className="get-started-option">
-                  <Link to={{pathname: '/list', state: {mode: 'find'}}}><img src={Find} className="illustration"/></Link>
-                  <Link className="home-button" to={{pathname: '/list', state: {mode: 'find'}}}><span role="img" aria-label="search">🔎</span> Find My List</Link>
-                </div>
               
+              <div className="get-started-header">
+                <h1 id="get-started-title">Get Started</h1>
+                <p align="center">It's free and there's no registration needed. Just remember the name of your Yumlist!</p>
               </div>
+                
+              <div className="get-started-option">
+                <Link to="/list"><img src={Create} className="illustration"/></Link>
+                <Link to="/list" className="home-button"><span role="img" aria-label="search">📝</span> Create New List</Link>
+              </div>
+              
+              <div className="get-started-option"><h2>OR</h2></div>
+              
+              <div className="get-started-option">
+                <Link to={{pathname: '/list', state: {mode: 'find'}}}><img src={Find} className="illustration"/></Link>
+                <Link className="home-button" to={{pathname: '/list', state: {mode: 'find'}}}><span role="img" aria-label="search">🔎</span> Find My List</Link>
+              </div>
+              
+
 
             </div>
        

@@ -90,7 +90,6 @@ body {
   padding: 20px;
   padding-top: 0px;
   background-color: var(--yumlist-color);
-  height: 70vh; 
 }
 
 .home-content .how-it-works {
@@ -117,17 +116,6 @@ body {
   font-weight: bolder;
 }
 
-.get-started-container {
-  display: flex;
-  flex-direction: column;
-  padding: 0 15%;
-}
-
-#get-started {
-  margin: 20px;
-  color: white !important;
-}
-
 .home-content h1 {
   font-size: 1.5em;
 }
@@ -136,15 +124,21 @@ body {
   font-size: 1em;
 }
 
-.get-started {
+/* get started - desktop */
+
+.get-started-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
   background-color: var(--yumlist-color);
-  width: 80vw;
+  width: 90vw;
   margin-top: 16px;
   margin-bottom: 60px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items:
+}
+
+#get-started-title {
+  margin: 20px;
+  color: white !important;
 }
 
 .get-started-option {
@@ -155,8 +149,9 @@ body {
   color: white;
 }
 
-.get-started p {
+.get-started-header p {
   margin-bottom: 5px;
+  display: block;
 }
 
 .illustration {
@@ -735,7 +730,6 @@ body {
   .home-content .how-it-works {
     padding-top: 20px;
     padding-bottom: 10px;
-
   }
 
   .home-button {
@@ -843,12 +837,19 @@ body {
 
 }
 
-@media (max-width: 540px) {
+@media only screen and (max-width: 540px) {
+  
   .get-started  {
     display: flex;
     flex-direction: column;
-    justify-content: center;
   } 
+
+  .get-started-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+  }
   
 
 }
