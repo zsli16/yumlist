@@ -11,9 +11,7 @@
   box-sizing: border-box;
 }
 
-.blankDiv {
-  height: 40px;
-}
+
 
 p {
   color: white;
@@ -221,16 +219,23 @@ body {
 }
 
 /* Search Results List */
+
+.search-fields-container {
+  overflow: scroll;
+  margin-bottom: 20px;
+}
+
 .search-fields {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin: 0 auto;
   width: 100%;
-  height: 30vh;
+  max-height: 80vh;
   position: fixed;
   background-color: var(--yumlist-color);
   transition: .2s;
+  overflow: scroll;
 }
 
 .search-list {
@@ -397,7 +402,7 @@ body {
   margin: 0 auto;
   border-radius: 10px;
   padding: 40px 20px;
-  padding-top: 10px;
+  /* padding-top: 10px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -741,7 +746,6 @@ body {
   .yumlist-items {
     width: 100%;
     background-color: white;
-    margin-top: 10px;
   }
 
   .favorite-right {
@@ -806,7 +810,6 @@ body {
   /* search and yumlist on mobile */
 
   .search-fields {
-    height: 28vh;
     padding-top: 10px;
   }
 

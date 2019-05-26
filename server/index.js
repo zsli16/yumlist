@@ -1,5 +1,3 @@
-// todo: comment out in production? what does dotenv do?
-
 require('dotenv').config();
 
 const Koa = require('koa');
@@ -7,7 +5,6 @@ const app = new Koa();
 
 const bodyParser = require('koa-bodyparser')();
 const router = require('./router');
-// const cors = require('@koa/cors');
 const cors = require('koa-cors');
 
 const port = process.env.PORT || 80;

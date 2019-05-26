@@ -22,7 +22,7 @@ class Searchbar extends Component {
   }
 
   handleScroll = () => {
-    if (window.scrollY > 50) {
+    if (window.scrollY > 10) {
       this.shrinkHeader();
     } else {
       this.growHeader();
@@ -31,15 +31,14 @@ class Searchbar extends Component {
 
   shrinkHeader = () => {
     document.querySelector('.yumlist-logo').style.display = 'none';
-    document.querySelector('.location').style.display = 'none';
-    document.querySelector('.search-fields').style.height = '15vh';
+    // document.querySelector('.location').style.display = 'none';
+    // document.querySelector('.search-fields').style.height = '15vh';
   }
 
   growHeader = () => {
     document.querySelector('.yumlist-logo').style.display = 'block';
-    document.querySelector('.location').style.display = 'flex';
-    document.querySelector('.search-fields').style.height = '30vh';
-
+    // document.querySelector('.location').style.display = 'flex';
+    // document.querySelector('.search-fields').style.height = '30vh';
   }
 
 
@@ -52,7 +51,6 @@ class Searchbar extends Component {
       "categories": "restaurants, bars, food",
       "location": this.props.location,
       "sort_by": "best_match",
-      "limit": 5
     }
 
     fetch(`${url}/search`, {
@@ -96,26 +94,25 @@ class Searchbar extends Component {
     };
   };
 
-  handleBackspace = (e) => {
+  handleFocus = (e) => {
+    this.searchRestaurants(this.state.searchTerm);
     if (e.keyCode === 8 || e.keyCode === 46) this.props.updateSearchResults([])
   }
 
   handleSearchBar = () => {
     if (this.props.searchList.length===0 || this.state.searchTerm === '') {
       return (
-        <div>
+        <div className="search-fields-container">
           <div className="location">
             <p className="current-location">{this.props.location}</p>
             <p className="change-location">Change Location</p>
           </div>
-          <div className="blankDiv"></div>
         </div>
         )
     } else {
       return (
-      <div>
-        <SearchList results={this.props.searchList} />
-        <div className="blankDiv"></div>
+      <div className="search-fields-container">
+        <SearchList updateResults={(e) => this.handleChange(e)} results={this.props.searchList} />
       </div>
       )
     }
@@ -125,7 +122,7 @@ class Searchbar extends Component {
     return (
       <div className="search-fields">
         <img src={logo} alt="Logo" className="yumlist-logo" onClick={this.returnHome}/>
-        <input type="text" onKeyDown={this.handleBackspace} autoComplete="off" id="restaurant-search" placeholder="Search by name or category (ex: pizza, sushi)" value={this.state.searchInput} onChange={this.handleChange}/>
+        <input type="text" onFocus={this.handleFocus} onKeyDown={this.handleFocus} autoComplete="off" id="restaurant-search" placeholder="Search by name or category (ex: pizza, sushi)" value={this.state.searchInput} onChange={this.handleChange}/>
         {this.handleSearchBar()}
       </div>
     )
