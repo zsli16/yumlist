@@ -31,13 +31,14 @@ class Searchbar extends Component {
 
   shrinkHeader = () => {
     document.querySelector('.yumlist-logo').style.display = 'none';
-    // document.querySelector('.location').style.display = 'none';
-    // document.querySelector('.search-fields').style.height = '15vh';
+    document.querySelector('.location').style.display = 'none';
+    // document.querySelector('.search-fields-container').style.marginBottom = '0px';
   }
 
   growHeader = () => {
     document.querySelector('.yumlist-logo').style.display = 'block';
-    // document.querySelector('.location').style.display = 'flex';
+    document.querySelector('.location').style.display = 'flex';
+    // document.querySelector('.search-fields-container').style.marginBottom = '20px';
     // document.querySelector('.search-fields').style.height = '30vh';
   }
 
