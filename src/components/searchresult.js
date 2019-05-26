@@ -37,13 +37,13 @@ const Searchresult = ({restaurant, ...props}) => {
       .catch(err => console.log(err));
   }
 
-  // const isFavorite = props.favoritesList.find((r) => r.id === restaurant.id) !== undefined;
+  const isFavorite = props.favoritesList.find((r) => r.id === restaurant.id) !== undefined;
 
   return (
     <div className="search-result" id={restaurant.id}>
       <img src={restaurant.image_url} className="restaurant-icon" alt="restaurant-icon"/>
       <div className="search-title">{restaurant.name}</div>
-      <button className="addResult" onClick={() => addRestaurant(restaurant)}>Add</button>
+      <button className="addResult" disabled={isFavorite} onClick={() => addRestaurant(restaurant)}>Add</button>
     </div>
   )
 }
