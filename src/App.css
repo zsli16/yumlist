@@ -1,33 +1,869 @@
-.App {
+@import url('https://fonts.googleapis.com/css?family=Dosis:500,600,700,800');
+
+:root {
+  --yumlist-color: #C81465;
+  --gray: gray;
+  --secondary-green: #26BDC3;
+  --secondary-green-shadow: rgb(142, 204, 206);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+
+p {
+  color: white;
+  display: inline-block;
+  margin: 12px;
+}
+
+h1 {
+  color: black;
+  text-align: center;
+  margin: 4px;
+  caret-color: black;
+  font-family: 'Dosis', sans-serif;
+}
+
+h2 {
+  font-size: 1.8em;
+  text-align: center;
+  margin: 4px;
+  font-family: 'Dosis', sans-serif;
+}
+
+h3 {
+  text-align: center;
+  font-size: 1.4em;
+}
+
+h4 {
+  font-weight: lighter;
+  font-size: 1em;
+  margin: 15px 0;
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+body {
+  /* background-color: white; */
+  background-color: var(--yumlist-color);
+  margin: 0;
+  padding: 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Landing Page */
+
+.hero-image {
+  height: 225px;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.7)),
+    url('https://images.unsplash.com/photo-1528605248644-14dd04022da1?ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80');
+  background-size: cover;
+  background-position: 0 30%;
+  font-family: 'Dosis', sans-serif;
+}
+
+.hero-content {
+  display: flex;
+  height: 225px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: 300;
+}
+
+.square-logo {
+  margin-top: 5vh;
+}
+
+.home-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  color: black;
+  padding: 20px;
+  padding-top: 0px;
+  background-color: var(--yumlist-color);
+}
+
+.home-content .how-it-works {
+  width: 100vw;
+  background-image: linear-gradient(to top, #E7E7E7, white, white);
+  text-align: center;
+  padding-top: 20px;
+}
+
+.how-it-works p {
+  color: black;
+  margin-bottom: 0px;
+}
+
+#yelp-logo {
+  position: relative;
+  top: -10px;
+  width: 150px;
+}
+
+#yelp-label {
+  margin-top: 30px;
+  color: darkgray;
+  font-weight: bolder;
+}
+
+.home-content h1 {
+  font-size: 1.5em;
+}
+
+.home-content p {
+  font-size: 1em;
+}
+
+/* get started - desktop */
+
+.get-started-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  background-color: var(--yumlist-color);
+  width: 90vw;
+  margin-top: 16px;
+  margin-bottom: 60px;
+}
+
+#get-started-title {
+  margin: 20px;
+  color: white !important;
+}
+
+.get-started-option {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.get-started-header p {
+  margin-bottom: 5px;
+  display: block;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.illustration {
+  vertical-align: middle;
+  width: 250px;
+}
+
+.home-button {
+  background-color: var(--secondary-green);
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  padding: 15px 40px;
+  font-weight: 700;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  vertical-align: middle;
+  margin: 20px;
+}
+
+.home-button:hover {
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.find-list {
+  color: white;
+}
+
+.find-list:hover {
+  pointer: cursor;
+  font-weight: bold;
+}
+
+.find-list:visited {
+  color: white;
+}
+
+
+/* Search Bar */
+
+#restaurant-search {
+  width: 90%;
+  min-height: 60px;
+  padding: 0px 20px;
+  margin: 0 auto;
+  font-size: 16px;
+  border: 0px;
+  margin-top: 15px;
+}
+
+::placeholder {
+  font-size: 1em;
+}
+
+.location {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto;
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.change-location {
+  opacity: .3;
+}
+
+/* Search Results List */
+
+.search-fields-container {
+  overflow: scroll;
+  margin-bottom: 20px;
+}
+
+.search-fields {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 100%;
+  max-height: 80vh;
+  position: fixed;
+  background-color: var(--yumlist-color);
+  transition: .2s;
+  overflow: scroll;
+}
+
+.search-list {
+  background-color: white;
+  height: auto;
+  padding: 20px;
+  z-index: 4;
+}
+
+.search-result {
+  background-color: white;
+  border-bottom: 1px gray;
+  padding: 10px;
+  min-height: 60px;
+  width: 90%;
+  margin: 0 auto;
+  z-index: 4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.restaurant-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.restaurant-title {
+  text-align: right;
+}
+
+.addResult {
+  height: 40px;
+  background-color: var(--secondary-green);
+  color: white;
+  border-radius: 20px;
+  width: 70px;
+  font-weight: bold;
+  font-size: 1em;
+  outline: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.addResult:hover {
+  box-shadow: 0px 5px 5px var(--secondary-green-shadow);
+  transform: translateY(-2px);
+}
+
+.addResult:disabled {
+  background-color: #E7E7E7;
+}
+
+.addResult:disabled:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+
+/* create list form */
+
+.create-list {
+  margin: 0 auto;
+  padding-top: 0.1px;
+  margin-top: 20px;
+  font-family: 'Dosis', sans-serif;
+  height: 100vh;
+}
+
+.create-list p {
+  color: white;
+  text-align: center;
+}
+
+.yumlist-logo {
+  display: block;
+  margin: 20px auto;
+  margin-bottom: 0px;
+  width: 180px;
+}
+
+.create-list-wrapper {
+  background-color: white;
+  border-radius: 20px;
+  margin-top: 40px !important;
+  margin: 0 auto;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  padding-bottom: 40px;
+  align-items: center;
+  overflow: hidden;
+}
+
+.list-input {
+  text-align: left;
+  margin: 10px 5px;
+  font-size: 16px;
+  width: 90%;
+}
+
+.list-details {
+  width: 100%;
+  display: block;
+  margin-bottom: 20px;
+  text-align: left;
+  height: 60px;
+  padding: 20px;
+  font-size: 1em;
+  background-color: #E7E7E7;
+  border: 0px;
+  font-family: 'Helvetica', sans-serif;
+}
+
+.list-details:focus {
+  color: darkgray;
+  border-bottom: 3px solid var(--secondary-green);
+  outline: none;
+}
+
+.list-details::placeholder {
+  font-size: 1.2em;
+  color: darkgray;
+  margin: 10px;
+}
+
+.save-list {
+  width: 90%;
+  height: 60px;
+  font-size: 1em;
+  background-color: var(--secondary-green);
+  color: white;
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.2em;
+  font-weight: 700;
+  border: 0px;
+  font-weight: 500;
+  color: #000;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.save-list:disabled {
+  background: rgb(209, 209, 209);
+}
+
+.save-list:hover:enabled {
+  background-color: var(--secondary-green);
+  color: #fff;
+  box-shadow: 0px 15px 20px var(--secondary-green-shadow);
+  transform: translateY(-7px);
+}
+
+/* yumlist */
+
+.yumlist-body-wrapper {
+  background-color: var(--yumlist-color);
+}
+
+.yumlist-wrapper {
+  background-color: white;
+  width: 100%;
+  padding-top: 35vh;
+  margin-bottom: 50px;
+}
+
+.yumlist-items {
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 10px;
+  padding: 40px 20px;
+  /* padding-top: 10px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0px;
+}
+
+.yumlist-items h1 {
+  font-weight: 800;
+}
+
+.yumlist-items h2 {
+  font-weight: 600;
+}
+
+.share-list {
+  width: 100%;
+  height: 60px;
+  font-size: 1em;
+  background-color: var(--secondary-green);
+  color: white;
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.2em;
+  font-weight: 700;
+  border: 0px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.yum-score {
+  color: black;
+  display: inline-block;
+  font-size: 1.4em;
+  font-weight: 800;
+  font-family: 'Dosis', sans-serif;
+  padding-right: 10px;
+  margin: 0;
+}
+
+/* favorite-restaurant items */
+
+.favorite-restaurant {
+  background-color: white;
+  width: 100%;
+  border-radius: 2px;
+  height: 160px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  -webkit-box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
+}
+
+.favorite-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.favorite-left {
+  flex: 1 1 auto;
+  height: 160px;
+  width: 160px;
+  overflow: hidden;
+}
+
+.favorite-main {
+  flex: 5 1 auto;
+  padding: 20px 20px;
+  text-align: left;
+}
+
+.favorite-right {
+  flex: 2 3 auto;
+  text-align: right;
+  margin: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
+.favorite-title {
+  font-size: 1.2em;
+  font-weight: bolder;
+}
+
+.deleteResult {
+  border: 0px;
+  padding: 0px;
+}
+
+.emoji {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  width: 40px;
+}
+
+#add-vote {
+  font-size: 1.3em;
+  font-weight: 800;
+  vertical-align: top;
+  margin-top: 10px;
+  position: relative;
+  padding: 2px;
+  top: 10px;
+  color: black;
+  z-index: -1; /* currently hiding because its on top of modal */
+}
+
+
+/* modal */
+
+.backdrop {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color:rgba(0,0,0, .7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background-color: white;
+  border-radius: 15px;
+  margin: 0 auto;
+  max-width: 60%;
+  -webkit-box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  font-family: 'Dosis', sans-serif;
+  font-size: 16px;
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0px 20px;
+}
+
+.modal-container h3 {
+  margin-bottom: 5px; 
+}
+
+.modal-container h1 {
+  margin: 10px;
+}
+
+.modal-container .join-description {
+  color: black;
+  font-size: 1em;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  overflow: auto;
+}
+
+.social {
+  align-self: center;
+  padding: 10px;
+}
+
+.social-icon {
+  margin: 5px;
+}
+
+.close-button {
+  position: relative;
+  left: 95%;
+  width: 15px;
+}
+
+.copy-input {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: no-wrap;
+  height: 50px;
+  margin: 10px 0px;
+}
+
+#username {
+  width: 100%;
+  font-size: 16px;
+  padding: 10px;
+}
+
+.go-there:disabled {
+  background: rgb(209, 209, 209);
+}
+
+.list-url {
+  width: 75%;
+  height: 100%;
+  border: 1px solid darkgray;
+  padding-left: 10px;
+}
+
+.copy-url {
+  width: 25%;
+  background-color: var(--secondary-green);
+  color: white; 
+  text-align: center;
+  height: 100%;
+  line-height: 50px;
+}
+
+.go-there {
+  background-color: var(--secondary-green);
+  width: 100%;
+  height: 60px;
+  color: white;
+  border: 0px;
+  margin: 10px 0px;
+  font-size: 1.2em;
+  border-radius: 5px;
+}
+
+
+/* shared list */
+
+.sharedlist-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin: 40px;
+  margin-top: 20px;
+  padding-bottom: 40px;
+}
+
+.sharedlist-items {
+  background-color: #f9f9f9;
+  border-radius: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  -webkit-box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 40px;
+}
+
+#current-votes {
+  color: black;
+  font-weight: 800;
+  vertical-align: top;
+  position: relative;
+  font-size: 1.5em;
+  top: 10px;
+  padding: 5px;
+}
+
+.like-button {
+  width: 80px;
+  height: 30px;
+  font-weight: 800;
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.2em;
+}
+
+ @media only screen and (min-width: 769px) {
+  .create-list {
+    max-width: 960px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .create-list-wrapper {
+    width: 100%;
+  }
+
+  .yumlist-body-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .yumlist-wrapper {
+    border-radius: 25px 25px 25px 25px;
+    flex: 0 1 960px;
+    padding-top: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 35vh;
+  }
+
+  .yumlist-items {
+    margin-bottom: 0;
+  }
+
+  #restaurant-search {
+    max-width: 960px;
+  }
+
+  .location {
+    max-width: 960px;
+  }
+
+  .search-result {
+    max-width: 960px;
+  }
+
+  .sharedlist-items {
+    max-width: 960px;
   }
 }
+
+@media only screen and (max-width: 768px) {
+
+  h1 {
+    font-size: 1.6em;
+  }
+
+  h2 {
+    font-size: 1.4em;
+  }
+
+  h3 {
+    font-size: 1.2em;
+  }
+
+  .home-content .how-it-works {
+    padding-top: 20px;
+    padding-bottom: 10px;
+  }
+
+  .home-button {
+    font-size: 1em;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  .yumlist-items {
+    width: 100%;
+    background-color: white;
+  }
+
+  .favorite-right {
+    margin: 10px;
+    margin-left: 0px;
+  }
+
+  .favorite-restaurant {
+    height: 120px;
+  }
+
+  .favorite-left {
+    width: 120px;
+    height: 120px;
+  }
+
+  .favorite-main {
+    padding: 8px;
+    padding-right: 0px;
+  }
+
+  .favorite-reviewcount {
+    display: none;
+  }
+
+  #yelp-rating {
+    width: 80px;
+  }
+
+  .emoji {
+    width: 35px;
+  }
+
+  .modal {
+    background-color: white;
+    border-radius: 15px;
+    margin: 0 auto;
+    min-width: 80%;
+    max-height: 80%;
+    -webkit-box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 7px rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    padding-bottom: 30px;
+    font-family: 'Dosis', sans-serif;
+    font-size: 16px;
+  }
+
+  .sharedlist-wrapper {
+    margin: 20px;
+    padding-bottom: 40px;
+  }
+
+  .sharedlist-items {
+    padding: 20px;
+  }
+
+  .favorite-title {
+    font-size: 1em;
+  }
+
+  /* search and yumlist on mobile */
+
+  .search-fields {
+    padding-top: 10px;
+  }
+
+  .yumlist-wrapper {
+    padding-top: 28vh;
+  }
+
+  .yumlist-logo {
+    margin: 10px auto;
+    width: 150px;
+  }
+
+  .location {
+    font-size: .8em;
+  }
+
+  #restaurant-search {
+    margin-top: 5px;
+  }
+
+  /* sharedlist mobile */
+
+  .like-button {
+    padding: 0px;
+    border-radius: 5px;
+    width: 70px;
+  }
+
+}
+
+@media only screen and (max-width: 540px) {
+  
+  .get-started  {
+    display: flex;
+    flex-direction: column;
+  } 
+
+  .get-started-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+  }
+  
+
+}
+
